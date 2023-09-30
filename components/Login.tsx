@@ -1,5 +1,20 @@
-import React, { useState } from "react";
-import variables from "/styles/variables.module.scss";
+import React, {useState} from 'react';
+import variables from '@/styles/variables.module.scss'; //TODO: CHANGE "VARIABLES" TO "STYLES"
+
+//TODO: MAKE THE COMPONENT TO BE RESPONSIVE FOR MOBILE DEVICES
+//TODO: READ ABOUT BEM METHODOLOGY TO APPLY CSS CLASSNAMES WITH STANDARDIZED NAMES
+//TODO: THIS IS UPDATER FUNCTION NO NEED FOR THAT, SO USE SETISACTIVE(TRUE)
+//TODO: INPUT MUST BE AUTOCOMPLETE OFF
+//TODO : CHANGE MAIN TO BE DIV
+//TODO : RENAME THE PAGE FROM "LOGIN-PAGE" TO "LOGIN"
+//TODO : MOVE THE NAVBAR FROM ANOTHER LAYOUT WE MUST NOT RENDER THE NAVBAR ON LOGIN PAGE
+//TODO : REDUCE THE SIZE OF THE ADMIN AND BRANCH ID FONTS
+//QUESTION: WHY WE HAVE TEMPLATE.PNG ON PUBLIC, REMOVE IT
+//TODO: CHANGE THE COLOR OF THE LOGIN BUTTON ON HOVER TO BE MORE DARKER
+//TODO: CHANGE THE COLOR OF THE ADMIN AND BRANCH ID COLORS ON HOVER AS WELL
+//TODO:  MAKE THE FOLDER FOR LOGIN.TSX AND ITS CORRESPONDING STYLES AND NAME IT LOGIN, FOR MODULARITY
+//TODO: WE DONT NEED THE SPECIFIC ROUTE FOR THE LOGGED IN USERS REMOVE THE LOGGED-IN FOLDER FROM (LOGGEDIN) FOLDER AND MOVE THE LAYOUT.TSX AND PAGE.TSX TO BE ROOT FILES OF THE (LOGGEDIN) FOLDER
+
 const Login = () => {
    const [isActive, setIsActive] = useState(true);
    const handleClickAdminLogin = () => setIsActive(cur => (cur = true));
@@ -28,7 +43,6 @@ const Login = () => {
                Branch ID
             </button>
          </div>
-
          <div className="bg-white h-3/5 w-2/5 rounded-b-2xl shadow-xl">
             <form className="flex flex-col items-center justify-evenly h-5/6 w-4/4 mt-10">
                <div className="flex flex-col items-center justify-center">
