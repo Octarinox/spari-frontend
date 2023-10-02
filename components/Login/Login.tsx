@@ -1,3 +1,5 @@
+//TODO: WE DONT NEED THE SPECIFIC ROUTE FOR THE LOGGED IN USERS REMOVE THE LOGGED-IN FOLDER FROM (LOGGEDIN) FOLDER AND MOVE THE LAYOUT.TSX AND PAGE.TSX TO BE ROOT FILES OF THE (LOGGEDIN) FOLDER
+
 import React, { useState } from "react";
 import styles from "../Login/variables.module.scss";
 const Login = () => {
