@@ -1,8 +1,14 @@
 import "@/styles/globals.css";
-import { Inter } from "next/font/google";
+import { Open_Sans, Noto_Serif_Georgian } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
-
+const openSans = Open_Sans({
+   subsets: ["latin"],
+   weight: ["400", "500", "700"],
+});
+const notoSerifGeorgian = Noto_Serif_Georgian({
+   subsets: ["georgian"],
+   weight: ["300", "400", "500"],
+});
 export default function LoggedOutRootLayout({
    children,
 }: {
@@ -10,7 +16,9 @@ export default function LoggedOutRootLayout({
 }) {
    return (
       <html lang="en">
-         <body className={`${inter.className} bg-indigo-50`}>{children}</body>
+         <body className={`${openSans.className} bg-indigo-50`}>
+            {children}
+         </body>
       </html>
    );
 }
