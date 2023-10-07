@@ -3,7 +3,7 @@ export const ListsTable = () => {
       <div className="flex flex-col mt-4">
          <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">
-               <div className="border rounded-lg divide-y divide-gray-200 dark:border-gray-700 dark:divide-gray-700">
+               <div className="border rounded-b rounded-t divide-y divide-gray-200 dark:border-gray-700 dark:divide-gray-700">
                   <div className="overflow-hidden">
                      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                         <thead className="bg-gray-50 dark:bg-gray-700">
@@ -31,16 +31,16 @@ export const ListsTable = () => {
                         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                            <tr
                               className={
-                                 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                 "hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-300 hover:cursor-pointer"
                               }
                            >
-                              <td className=" px-6 py-4 whitespace-nowrap text-sm font-medium  text-gray-900 dark:text-gray-300">
+                              <td className=" px-6 py-4 whitespace-nowrap text-sm font-medium ">
                                  John Brown
                               </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">
+                              <td className="px-6 py-4 whitespace-nowrap text-sm ">
                                  45
                               </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">
+                              <td className="px-6 py-4 whitespace-nowrap text-sm ">
                                  New York No. 1 Lake Park
                               </td>
                            </tr>
