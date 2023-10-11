@@ -3,10 +3,10 @@ export const ListsTable = () => {
       <div className="flex flex-col mt-4">
          <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">
-               <div className="border rounded-b rounded-t divide-y divide-gray-200 dark:border-gray-700 dark:divide-gray-700">
+               <div className="border rounded-b rounded-t divide-y divide-gray-700 border-gray-700">
                   <div className="overflow-hidden">
                      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead className="bg-gray-50 dark:bg-gray-700">
+                        <thead className="bg-gray-700">
                            <tr>
                               <th
                                  scope="col"
