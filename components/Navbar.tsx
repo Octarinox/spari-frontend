@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { Fragment, useState } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
+import { Fragment, useState } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 function classNames(...classes: any) {
-   return classes.filter(Boolean).join(' ');
+   return classes.filter(Boolean).join(" ");
 }
 
 export default function Navbar() {
    const [navigation, setNavigation] = useState([
-      { name: 'Dashboard', href: '#', current: false },
-      { name: 'Team', href: '#', current: false },
-      { name: 'Projects', href: '#', current: false },
-      { name: 'Calendar', href: '#', current: false },
+      { name: "Dashboard", href: "#", current: true },
+      { name: "Analytics", href: "#", current: false },
+      { name: "Queue", href: "#", current: false },
+      { name: "Face Detection", href: "#", current: false },
    ]);
    const handleClick = (index: number) => {
       const tempNavigation = navigation.map((item, i) => ({
@@ -58,12 +58,12 @@ export default function Navbar() {
                                     onClick={() => handleClick(index)}
                                     className={classNames(
                                        item.current
-                                          ? 'bg-gray-900 text-white'
-                                          : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                       'rounded-md px-3 py-2 text-sm font-medium'
+                                          ? "bg-gray-900 text-white"
+                                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                       "rounded-md px-3 py-2 text-sm font-medium"
                                     )}
                                     aria-current={
-                                       item.current ? 'page' : undefined
+                                       item.current ? "page" : undefined
                                     }
                                  >
                                     {item.name}
@@ -107,8 +107,8 @@ export default function Navbar() {
                                        <a
                                           href="#"
                                           className={classNames(
-                                             active ? 'bg-gray-100' : '',
-                                             'block px-4 py-2 text-sm text-gray-700'
+                                             active ? "bg-gray-100" : "",
+                                             "block px-4 py-2 text-sm text-gray-700"
                                           )}
                                        >
                                           Sign out
@@ -131,11 +131,11 @@ export default function Navbar() {
                            href={item.href}
                            className={classNames(
                               item.current
-                                 ? 'bg-gray-900 text-white'
-                                 : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                              'block rounded-md px-3 py-2 text-base font-medium'
+                                 ? "bg-gray-900 text-white"
+                                 : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                              "block rounded-md px-3 py-2 text-base font-medium"
                            )}
-                           aria-current={item.current ? 'page' : undefined}
+                           aria-current={item.current ? "page" : undefined}
                         >
                            {item.name}
                         </Disclosure.Button>

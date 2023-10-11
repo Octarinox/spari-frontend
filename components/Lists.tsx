@@ -12,13 +12,13 @@ export const ListsTable = () => {
                                  scope="col"
                                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase"
                               >
-                                 Name
+                                 Branch
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase"
                               >
-                                 Age
+                                 ID
                               </th>
                               <th
                                  scope="col"
@@ -35,13 +35,13 @@ export const ListsTable = () => {
                               }
                            >
                               <td className=" px-6 py-4 whitespace-nowrap text-sm font-medium ">
-                                 John Brown
+                                 SPARI#1
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm ">
-                                 45
+                                 1
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm ">
-                                 New York No. 1 Lake Park
+                                 Tbilisi
                               </td>
                            </tr>
                         </tbody>
