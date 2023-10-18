@@ -5,27 +5,19 @@ import styles from "./login.module.scss";
 import { useRouter } from "next/navigation";
 const Login = () => {
    const router = useRouter();
+   const [errorMessage, setErrorMessage] = useState("");
    const [isActive, setIsActive] = useState(true);
-   const [username, setUsername] = useState("");
-   const [password, setPassword] = useState("");
+   const [formData, setFormData] = useState({ username: "", password: "" });
    const handleClickAdminLogin = () => setIsActive(true);
    const handleClickBranchID = () => setIsActive(false);
-   const errorCodes = {
-      "11000": "Email is already in use",
-      "101": "Not Authorized",
-      "102": "Authentication Required",
-      "103": "User no longer exists",
-      "104": "Incorrect Password",
-      "105": "Incorrect Username",
-   };
    const handleLogin = async (e: any) => {
       e.preventDefault();
       axios
          .post(
             "https://35.234.110.126:3001/api/auth/login",
             {
-               username: username,
-               password: password,
+               username: formData.username,
+               password: formData.password,
             },
             {
                headers: {
@@ -35,13 +27,17 @@ const Login = () => {
             }
          )
          .then(data => {
-            if (data.statusText === "OK") {
-               router.push("/logged-in");
-            }
-            console.log(data);
+            router.push("/");
          })
          .catch(e => {
             console.log(e);
+            formData.username === "" && formData.password === ""
+               ? setErrorMessage("Inputs Can't Be Empty")
+               : formData.username === ""
+               ? setErrorMessage("Username Can't Be Empty")
+               : formData.password === ""
+               ? setErrorMessage("Password Can't Be Empty")
+               : setErrorMessage(e.response?.data?.message);
          });
    };
    return (
@@ -85,22 +81,33 @@ const Login = () => {
                      name="username"
                      type={isActive ? "text" : "number"}
                      autoComplete="off"
-                     onChange={e => setUsername(e.target.value)}
+                     onChange={e =>
+                        setFormData({ ...formData, username: e.target.value })
+                     }
+                     onInput={e => setErrorMessage("")}
                   />
                   <input
                      className="outline-blue-300 md:h-20 pl-10 border-2 md:w-full lg:h-16 sm:w-96 border-slate-300 w-60 h-14 rounded-lg"
                      placeholder="Password"
                      name="password"
                      type="password"
-                     onChange={e => setPassword(e.target.value)}
+                     onChange={e =>
+                        setFormData({ ...formData, password: e.target.value })
+                     }
+                     onInput={() => setErrorMessage("")}
                   />
                </div>
-               <button
-                  className={`${styles.buttonActive} text-white w-60 md:w-80 md:h-16 sm:w-72 h-14 rounded-lg hover:bg-sky-950`}
-                  type="submit"
-               >
-                  Log In
-               </button>
+               <div>
+                  <button
+                     className={`${styles.buttonActive} text-white w-60 md:w-80 md:h-16 sm:w-72 h-14 rounded-lg hover:bg-sky-950`}
+                     type="submit"
+                  >
+                     Log In
+                  </button>
+                  <div className="flex justify-center mt-3 text-red-500 ">
+                     <p>{errorMessage}</p>
+                  </div>
+               </div>
             </form>
          </div>
       </div>
