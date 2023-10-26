@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import { Open_Sans, Noto_Serif_Georgian } from "next/font/google";
-
+import { GlobalContextProvider } from "@/components/GlobalContext";
 const openSans = Open_Sans({
    subsets: ["latin"],
    weight: ["400", "500", "700"],
@@ -17,7 +17,7 @@ export default function LoggedOutRootLayout({
    return (
       <html lang="en">
          <body className={`${openSans.className} bg-indigo-50`}>
-            {children}
+            <GlobalContextProvider>{children}</GlobalContextProvider>
          </body>
       </html>
    );
