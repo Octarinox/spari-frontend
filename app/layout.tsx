@@ -1,6 +1,9 @@
 import "@/styles/globals.css";
-import { Open_Sans, Noto_Serif_Georgian } from "next/font/google";
-import { GlobalContextProvider } from "@/components/GlobalContext";
+import "tailwindcss/tailwind.css";
+import { Noto_Serif_Georgian, Open_Sans } from "next/font/google";
+
+import { AuthProvider } from "@/components/Login/cotnext";
+
 const openSans = Open_Sans({
    subsets: ["latin"],
    weight: ["400", "500", "700"],
@@ -17,7 +20,7 @@ export default function LoggedOutRootLayout({
    return (
       <html lang="en">
          <body className={`${openSans.className} bg-indigo-50`}>
-            <GlobalContextProvider>{children}</GlobalContextProvider>
+            <AuthProvider>{children}</AuthProvider>
          </body>
       </html>
    );

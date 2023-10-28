@@ -11,10 +11,11 @@ function classNames(...classes: any) {
 
 export default function Navbar() {
    const [navigation, setNavigation] = useState([
-      { name: "Dashboard", href: "#", current: false },
+      { name: "Dashboard", href: "/", current: true },
       { name: "Team", href: "#", current: false },
       { name: "Projects", href: "#", current: false },
       { name: "Calendar", href: "#", current: false },
+      { name: "Settings", href: "/settings", current: false },
    ]);
    const handleClick = (index: number) => {
       const tempNavigation = navigation.map((item, i) => ({

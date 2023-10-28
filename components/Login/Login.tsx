@@ -1,66 +1,17 @@
 "use client";
-import { createContext, useState, useReducer } from "react";
-import { PermissionLevel } from "./PermissionLevel";
-import validator from "validator";
-import axios from "axios";
-import styles from "./login.module.scss";
-import { useRouter } from "next/navigation";
-import isEmail from "validator/lib/isEmail";
-import { useGlobalContext } from "../GlobalContext";
 
-export function reducer(state: any, action: any) {
-   switch (action.type) {
-      case "login-success":
-         return { ...state, isLoggedIn: action.payload };
-      case "UPDATE_EMAIL":
-         return { ...state, email: action.payload };
-      default:
-         return state;
-   }
-}
+import { FormEvent, useState } from "react";
+import styles from "./login.module.scss";
+import { useAuthActions } from "@/components/Login/cotnext";
+
 const Login = () => {
-   const router = useRouter();
    const [errorMessage, setErrorMessage] = useState("");
-   const { state, dispatch } = useGlobalContext();
+   const { userLogin } = useAuthActions();
    const [isActive, setIsActive] = useState(true);
-   const [formData, setFormData] = useState({ eMail: "", password: "" });
-   const handleClickAdminLogin = () => setIsActive(true);
-   const handleClickBranchID = () => setIsActive(false);
-   const handleLogin = async (e: any) => {
+   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      axios
-         .post(
-            "https://34.159.254.154:3001/api/auth/login",
-            {
-               username: formData.eMail,
-               password: formData.password,
-            },
-            {
-               headers: {
-                  "Content-Type": "application/json",
-               },
-               withCredentials: true,
-            }
-         )
-         .then(data => {
-            console.log(data);
-            dispatch({ type: "login-success", payload: true });
-            console.log(state.isLoggedIn);
-            console.log(state);
-            router.push("/");
-         })
-         .catch(e => {
-            console.log(e);
-            formData.eMail === "" && formData.password === ""
-               ? setErrorMessage("Inputs Can't Be Empty")
-               : formData.eMail === ""
-               ? setErrorMessage("Email Can't Be Empty")
-               : formData.password === ""
-               ? setErrorMessage("Password Can't Be Empty")
-               : !isEmail(formData.eMail)
-               ? setErrorMessage("Wrong Email Format")
-               : setErrorMessage(e.response?.data?.message);
-         });
+      const formData = new FormData(e.currentTarget);
+      console.log(formData);
    };
    return (
       <div className="flex justify-center items-center h-screen flex-col shrink w-full">
@@ -73,7 +24,7 @@ const Login = () => {
                } rounded-tl-2xl text-l font-thin ${
                   isActive ? styles.buttonActive : styles.button
                }`}
-               onClick={handleClickAdminLogin}
+               onClick={() => setIsActive(true)}
             >
                ADMIN LOGIN
             </button>
@@ -85,7 +36,7 @@ const Login = () => {
                } w-1/2 rounded-tr-2xl ${
                   !isActive ? styles.buttonActive : styles.button
                }`}
-               onClick={handleClickBranchID}
+               onClick={() => setIsActive(false)}
             >
                Branch ID
             </button>
@@ -105,16 +56,6 @@ const Login = () => {
                      name="email"
                      type={isActive ? "text" : "number"}
                      autoComplete="off"
-                     onChange={e => {
-                        setFormData({
-                           ...formData,
-                           eMail: e.target.value,
-                        });
-                        // dispatch({
-                        //    type: "UPDATE_EMAIL",
-                        //    payload: e.target.value,
-                        // });
-                     }}
                      onInput={e => setErrorMessage("")}
                   />
                   <input
@@ -122,12 +63,6 @@ const Login = () => {
                      placeholder="Password"
                      name="password"
                      type="password"
-                     onChange={e =>
-                        setFormData({
-                           ...formData,
-                           password: e.target.value,
-                        })
-                     }
                      onInput={() => setErrorMessage("")}
                   />
                </div>
