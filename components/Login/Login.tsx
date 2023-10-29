@@ -11,7 +11,8 @@ const Login = () => {
    const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const formData = new FormData(e.currentTarget);
-      console.log(formData);
+      const res = await userLogin(formData);
+      console.log("res");
    };
    return (
       <div className="flex justify-center items-center h-screen flex-col shrink w-full">

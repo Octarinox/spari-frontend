@@ -26,14 +26,11 @@ export const AuthProvider: FC<{
    };
    const [state, dispatch] = useReducer(reducer, initialState);
    const router = useRouter();
-   const userLogin = useCallback(async (email: string, password: string) => {
+   const userLogin = useCallback(async (formData: any) => {
       try {
          const data = await axios.post(
-            "https://34.159.254.154:3001/api/auth/login",
-            {
-               email,
-               password,
-            },
+            "https://octarinox.tech/api/user/login",
+            formData,
             {
                headers: {
                   "Content-Type": "application/json",
