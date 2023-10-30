@@ -11,7 +11,9 @@ const Login = () => {
    const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const formData = new FormData(e.currentTarget);
-      const res = await userLogin(formData);
+      const email = formData.get("email")
+      const password = formData.get("password")
+      const res = await userLogin(email as string,password as string);
       console.log("res");
    };
    return (
