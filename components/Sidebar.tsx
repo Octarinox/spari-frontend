@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 const Sidebar = () => {
    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -105,26 +105,42 @@ const Sidebar = () => {
             "flex items-center p-2 hover:text-gray-900 rounded-lg bg-gray-200 group",
       },
    ]);
+   const updateActiveMenuItem = (index: any) => {
+      const updatedMenuItems = menuItems.map((item, i) => ({
+         ...item,
+         current: i === index,
+      }));
+      setMenuItems(updatedMenuItems);
+      localStorage.setItem("activeMenuItem", index);
+   };
+
    const toggleSidebar = () => {
       setIsSidebarOpen(!isSidebarOpen);
    };
+
+   // Set the active menu item from localStorage on component mount
+   useEffect(() => {
+      const storedActiveMenuItem = localStorage.getItem("activeMenuItem");
+      if (storedActiveMenuItem !== null) {
+         updateActiveMenuItem(parseInt(storedActiveMenuItem));
+      }
+   }, []);
+
    const handleClick = (index: number) => {
-      const setCurrent = menuItems.map((item, i) => {
-         return { ...item, current: i === index };
-      });
-      setMenuItems([...setCurrent]);
+      updateActiveMenuItem(index);
+      setIsSidebarOpen(false);
    };
    return (
-      <main className="p-4 md:p-10 mx-auto max-w-7xl">
+      <main className="md:p-10 mx-auto max-w-7xl">
          <button
             onClick={toggleSidebar}
             data-drawer-target="default-sidebar"
             data-drawer-toggle="default-sidebar"
             aria-controls="default-sidebar"
             type="button"
-            className={`inline-flex items-center sticky z-10 ${
+            className={`inline-flex border-white drop-shadow-lg items-center sticky z-10 ${
                isSidebarOpen ? "ml-64" : ""
-            }  text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
+            }  text-sm text-gray-500 p-2 sm:hidden bg-white hover:bg-gray-100 rounded-tr-full rounded-br-full border-l-0 border-2`}
          >
             <span className="sr-only">Open sidebar</span>
             {!isSidebarOpen ? (
