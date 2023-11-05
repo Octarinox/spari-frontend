@@ -1,7 +1,10 @@
 "use client";
-
-import Sidebar from "@/components/Sidebar";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function SettingsPage() {
-   <Sidebar />;
+   const router = useRouter();
+   useEffect(() => {
+      router.push("/settings/user-register");
+   }, []);
 }

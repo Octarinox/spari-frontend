@@ -9,7 +9,7 @@ import UserMenu from "@/components/UserMenu";
 
 export default function Navbar() {
    const [navigation, setNavigation] = useState([
-      { name: "Dashboard", href: "/", current: true },
+      { name: "Dashboard", href: "/dashboard", current: true },
       { name: "Analytics", href: "#", current: false },
       { name: "Queue", href: "#", current: false },
       { name: "Face Detection", href: "#", current: false },
