@@ -15,7 +15,7 @@ export enum AuthActionType {
 }
 
 export interface AuthActions {
-   userLogin: (formData: any) => Promise<void | string>;
+   userLogin: (email: string,password:string) => Promise<void | string>;
 }
 
 export interface AuthAction {

@@ -26,18 +26,17 @@ export const AuthProvider: FC<{
    };
    const [state, dispatch] = useReducer(reducer, initialState);
    const router = useRouter();
-   const userLogin = useCallback(async (formData: any) => {
+   const userLogin = useCallback(async (email: string,password:string) => {
+      console.log(router)
       try {
-         const data = await axios.post(
-            "https://octarinox.tech/api/user/login",
-            formData,
-            {
-               headers: {
-                  "Content-Type": "application/json",
-               },
-               withCredentials: true,
-            }
-         );
+         const data = fetch("http://localhost:3000/next-api", {
+            method: "POST",
+            body: JSON.stringify({email,password}),
+            headers: {
+                             "Content-Type": "application/json",
+            },
+            credentials: "include",
+         })
          router.push("/");
       } catch (e) {
          console.log(e);
