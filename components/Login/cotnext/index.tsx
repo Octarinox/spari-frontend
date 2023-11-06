@@ -12,7 +12,6 @@ import { reducer } from "@/components/Login/cotnext/auth.reducer";
 import { AuthContextInterface } from "@/components/Login/cotnext/auth.interface";
 import { initialContext } from "@/components/Login/cotnext/auth.state";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 
 export const AuthContext = createContext<AuthContextInterface>(initialContext);
 
@@ -26,22 +25,26 @@ export const AuthProvider: FC<{
    };
    const [state, dispatch] = useReducer(reducer, initialState);
    const router = useRouter();
-   const userLogin = useCallback(async (email: string,password:string) => {
-      console.log(router)
-      try {
-         const data = fetch("http://localhost:3000/next-api", {
-            method: "POST",
-            body: JSON.stringify({email,password}),
-            headers: {
-                             "Content-Type": "application/json",
-            },
-            credentials: "include",
-         })
-         router.push("/");
-      } catch (e) {
-         console.log(e);
-      }
-   }, []);
+   const userLogin = useCallback(
+      async (email: string, password: string) => {
+         console.log(router);
+         try {
+            const data = await fetch("http://localhost:3000/next-api", {
+               method: "POST",
+               body: JSON.stringify({ email, password }),
+               headers: {
+                  "Content-Type": "application/json",
+               },
+               credentials: "include",
+            });
+            console.log("data");
+            router.push("/dashboard");
+         } catch (e) {
+            console.log(e);
+         }
+      },
+      [router]
+   );
 
    const value = useMemo(
       () => ({ state, actions: { userLogin } }),

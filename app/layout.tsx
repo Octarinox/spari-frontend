@@ -21,7 +21,6 @@ export default function LoggedOutRootLayout({
       <html lang="en">
          <body className={`${openSans.className} bg-indigo-50`}>
             <AuthProvider>{children}</AuthProvider>
-            <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
          </body>
       </html>
    );
