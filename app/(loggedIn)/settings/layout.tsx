@@ -1,5 +1,6 @@
+"use client";
+import Sidebar from "@/components/Sidebar";
 import "/styles/globals.css";
-import NavBar from "@/components/Navbar";
 
 export default function LoggedInRootLayout({
    children,
@@ -7,9 +8,9 @@ export default function LoggedInRootLayout({
    children: React.ReactNode;
 }) {
    return (
-      <main className={"flex flex-col"}>
-         <NavBar />
+      <div className={"flex"}>
+         <Sidebar />
          {children}
-      </main>
+      </div>
    );
 }

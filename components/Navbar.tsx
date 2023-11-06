@@ -9,7 +9,7 @@ import UserMenu from "@/components/UserMenu";
 
 export default function Navbar() {
    const [navigation, setNavigation] = useState([
-      { name: "Dashboard", href: "/", current: true },
+      { name: "Dashboard", href: "/dashboard", current: true },
       { name: "Analytics", href: "#", current: false },
       { name: "Queue", href: "#", current: false },
       { name: "Face Detection", href: "#", current: false },
@@ -24,13 +24,13 @@ export default function Navbar() {
    };
 
    return (
-      <Disclosure as="nav" className="bg-gray-700">
+      <Disclosure as="nav" className="bg-gray-700 z-50">
          {({ open }: any) => (
             <>
                <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-                  <div className="relative flex h-16 items-center justify-between">
-                     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                        <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-100 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <div className="relative z-10 flex h-16 items-center justify-between">
+                     <div className="absolute inset-y-0 left-0 z-10 flex items-center sm:hidden">
+                        <Disclosure.Button className="relative inline-flex z-50 items-center justify-center rounded-md p-2 text-gray-100 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                            <span className="absolute -inset-0.5" />
                            <span className="sr-only">Open main menu</span>
                            {open ? (
@@ -84,8 +84,8 @@ export default function Navbar() {
                   </div>
                </div>
 
-               <Disclosure.Panel className="sm:hidden">
-                  <div className="space-y-1 px-2 pb-3 pt-2">
+               <Disclosure.Panel className="sm:hidden z-50 ">
+                  <div className="space-y-1 px-2 pb-3 pt-2 z-50 ">
                      {navigation.map((item: any) => (
                         <Disclosure.Button
                            key={item.name}
