@@ -26,7 +26,6 @@ const UserMenu = () => {
                <Menu.Item>
                   {({ active }) => (
                      <>
-                        <div>{}</div>
                         <Link
                            href="/login"
                            className={classNames(

@@ -1,6 +1,10 @@
 import "@/styles/globals.css";
 import "tailwindcss/tailwind.css";
 import { Noto_Serif_Georgian, Open_Sans } from "next/font/google";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 import { AuthProvider } from "@/components/Login/cotnext";
 
