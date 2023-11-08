@@ -33,7 +33,7 @@ const Sidebar = () => {
       setIsSidebarOpen(false);
    };
    return (
-      <div className="">
+      <div className="z-20">
          <button
             onClick={toggleSidebar}
             data-drawer-target="default-sidebar"
