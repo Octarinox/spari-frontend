@@ -164,12 +164,12 @@ export default function UserRegisterForm() {
                      mt: 5,
                      mb: 2,
                      "&:hover": {
-                        backgroundColor: "#181c24 !important",
+                        backgroundColor: "red !important",
                      },
                      backgroundColor: "#384454 !important",
                   }}
                >
-                  Sign Up
+                  Register User
                </Button>
             </Box>
          </Box>
