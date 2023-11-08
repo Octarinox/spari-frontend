@@ -15,6 +15,7 @@ import { InputLabel } from "@mui/material";
 import { Select } from "@mui/material";
 import { MenuItem } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
+import OnlyDigits from "@/utils/OnlyDigits";
 export default function UserRegisterForm() {
    const [role, setRole] = useState("");
    const [value, setValue] = useState("");
@@ -96,6 +97,7 @@ export default function UserRegisterForm() {
                      <MuiTelInput
                         value={value}
                         fullWidth
+                        label="Number"
                         onChange={handleChange}
                      />
                   </Grid>
@@ -106,7 +108,8 @@ export default function UserRegisterForm() {
                         id="personalID"
                         label="Personal ID"
                         name="personalID"
-                        type="number"
+                        type="text"
+                        onInput={OnlyDigits}
                      />
                   </Grid>
                   <Grid item xs={12}>
@@ -164,7 +167,7 @@ export default function UserRegisterForm() {
                      mt: 5,
                      mb: 2,
                      "&:hover": {
-                        backgroundColor: "red !important",
+                        backgroundColor: "#181c24 !important",
                      },
                      backgroundColor: "#384454 !important",
                   }}
