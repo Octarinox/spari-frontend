@@ -55,7 +55,7 @@ export default function UserRegisterForm() {
                <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-               Sign up
+               User Register
             </Typography>
             <Box
                component="form"
@@ -72,6 +72,7 @@ export default function UserRegisterForm() {
                         id="firstName"
                         label="First Name"
                         autoFocus
+                        autoComplete="off"
                      />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -81,6 +82,7 @@ export default function UserRegisterForm() {
                         id="lastName"
                         label="Last Name"
                         name="lastName"
+                        autoComplete="off"
                      />
                   </Grid>
 
@@ -91,6 +93,7 @@ export default function UserRegisterForm() {
                         id="email"
                         label="Email Address"
                         name="email"
+                        autoComplete="off"
                      />
                   </Grid>
                   <Grid item xs={12}>
@@ -99,6 +102,7 @@ export default function UserRegisterForm() {
                         fullWidth
                         label="Number"
                         onChange={handleChange}
+                        autoComplete="off"
                      />
                   </Grid>
                   <Grid item xs={12}>
@@ -110,6 +114,7 @@ export default function UserRegisterForm() {
                         name="personalID"
                         type="text"
                         onInput={OnlyDigits}
+                        autoComplete="off"
                      />
                   </Grid>
                   <Grid item xs={12}>

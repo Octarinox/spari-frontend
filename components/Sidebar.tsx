@@ -84,7 +84,7 @@ const Sidebar = () => {
             }`}
             aria-label="Sidebar"
          >
-            <div className="h-full drop-shadow-lg mt-16 px-3 z-0 py-4 bg-gray-300">
+            <div className="h-full drop-shadow-lg mt-16 px-3 z-0 py-4 bg-gray-100">
                <ul className="space-y-2 font-medium z-0">
                   {menuItems.map((item: any, index: number) => (
                      <li key={index} onClick={() => handleClick(index)}>
