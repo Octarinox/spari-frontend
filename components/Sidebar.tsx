@@ -77,7 +77,7 @@ const Sidebar = () => {
          </button>
          <div
             id="default-sidebar"
-            className={`absolute top-0 left-0 w-64 h-screen transition-transform ${
+            className={`z-40 absolute top-0 left-0 w-64 h-screen transition-transform ${
                isSidebarOpen
                   ? "translate-x-0"
                   : "-translate-x-full sm:translate-x-0"

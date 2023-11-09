@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
    BarElement,
@@ -9,6 +8,7 @@ import {
    Title,
    Tooltip,
 } from "chart.js";
+import styles from "@/components/Analytics/styles/queueAnalytics.module.scss";
 import { Bar } from "react-chartjs-2";
 
 ChartJS.register(
@@ -21,14 +21,13 @@ ChartJS.register(
 );
 
 const QueueChart = ({ data }: any) => {
-   // Define the data for the chart
    const chartData = {
       labels: data.map((item: any) => item.interval),
       datasets: [
          {
             label: "Queue Data",
             data: data.map((item: any) => item.value),
-            backgroundColor: "#36A2EB", // Blue color for bars
+            backgroundColor: "#252d33",
          },
       ],
    };
@@ -50,9 +49,15 @@ const QueueChart = ({ data }: any) => {
       interaction: {
          intersect: false,
       },
+
+      updateMode: "resize",
    };
 
-   return <Bar data={chartData} options={chartOptions} />;
+   return (
+      <div className={styles.chartBox}>
+         <Bar data={chartData} options={chartOptions} />
+      </div>
+   );
 };
 
 export default QueueChart;

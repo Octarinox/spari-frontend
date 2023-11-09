@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
 import * as React from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -10,12 +10,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { MuiTelInput } from "mui-tel-input";
-import { FormControl } from "@mui/material";
-import { InputLabel } from "@mui/material";
-import { Select } from "@mui/material";
-import { MenuItem } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import OnlyDigits from "@/utils/OnlyDigits";
+
 export default function UserRegisterForm() {
    const [role, setRole] = useState("");
    const [value, setValue] = useState("");
@@ -42,7 +40,7 @@ export default function UserRegisterForm() {
       console.log(role);
    };
    return (
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" className={"sm:ml-56 md:ml-2"}>
          <Box
             sx={{
                marginTop: 8,

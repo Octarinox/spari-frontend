@@ -1,10 +1,9 @@
 import React from "react";
-import styles from "@/shared/active.module.css";
+import styles from "@/shared/activeItems.module.scss";
 
-const activeClass =
-   "flex items-center p-2 hover:text-gray-900 rounded-lg bg-gray-200 group";
+const activeClass = `flex items-center p-2 hover:text-gray-900 rounded-lg ${styles.activeItem} group text-white`;
 const inactiveClass =
-   "flex items-center p-2 text-gray-500 hover:text-gray-900 rounded-lg  hover:bg-gray-100 group";
+   "flex items-center p-2 text-gray-600 hover:text-gray-900 rounded-lg  hover:bg-gray-100 group";
 const generateImageTag = (icon: string, alt: string, styles: any) => {
    return (
       <img

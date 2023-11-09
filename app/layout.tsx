@@ -8,8 +8,6 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import { AuthProvider } from "@/components/Login/cotnext";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import * as React from "react";
 
 const openSans = Open_Sans({
@@ -20,7 +18,6 @@ const notoSerifGeorgian = Noto_Serif_Georgian({
    subsets: ["georgian"],
    weight: ["300", "400", "500"],
 });
-const defaultTheme = createTheme();
 
 export default function LoggedOutRootLayout({
    children,
@@ -30,10 +27,7 @@ export default function LoggedOutRootLayout({
    return (
       <html lang="en">
          <body className={`${openSans.className} bg-indigo-50`}>
-            <ThemeProvider theme={defaultTheme}>
-               <CssBaseline />
-               <AuthProvider>{children}</AuthProvider>
-            </ThemeProvider>
+            <AuthProvider>{children}</AuthProvider>
          </body>
       </html>
    );

@@ -1,5 +1,6 @@
 "use client";
 import QueueChart from "@/components/Analytics/Queue";
+import styles from "@/components/Analytics/styles/queueAnalytics.module.scss";
 
 const queueData = [
    { interval: "1 Hour", value: 10 },
@@ -11,8 +12,7 @@ const queueData = [
 ];
 const QueueStats = () => {
    return (
-      <div>
-         <h1>Queue Statistics</h1>
+      <div className={styles.container}>
          <QueueChart data={queueData} />
       </div>
    );
