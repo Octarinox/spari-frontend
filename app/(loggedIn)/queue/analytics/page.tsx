@@ -1,16 +1,19 @@
-import QueueHistogram from "@/components/Analytics/Queue";
+"use client";
+import QueueChart from "@/components/Analytics/Queue";
 
+const queueData = [
+   { interval: "1 Hour", value: 10 },
+   { interval: "24 Hours", value: 50 },
+   { interval: "1 Week", value: 100 },
+   { interval: "1 Month", value: 200 },
+   { interval: "6 Months", value: 500 },
+   { interval: "1 Year", value: 1000 },
+];
 const QueueStats = () => {
-   // Replace this with your actual data for different time intervals
-   const queueData = [
-      { x: new Date("2023-11-08T12:00:00"), y: 10 }, // Example data
-      // Add more data points for different time intervals
-   ];
-
    return (
       <div>
          <h1>Queue Statistics</h1>
-         <QueueHistogram data={queueData} />
+         <QueueChart data={queueData} />
       </div>
    );
 };

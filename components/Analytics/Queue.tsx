@@ -1,40 +1,58 @@
+"use client";
 import React from "react";
+import {
+   BarElement,
+   CategoryScale,
+   Chart as ChartJS,
+   Legend,
+   LinearScale,
+   Title,
+   Tooltip,
+} from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-const QueueHistogram = ({ data }: any) => {
-   const options = {
-      responsive: true,
-      maintainAspectRatio: false,
+ChartJS.register(
+   CategoryScale,
+   LinearScale,
+   BarElement,
+   Title,
+   Tooltip,
+   Legend
+);
+
+const QueueChart = ({ data }: any) => {
+   // Define the data for the chart
+   const chartData = {
+      labels: data.map((item: any) => item.interval),
+      datasets: [
+         {
+            label: "Queue Data",
+            data: data.map((item: any) => item.value),
+            backgroundColor: "#36A2EB", // Blue color for bars
+         },
+      ],
+   };
+
+   // Define chart options
+   const chartOptions = {
+      type: "bar",
       scales: {
-         x: {
-            type: "time", // Set the type to 'time' or 'timeseries'
-            time: {
-               unit: "hour",
-               stepSize: 1,
-            },
+         x: { stacked: true },
+         y: { beginAtZero: true },
+      },
+      plugins: {
+         title: {
+            display: true,
+            text: "Queue Analytics",
          },
-         y: {
-            beginAtZero: true,
-            title: {
-               display: true,
-               text: "Average Queue Size",
-            },
-         },
+      },
+      responsive: true,
+      interaction: {
+         intersect: false,
       },
    };
 
-   const dataset = {
-      label: "Average Queue Size",
-      data: data,
-      borderColor: "rgba(75, 192, 192, 1)",
-      backgroundColor: "rgba(75, 192, 192, 0.2)",
-   };
-
-   return (
-      <div>
-         <Bar data={{ datasets: [dataset] }} options={options} />
-      </div>
-   );
+   return <Bar data={chartData} options={chartOptions} />;
 };
 
-export default QueueHistogram;
+export default QueueChart;
