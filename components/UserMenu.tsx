@@ -1,6 +1,8 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { classNames } from "@/utils/classConcatenate";
+
+import { cookies } from "next/headers";
 import Link from "next/link";
 
 const UserMenu = () => {
@@ -26,7 +28,6 @@ const UserMenu = () => {
                <Menu.Item>
                   {({ active }) => (
                      <>
-                        <div>{}</div>
                         <Link
                            href="/login"
                            className={classNames(
