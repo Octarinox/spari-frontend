@@ -1,27 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import {useEffect, useState} from 'react';
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { classNames } from "@/utils/classConcatenate";
 import UserMenu from "@/components/UserMenu";
+import {navBarItems} from '@/constants/navBarItems';
+import {usePathname} from 'next/navigation';
+import {getActiveItemByRoute} from '@/utils/getActiveItemByRoute';
 
 export default function Navbar() {
-   const [navigation, setNavigation] = useState([
-      { name: "Dashboard", href: "/dashboard", current: true },
-      { name: "Analytics", href: "#", current: false },
-      { name: "Queue", href: "#", current: false },
-      { name: "Face Detection", href: "#", current: false },
-      { name: "Settings", href: "/settings", current: false },
-   ]);
+   const [navigationItems, setNavigationItems] = useState(navBarItems);
+   const path = usePathname();
    const handleClick = (index: number) => {
-      const tempNavigation = navigation.map((item, i) => ({
+      const tempNavigation = navigationItems.map((item, i) => ({
          ...item,
          current: i === index,
       }));
-      setNavigation([...tempNavigation]);
+      setNavigationItems([...tempNavigation]);
    };
+
+   useEffect(() => {
+      const newMenu = getActiveItemByRoute(navigationItems, path);
+      setNavigationItems(newMenu);
+   }, [path]);
 
    return (
       <Disclosure as="nav" className="bg-gray-700 z-50">
@@ -50,7 +53,7 @@ export default function Navbar() {
                         <div className="flex flex-shrink-0 items-center logo"></div>
                         <div className="hidden sm:ml-6 sm:block">
                            <div className="flex space-x-4">
-                              {navigation.map((item: any, index: number) => (
+                              {navigationItems.map((item: any, index: number) => (
                                  <Link
                                     key={item.name}
                                     href={item.href}
@@ -86,7 +89,7 @@ export default function Navbar() {
 
                <Disclosure.Panel className="sm:hidden z-50 ">
                   <div className="space-y-1 px-2 pb-3 pt-2 z-50 ">
-                     {navigation.map((item: any) => (
+                     {navigationItems.map((item: any) => (
                         <Disclosure.Button
                            key={item.name}
                            as="a"

@@ -2,15 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { settingsMenuItems } from "@/constants/settingsMenuItems";
 import { getActiveItemByRoute } from "@/utils/getActiveItemByRoute";
 import { usePathname } from "next/navigation";
 
-const Sidebar = () => {
+const Sidebar = (props:any) => {
    const path = usePathname();
+   const {menu} = props
    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-   const [menuItems, setMenuItems] = useState(settingsMenuItems);
+   const [menuItems, setMenuItems] = useState(menu);
    const updateActiveMenuItem = (index: any) => {
       const updatedMenuItems = menuItems.map((item, i) => ({
          ...item,

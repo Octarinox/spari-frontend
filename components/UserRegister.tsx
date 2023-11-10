@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { useState } from "react";
+import {ReactNode, useState} from 'react';
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -40,7 +40,7 @@ export default function UserRegisterForm() {
       console.log(role);
    };
    return (
-      <Container component="main" maxWidth="xs" className={"sm:ml-56 md:ml-2"}>
+      <Container component="main" maxWidth="xs" className={"sm:ml-56 md:ml-10 lg:ml-2"}>
          <Box
             sx={{
                marginTop: 8,
@@ -145,7 +145,7 @@ export default function UserRegisterForm() {
                               id="combo-box-demo"
                               options={branches}
                               sx={{ width: 400, mb: 2 }}
-                              renderInput={params => (
+                              renderInput={(params) => (
                                  <TextField
                                     required
                                     {...params}

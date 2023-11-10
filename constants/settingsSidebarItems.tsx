@@ -1,22 +1,11 @@
 import React from "react";
 import styles from "@/shared/activeItems.module.scss";
+import {generateImageTag} from '@/utils/generateImageTag';
+import {activeClass, inactiveClass} from '@/shared/constant';
 
-const activeClass = `flex items-center p-2 hover:text-gray-900 rounded-lg ${styles.activeItem} group text-white`;
-const inactiveClass =
-   "flex items-center p-2 text-gray-600 hover:text-gray-900 rounded-lg  hover:bg-gray-100 group";
-const generateImageTag = (icon: string, alt: string, styles: any) => {
-   return (
-      <img
-         src={icon}
-         width={"20px"}
-         height={"20px"}
-         alt={alt}
-         className={styles}
-      />
-   );
-};
 
-export const settingsMenuItems = [
+
+export const settingsSidebarItems = [
    {
       text: "User Register",
       getCurrentItem() {

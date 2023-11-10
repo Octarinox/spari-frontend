@@ -12,7 +12,7 @@ const queueData = [
 ];
 const QueueStats = () => {
    return (
-      <div className={styles.container}>
+      <div className={`${styles.container} sm:ml-56 md:ml-64`}>
          <QueueChart data={queueData} />
       </div>
    );
