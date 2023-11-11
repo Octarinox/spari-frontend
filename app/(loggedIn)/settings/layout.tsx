@@ -1,6 +1,7 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
 import "/styles/globals.css";
+import {settingsSidebarItems} from '@/constants/settingsSidebarItems';
 
 export default function LoggedInRootLayout({
    children,
@@ -9,7 +10,7 @@ export default function LoggedInRootLayout({
 }) {
    return (
       <div className={"flex"}>
-         <Sidebar />
+         <Sidebar menu={settingsSidebarItems} />
          {children}
       </div>
    );
