@@ -5,14 +5,14 @@ import Link from "next/link";
 import { getActiveItemByRoute } from "@/utils/getActiveItemByRoute";
 import { usePathname } from "next/navigation";
 
-const Sidebar = (props:any) => {
+const Sidebar = (props: any) => {
    const path = usePathname();
-   const {menu} = props
+   const { menu } = props;
    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
    const [menuItems, setMenuItems] = useState(menu);
    const updateActiveMenuItem = (index: any) => {
-      const updatedMenuItems = menuItems.map((item, i) => ({
+      const updatedMenuItems = menuItems.map((item: any, i: number) => ({
          ...item,
          current: i === index,
       }));

@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
 import * as React from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -9,17 +9,13 @@ import Box from "@mui/material/Box";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { FormControl } from "@mui/material";
-import { InputLabel } from "@mui/material";
-import { Select } from "@mui/material";
-import { MenuItem } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import OnlyDigits from "@/utils/OnlyDigits";
 import AddNewInputs from "./AddNewInputs";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
-import { CodeBracketIcon } from "@heroicons/react/24/outline";
 
 export default function BranchRegisterForm() {
    const [inputFields, setInputFields] = useState([{ id: 1, value: "" }]);
@@ -166,8 +162,9 @@ export default function BranchRegisterForm() {
                               )}
                            </Grid>
                         </Grid>
-                        <AddNewInputs />
+
                         <Grid container>
+                           <AddNewInputs />
                            <h2 className="mb-1">
                               <b>Face Detection Camera</b>
                            </h2>

@@ -1,7 +1,7 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
 import "/styles/globals.css";
-import {settingsSidebarItems} from '@/constants/settingsSidebarItems';
+import { settingsSidebarItems } from "@/constants/settingsSidebarItems";
 
 export default function LoggedInRootLayout({
    children,
@@ -9,9 +9,9 @@ export default function LoggedInRootLayout({
    children: React.ReactNode;
 }) {
    return (
-      <div className={"flex"}>
+      <div style={{ display: "flex", height: "100vh" }}>
          <Sidebar menu={settingsSidebarItems} />
-         {children}
+         <div style={{ flex: 1, overflowY: "auto" }}>{children}</div>
       </div>
    );
 }
