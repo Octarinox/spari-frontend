@@ -134,7 +134,7 @@ export default function UserRegisterForm() {
                            <MenuItem value={"Admin"}>Admin</MenuItem>
                         </Select>
                      </FormControl>
-                     <Grid item xs={12}>
+                     <Grid item xs={10}>
                         {role === "Admin" ? (
                            <TextField
                               required
@@ -149,7 +149,7 @@ export default function UserRegisterForm() {
                               disablePortal
                               id="combo-box-demo"
                               options={branches}
-                              sx={{ width: 400, mb: 2 }}
+                              sx={{ width: 350, mb: 2 }}
                               renderInput={params => (
                                  <TextField
                                     required

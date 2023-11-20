@@ -40,14 +40,6 @@ const AddNewInputs = () => {
                   }}
                >
                   <b>Queue Camera {index + 1}</b>
-                  {index > 0 && (
-                     <DeleteForeverIcon
-                        onClick={() => removeInputField(index)}
-                        sx={{ cursor: "pointer", zIndex: 1 }}
-                        color="error"
-                        fontSize="medium"
-                     ></DeleteForeverIcon>
-                  )}
                </h2>
 
                <Grid container spacing={2}>
@@ -66,10 +58,10 @@ const AddNewInputs = () => {
 
                   <Grid
                      item
-                     container
                      xs={6}
-                     direction={"row"}
-                     alignItems="end"
+                     container
+                     direction="row"
+                     alignItems="center"
                   >
                      <TextField
                         fullWidth
@@ -78,6 +70,19 @@ const AddNewInputs = () => {
                         name={`IPAddress${index}`}
                         autoComplete="off"
                      />
+                     {index > 0 && (
+                        <DeleteForeverIcon
+                           onClick={() => removeInputField(index)}
+                           sx={{
+                              cursor: "pointer",
+                              zIndex: 1,
+                              marginLeft: { xs: "160px", md: "210px" },
+                              position: "absolute",
+                           }}
+                           color="error"
+                           fontSize="medium"
+                        />
+                     )}
                   </Grid>
                </Grid>
             </Grid>

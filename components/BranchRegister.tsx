@@ -145,7 +145,7 @@ export default function BranchRegisterForm() {
                                        getOptionLabel={(option: any) =>
                                           `${option.label} ${option.personalID}`
                                        }
-                                       sx={{ width: 400, mb: 2 }}
+                                       sx={{ mb: 2 }}
                                        renderInput={params => (
                                           <TextField
                                              required
@@ -199,6 +199,11 @@ export default function BranchRegisterForm() {
                               <b>Face Detect Config</b>
                            </h2>
                            <TextField
+                              sx={{
+                                 width: {
+                                    md: "415px",
+                                 },
+                              }}
                               required
                               fullWidth
                               id="alertMessage"
