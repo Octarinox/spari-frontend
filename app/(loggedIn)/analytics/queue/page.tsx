@@ -1,8 +1,11 @@
 "use client";
 import QueueChart from "@/components/Analytics/Queue";
 import styles from "@/components/Analytics/styles/queueAnalytics.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TimeIntervals from "@/components/Analytics/TimeIntervals";
+import { groupBranchesByInterval } from "@/utils/groupBranchesByInterval";
+import { branchData } from "@/components/Analytics/constants/testBranches";
+import { calculateQueueAverage } from "@/utils/calculateQueueAverage";
 
 const queueData = [
    { interval: "1 Hour", value: 10 },
@@ -21,17 +24,22 @@ const selectOptions = [
 ];
 
 const QueueStats = () => {
-   const [currentOption, setCurrentOption] = useState("");
+   const [currentOption, setCurrentOption] = useState(queueData);
 
-   const handleSelectChange = (e: any) => {
-      const optionValue = e.target.value;
-      setCurrentOption(optionValue);
-   };
-
+   useEffect(() => {
+      const groupedBranches = groupBranchesByInterval(branchData, "1yr");
+      const averageResults = calculateQueueAverage(branchData, groupedBranches);
+      setCurrentOption(averageResults);
+   }, []);
    return (
       <div className={`${styles.container} sm:ml-56 md:ml-64`}>
-         <QueueChart data={queueData} />
-         <TimeIntervals onClick={(option: any) => setCurrentOption(option)} />
+         <QueueChart data={currentOption} />
+         <div className={"flex items-center flex-col"}>
+            <h1>Select the interval</h1>
+            <TimeIntervals
+               onClick={(option: any) => setCurrentOption(option)}
+            />
+         </div>
       </div>
    );
 };

@@ -14,9 +14,10 @@ export async function POST(request: Request) {
       if (!response.ok) {
          throw new Error("network response was not OK");
       }
-
+      const data = await response.json();
+      console.log(data);
       const rawCookies = response.headers.get("set-cookie");
-      return new Response(JSON.stringify({ message: "Success" }), {
+      return new Response(JSON.stringify({ data }), {
          status: 200,
          headers: {
             "Content-Type": "application/json",

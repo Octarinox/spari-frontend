@@ -8,5 +8,6 @@ export const initialContext: AuthContextInterface = {
    },
    actions: {
       userLogin: async (): Promise<undefined> => undefined,
+      logOut: async (): Promise<undefined> => undefined,
    },
 };

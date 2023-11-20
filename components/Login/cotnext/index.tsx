@@ -27,9 +27,8 @@ export const AuthProvider: FC<{
    const router = useRouter();
    const userLogin = useCallback(
       async (email: string, password: string) => {
-         console.log(router);
          try {
-            const data = await fetch("http://localhost:3000/next-api", {
+            const data = await fetch("http://localhost:3000/next-api/login", {
                method: "POST",
                body: JSON.stringify({ email, password }),
                headers: {
@@ -37,7 +36,7 @@ export const AuthProvider: FC<{
                },
                credentials: "include",
             });
-            console.log("data");
+            console.log(await data.json());
             router.push("/dashboard");
          } catch (e) {
             console.log(e);
@@ -45,10 +44,16 @@ export const AuthProvider: FC<{
       },
       [router]
    );
+   const logOut = useCallback(async () => {
+      await fetch("http://localhost:3000/next-api/logout", {
+         method: "POST",
+         credentials: "include",
+      });
+   }, []);
 
    const value = useMemo(
-      () => ({ state, actions: { userLogin } }),
-      [state, userLogin]
+      () => ({ state, actions: { userLogin, logOut } }),
+      [state, userLogin, logOut]
    );
 
    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -11,9 +11,9 @@ const Login = () => {
    const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const formData = new FormData(e.currentTarget);
-      const email = formData.get("email")
-      const password = formData.get("password")
-      const res = await userLogin(email as string,password as string);
+      const email = formData.get("email");
+      const password = formData.get("password");
+      const res = await userLogin(email as string, password as string);
       console.log("res");
    };
    return (
@@ -71,7 +71,7 @@ const Login = () => {
                </div>
                <div>
                   <button
-                     className={`${styles.buttonActive} text-white w-60 md:w-80 md:h-16 sm:w-72 h-14 rounded-lg hover:bg-sky-950`}
+                     className={`bg-sky-950 text-white w-60 md:w-80 md:h-16 sm:w-72 h-14 rounded-lg hover:bg-gray-900`}
                      type="submit"
                   >
                      Log In

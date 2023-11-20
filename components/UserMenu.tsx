@@ -1,11 +1,18 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { classNames } from "@/utils/classConcatenate";
-
-import { cookies } from "next/headers";
 import Link from "next/link";
+import { useAuthActions } from "@/components/Login/cotnext";
+import { useRouter } from "next/navigation";
 
 const UserMenu = () => {
+   const { logOut } = useAuthActions();
+   const router = useRouter();
+   const handleLogout = async () => {
+      await logOut();
+      console.log("logged out");
+      await router.replace("/login");
+   };
    return (
       <Menu as="div" className="relative ml-3">
          <div>
@@ -30,6 +37,7 @@ const UserMenu = () => {
                      <>
                         <Link
                            href="/login"
+                           onClick={handleLogout}
                            className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"

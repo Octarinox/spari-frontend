@@ -49,7 +49,7 @@ const QueueChart = ({ data }: any) => {
       interaction: {
          intersect: false,
       },
-
+      maintainAspectRatio: false,
       updateMode: "resize",
    };
 

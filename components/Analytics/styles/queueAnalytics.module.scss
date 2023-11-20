@@ -1,6 +1,7 @@
 .container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   top: 100px;
   width: 100%;
@@ -10,5 +11,5 @@
 
 .chartBox {
   width: 80%;
-height:500px;
+  height: 500px;
 }

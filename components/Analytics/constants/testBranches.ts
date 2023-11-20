@@ -48,6 +48,42 @@ export const branchData = [
       timestamp: "2023-05-16T16:45:00Z",
    },
    {
+      branch_id: 6,
+      detect: {
+         Salaro1: {
+            person: 25,
+         },
+         Salaro2: {
+            person: 17,
+         },
+      },
+      timestamp: "2023-03-16T16:45:00Z",
+   },
+   {
+      branch_id: 6,
+      detect: {
+         Salaro1: {
+            person: 25,
+         },
+         Salaro2: {
+            person: 17,
+         },
+      },
+      timestamp: "2023-02-16T16:45:00Z",
+   },
+   {
+      branch_id: 6,
+      detect: {
+         Salaro1: {
+            person: 25,
+         },
+         Salaro2: {
+            person: 17,
+         },
+      },
+      timestamp: "2023-01-16T16:45:00Z",
+   },
+   {
       branch_id: 7,
       detect: {
          Salaro1: {
