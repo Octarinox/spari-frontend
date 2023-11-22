@@ -12,7 +12,7 @@ import Container from "@mui/material/Container";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import OnlyDigits from "@/utils/OnlyDigits";
-import AddNewInputs from "./AddNewInputs";
+import AddNewInputs from "./QueueInputs";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
@@ -60,7 +60,6 @@ export default function BranchRegisterForm() {
    };
 
    return (
-<<<<<<< HEAD
       <Container
          sx={{
             marginLeft: {
@@ -72,9 +71,6 @@ export default function BranchRegisterForm() {
          component="main"
          maxWidth="xs"
       >
-=======
-      <Container component="main" maxWidth="xs">
->>>>>>> d4abf59ebaf63177f79675465518514a0712753f
          <Box
             sx={{
                marginTop: 8,

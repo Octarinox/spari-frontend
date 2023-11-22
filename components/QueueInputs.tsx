@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import OnlyDigits from "@/utils/OnlyDigits";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-const AddNewInputs = () => {
+const QueueInputs = () => {
    const [inputFields, setInputFields] = useState([{ id: 1, value: "" }]);
 
    const addInputField = () => {
@@ -48,14 +48,10 @@ const AddNewInputs = () => {
                            cursor: "pointer",
                            zIndex: 1,
 
-                           display: {
-                              sm: "none",
-                              md: "none",
-                           },
                            marginLeft: {
                               xs: "140px",
                            },
-                           position: "absolute",
+                           position: "relative",
                         }}
                         color="error"
                         fontSize="medium"
@@ -91,34 +87,6 @@ const AddNewInputs = () => {
                         name={`IPAddress${index}`}
                         autoComplete="off"
                      />
-                     {index > 0 && (
-                        <DeleteForeverIcon
-                           onClick={() => removeInputField(index)}
-                           sx={{
-                              ml: 2,
-                              cursor: "pointer",
-                              zIndex: 1,
-                              marginBottom: {
-                                 xs: "90px",
-                                 sm: "0px",
-                                 md: "0px",
-                              },
-                              display: {
-                                 xs: "none",
-                                 sm: "inline",
-                                 md: "inline",
-                              },
-                              marginLeft: {
-                                 sm: "200px",
-                                 xs: "180px",
-                                 md: "210px",
-                              },
-                              position: "absolute",
-                           }}
-                           color="error"
-                           fontSize="medium"
-                        />
-                     )}
                   </Grid>
                </Grid>
             </Grid>
@@ -142,4 +110,4 @@ const AddNewInputs = () => {
    );
 };
 
-export default AddNewInputs;
+export default QueueInputs;
