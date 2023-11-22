@@ -40,6 +40,25 @@ const AddNewInputs = () => {
                   }}
                >
                   <b>Queue Camera {index + 1}</b>
+                  <DeleteForeverIcon
+                     onClick={() => removeInputField(index)}
+                     sx={{
+                        ml: 2,
+                        cursor: "pointer",
+                        zIndex: 1,
+
+                        display: {
+                           sm: "none",
+                           md: "none",
+                        },
+                        marginLeft: {
+                           xs: "140px",
+                        },
+                        position: "absolute",
+                     }}
+                     color="error"
+                     fontSize="medium"
+                  />
                </h2>
 
                <Grid container spacing={2}>
@@ -74,9 +93,24 @@ const AddNewInputs = () => {
                         <DeleteForeverIcon
                            onClick={() => removeInputField(index)}
                            sx={{
+                              ml: 2,
                               cursor: "pointer",
                               zIndex: 1,
-                              marginLeft: { xs: "160px", md: "210px" },
+                              marginBottom: {
+                                 xs: "90px",
+                                 sm: "0px",
+                                 md: "0px",
+                              },
+                              display: {
+                                 xs: "none",
+                                 sm: "inline",
+                                 md: "inline",
+                              },
+                              marginLeft: {
+                                 sm: "200px",
+                                 xs: "180px",
+                                 md: "210px",
+                              },
                               position: "absolute",
                            }}
                            color="error"
