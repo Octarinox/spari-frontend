@@ -40,8 +40,8 @@ const Sidebar = (props: any) => {
             data-drawer-toggle="default-sidebar"
             aria-controls="default-sidebar"
             type="button"
-            className={`inline-flex border-white drop-shadow-lg items-center absolute left-0  z-10 ${
-               isSidebarOpen ? "ml-64" : ""
+            className={`inline-flex border-white drop-shadow-lg items-center absolute left-0  z-50 ${
+               isSidebarOpen ? "ml-48" : ""
             }  text-sm text-gray-500 p-2 sm:hidden bg-white hover:bg-gray-100 rounded-tr-full rounded-br-full border-l-0 border-2`}
          >
             <span className="sr-only">Open sidebar</span>
