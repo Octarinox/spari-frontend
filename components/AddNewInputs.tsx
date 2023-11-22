@@ -40,25 +40,27 @@ const AddNewInputs = () => {
                   }}
                >
                   <b>Queue Camera {index + 1}</b>
-                  <DeleteForeverIcon
-                     onClick={() => removeInputField(index)}
-                     sx={{
-                        ml: 2,
-                        cursor: "pointer",
-                        zIndex: 1,
+                  {input.id !== 1 && (
+                     <DeleteForeverIcon
+                        onClick={() => removeInputField(index)}
+                        sx={{
+                           ml: 2,
+                           cursor: "pointer",
+                           zIndex: 1,
 
-                        display: {
-                           sm: "none",
-                           md: "none",
-                        },
-                        marginLeft: {
-                           xs: "140px",
-                        },
-                        position: "absolute",
-                     }}
-                     color="error"
-                     fontSize="medium"
-                  />
+                           display: {
+                              sm: "none",
+                              md: "none",
+                           },
+                           marginLeft: {
+                              xs: "140px",
+                           },
+                           position: "absolute",
+                        }}
+                        color="error"
+                        fontSize="medium"
+                     />
+                  )}
                </h2>
 
                <Grid container spacing={2}>

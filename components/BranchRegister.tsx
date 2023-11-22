@@ -56,6 +56,7 @@ export default function BranchRegisterForm() {
             marginLeft: {
                md: "300px",
                sm: "200px",
+               lg: "350px",
             },
          }}
          component="main"

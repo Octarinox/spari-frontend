@@ -49,7 +49,17 @@ export default function UserRegisterForm() {
    };
 
    return (
-      <Container component="main" maxWidth="xs">
+      <Container
+         sx={{
+            marginLeft: {
+               md: "300px",
+               sm: "200px",
+               lg: "300px",
+            },
+         }}
+         component="main"
+         maxWidth="xs"
+      >
          <Box
             sx={{
                marginTop: 8,
@@ -142,11 +152,17 @@ export default function UserRegisterForm() {
                               <MenuItem value={"Admin"}>Admin</MenuItem>
                            </Select>
                         </FormControl>
-                        <Grid item xs={10}>
+                        <Grid item xs={12}>
                            {role === "Admin" ? (
                               <TextField
                                  required
                                  fullWidth
+                                 // sx={{
+                                 //    width: {
+                                 //       xs: 320,
+                                 //       sm: 400,
+                                 //    },
+                                 // }}
                                  name="password"
                                  label="Password"
                                  type="password"
@@ -157,7 +173,12 @@ export default function UserRegisterForm() {
                                  disablePortal
                                  id="combo-box-demo"
                                  options={branches}
-                                 sx={{ width: 350, mb: 2 }}
+                                 sx={{
+                                    width: {
+                                       xs: 410,
+                                    },
+                                    mb: 2,
+                                 }}
                                  renderInput={params => (
                                     <TextField
                                        required
