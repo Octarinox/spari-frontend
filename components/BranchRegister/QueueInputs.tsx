@@ -1,35 +1,36 @@
 "use client";
-import { useState } from "react";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import OnlyDigits from "@/utils/OnlyDigits";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-const QueueInputs = () => {
-   const [inputFields, setInputFields] = useState([{ id: 1, value: "" }]);
+const QueueInputs = (props: any) => {
+   const { queueInput, handleQueueInputChange } = props;
 
    const addInputField = () => {
-      const newId = inputFields[inputFields.length - 1].id + 1;
-      setInputFields([...inputFields, { id: newId, value: "" }]);
+      const newId = queueInput[queueInput.length - 1].id + 1;
+      handleQueueInputChange([
+         ...queueInput,
+         { id: newId, name: "", address: "" },
+      ]);
    };
 
    const removeInputField = (index: any) => {
-      const values = [...inputFields];
+      const values = [...queueInput];
       values.splice(index, 1);
-      setInputFields(values);
+      handleQueueInputChange(values);
    };
-
-   const handleInputChange = (index: any, event: any) => {
-      const values = [...inputFields];
-      values[index].value = event.target.value;
-      setInputFields(values);
+   const handleInputChange = (event: any, index: number) => {
+      const values = [...queueInput];
+      const identifier = event.target.name;
+      values[index][identifier] = event.target.value;
+      handleQueueInputChange(values);
    };
 
    return (
       <Grid container spacing={2}>
-         {inputFields.map((input, index) => (
+         {queueInput.map((input: any, index: any) => (
             <Grid key={input.id} item xs={12}>
                <h2
                   className="mb-1"
@@ -62,14 +63,14 @@ const QueueInputs = () => {
                <Grid container spacing={2}>
                   <Grid item xs={6}>
                      <TextField
-                        name={`Name${index}`}
+                        name="name"
                         fullWidth
                         id={`Name${index}`}
                         label="Name"
                         autoFocus
                         autoComplete="off"
                         type="text"
-                        onInput={OnlyDigits}
+                        onChange={e => handleInputChange(e, index)}
                      />
                   </Grid>
 
@@ -84,7 +85,8 @@ const QueueInputs = () => {
                         fullWidth
                         id={`IPAddress${index}`}
                         label="IP Address"
-                        name={`IPAddress${index}`}
+                        onChange={e => handleInputChange(e, index)}
+                        name="ipaddress"
                         autoComplete="off"
                      />
                   </Grid>

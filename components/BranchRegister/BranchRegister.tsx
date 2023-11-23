@@ -12,32 +12,37 @@ import Container from "@mui/material/Container";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import OnlyDigits from "@/utils/OnlyDigits";
-import AddNewInputs from "./QueueInputs";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
+import QueueInputs from "./QueueInputs";
+import { queueInputsValues } from "@/components/BranchRegister/constants";
 
 export default function BranchRegisterForm() {
-   const [inputFields, setInputFields] = useState([{ id: 1, value: "" }]);
+   const [queueInput, setQueueInput] = useState(queueInputsValues);
    const [role, setRole] = useState("");
-   const [value, setValue] = useState("");
-   const [cameraCount, setCameraCount] = useState(1);
 
+   const handleQueueInputChange = (value: any) => {
+      setQueueInput(value);
+   };
    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
 
       console.log({
-         branchID: formData.get("branchID"),
-         Address: formData.get("Address"),
-         Password: formData.get("Password"),
-         role,
+         branchId: formData.get("branchID"),
+         address: formData.get("Address"),
+         password: formData.get("Password"),
+         cams: {
+            queue: queueInput,
+            face: {
+               name: formData.get("facecamName"),
+               address: 'formData.get("FaceIPAddress"),',
+            },
+         },
          selectedManager: formData.get("combo-box-demo"),
-         faceCameraName: formData.get("Name"), // Example additional field
-         ipAddress: formData.get("IPAddress"), // Example additional field
          alertMessage: formData.get("alertMessage"),
-         peopleAmount: formData.get("PeopleAmount"), // Example additional field
-         // Add other form fields as needed
+         peopleAmount: formData.get("PeopleAmount"),
       });
    };
    const managersList: any = [
@@ -180,29 +185,31 @@ export default function BranchRegisterForm() {
                      </Grid>
 
                      <Grid container>
-                        <AddNewInputs />
+                        <QueueInputs
+                           queueInput={queueInput}
+                           handleQueueInputChange={handleQueueInputChange}
+                        />
                         <h2 className="mb-1">
                            <b>Face Detection Camera</b>
                         </h2>
                         <Grid container spacing={2}>
                            <Grid item xs={6}>
                               <TextField
-                                 name="Name"
+                                 name="facecamName"
                                  fullWidth
-                                 id="Name"
+                                 id="facecamName"
                                  label="Name"
                                  autoFocus
                                  autoComplete="off"
                                  type="text"
-                                 onInput={OnlyDigits}
                               />
                            </Grid>
                            <Grid item xs={6}>
                               <TextField
                                  fullWidth
-                                 id="IPAddress"
+                                 id="FaceIPAddress"
                                  label="IP Address"
-                                 name="IPAddress"
+                                 name="FaceIPAddress"
                                  autoComplete="off"
                               />
                            </Grid>
