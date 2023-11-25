@@ -20,7 +20,6 @@ import { queueInputsValues } from "@/components/BranchRegister/constants";
 
 export default function BranchRegisterForm() {
    const [queueInput, setQueueInput] = useState(queueInputsValues);
-   const [role, setRole] = useState("");
 
    const handleQueueInputChange = (value: any) => {
       setQueueInput(value);
@@ -59,10 +58,6 @@ export default function BranchRegisterForm() {
       { label: "Head Manager#4,", personalID: "12312312123" },
       { label: "Head Manager#5,", personalID: "12312312123" },
    ];
-
-   const handleRoleChange = (event: any) => {
-      setRole(event.target.value);
-   };
 
    return (
       <Container
@@ -135,52 +130,41 @@ export default function BranchRegisterForm() {
                         </Grid>
 
                         <Grid item xs={12}>
-                           <FormControl fullWidth required sx={{ mb: 2 }}>
-                              <InputLabel id="demo-simple-select-label">
-                                 Role
-                              </InputLabel>
-                              <Select
-                                 labelId="demo-simple-select-label"
-                                 id="demo-simple-select"
-                                 value={role}
-                                 label="Age"
-                                 onChange={handleRoleChange}
-                              >
-                                 <MenuItem value={"manager"}>Manager</MenuItem>
-                                 <MenuItem value={"headManager"}>
-                                    Head Manager
-                                 </MenuItem>
-                              </Select>
-                           </FormControl>
-
-                           {role && (
-                              <Grid item xs={12}>
-                                 <Autocomplete
-                                    disablePortal
-                                    id="combo-box-demo"
-                                    options={
-                                       role === "manager"
-                                          ? managersList
-                                          : headManagersList
-                                    }
-                                    getOptionLabel={(option: any) =>
-                                       `${option.label} ${option.personalID}`
-                                    }
-                                    sx={{ mb: 2 }}
-                                    renderInput={params => (
-                                       <TextField
-                                          required
-                                          {...params}
-                                          label={
-                                             role === "manager"
-                                                ? "Managers List"
-                                                : "Head Managers List"
-                                          }
-                                       />
-                                    )}
+                           <Autocomplete
+                              disablePortal
+                              id="combo-box-demo"
+                              options={managersList}
+                              getOptionLabel={(option: any) =>
+                                 `${option.label} ${option.personalID}`
+                              }
+                              renderInput={params => (
+                                 <TextField
+                                    required
+                                    {...params}
+                                    name="Managers List"
+                                    label="Managers List"
                                  />
-                              </Grid>
-                           )}
+                              )}
+                           />
+                        </Grid>
+                        <Grid item xs={12}>
+                           <Autocomplete
+                              disablePortal
+                              id="combo-box-demo"
+                              options={headManagersList}
+                              getOptionLabel={(option: any) =>
+                                 `${option.label} ${option.personalID}`
+                              }
+                              sx={{ mb: 2 }}
+                              renderInput={params => (
+                                 <TextField
+                                    required
+                                    {...params}
+                                    name="Head Managers List"
+                                    label="Head Managers List"
+                                 />
+                              )}
+                           />
                         </Grid>
                      </Grid>
 
@@ -270,7 +254,6 @@ export default function BranchRegisterForm() {
                               control={<Checkbox defaultChecked />}
                               label="Email"
                            />
-                           {/* Add other form fields here */}
                         </FormGroup>
                      </Grid>
                   </Grid>
