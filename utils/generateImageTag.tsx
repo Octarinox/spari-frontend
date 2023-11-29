@@ -4,8 +4,8 @@ export const generateImageTag = (icon: any, alt: string, styles: any) => {
    return (
       <img
          src={icon}
-         width={"20px"}
-         height={"20px"}
+         width={"25px"}
+         height={"25px"}
          alt={alt}
          className={styles}
       />

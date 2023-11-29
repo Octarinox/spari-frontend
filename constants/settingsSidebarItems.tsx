@@ -65,12 +65,30 @@ export const settingsSidebarItems = [
             ? styles.activeIcon
             : styles.inactiveIcon;
          return generateImageTag(
-            "/edit-name.svg",
+            "/edit-user.svg",
             "blacklist_icon",
             activeItemStyle
          );
       },
       href: "/settings/users-edit",
+      current: false,
+      className: inactiveClass,
+      classNameCurrent: activeClass,
+   },
+   {
+      text: "Edit Branches",
+
+      getCurrentItem() {
+         const activeItemStyle = this.current
+            ? styles.activeIcon
+            : styles.inactiveIcon;
+         return generateImageTag(
+            "/edit-branch.svg",
+            "blacklist_icon",
+            activeItemStyle
+         );
+      },
+      href: "/settings/branch-edit",
       current: false,
       className: inactiveClass,
       classNameCurrent: activeClass,
