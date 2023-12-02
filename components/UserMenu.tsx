@@ -10,8 +10,7 @@ const UserMenu = () => {
    const router = useRouter();
    const handleLogout = async () => {
       await logOut();
-      console.log("logged out");
-      await router.replace("/login");
+      router.replace("/login");
    };
    return (
       <Menu as="div" className="relative ml-3">

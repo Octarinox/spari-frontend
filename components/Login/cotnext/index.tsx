@@ -36,7 +36,6 @@ export const AuthProvider: FC<{
                },
                credentials: "include",
             });
-            console.log(await data.json());
             router.push("/dashboard");
          } catch (e) {
             console.log(e);

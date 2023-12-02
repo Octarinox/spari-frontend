@@ -9,55 +9,75 @@ import Box from "@mui/material/Box";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import OnlyDigits from "@/utils/OnlyDigits";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import QueueInputs from "./QueueInputs";
-import { queueInputsValues } from "@/components/BranchRegister/constants";
+import {
+   headManagers,
+   managers,
+   queueInputsValues,
+} from "@/components/BranchRegister/constants";
+import { sendDataToServer } from "@/components/BranchRegister/sendDataToServer";
 
 export default function BranchRegisterForm() {
    const [queueInput, setQueueInput] = useState(queueInputsValues);
-
+   const [manager, setManager] = useState({});
+   const [headManager, setHeadManager] = useState({});
+   const [servicesData, setServicesData] = useState<any>({
+      faceDetect: {
+         dashboardPopup: true,
+         whatsApp: true,
+         email: true,
+      },
+      queueDetect: {
+         dashboardPopup: true,
+         whatsApp: true,
+         email: true,
+      },
+   });
+   const handleCheckboxChange = (category: any, service: any) => {
+      setServicesData((prevFormData: any) => ({
+         ...prevFormData,
+         [category]: {
+            ...prevFormData[category],
+            [service]: !prevFormData[category][service],
+         },
+      }));
+   };
    const handleQueueInputChange = (value: any) => {
       setQueueInput(value);
    };
-   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
-
-      console.log({
+      console.log(manager);
+      const data = {
          branchId: formData.get("branchID"),
          address: formData.get("Address"),
          password: formData.get("Password"),
+         users: {
+            manager,
+            headManager,
+         },
          cams: {
             queue: queueInput,
             face: {
                name: formData.get("facecamName"),
-               address: 'formData.get("FaceIPAddress"),',
+               address: formData.get("FaceIPAddress"),
             },
          },
-         selectedManager: formData.get("combo-box-demo"),
-         alertMessage: formData.get("alertMessage"),
-         peopleAmount: formData.get("PeopleAmount"),
-      });
+         faceAiConfig: { alertMessage: formData.get("faceAlertMessage") },
+         queueAiConfigs: {
+            alertMessage: formData.get("queueAlertMessage"),
+            warningOnAmount: formData.get("peopleAmount"),
+         },
+         serviceConfig: servicesData,
+      };
+      await sendDataToServer(data);
    };
-   const managersList: any = [
-      { label: "Manager#1,", personalID: "12312312123" },
-      { label: "Manager#2,", personalID: "12312312123" },
-      { label: "Manager#3,", personalID: "12312312123" },
-      { label: "Manager#4,", personalID: "12312312123" },
-      { label: "Manager#5,", personalID: "12312312123" },
-   ];
-   const headManagersList: any = [
-      { label: "Head Manager#1,", personalID: "12312312123" },
-      { label: "Head Manager#2,", personalID: "12312312123" },
-      { label: "Head Manager#3,", personalID: "12312312123" },
-      { label: "Head Manager#4,", personalID: "12312312123" },
-      { label: "Head Manager#5,", personalID: "12312312123" },
-   ];
 
    return (
       <Container
@@ -133,15 +153,18 @@ export default function BranchRegisterForm() {
                            <Autocomplete
                               disablePortal
                               id="combo-box-demo"
-                              options={managersList}
+                              options={managers}
                               getOptionLabel={(option: any) =>
-                                 `${option.label} ${option.personalID}`
+                                 `${option.firstName} ${option.email}`
+                              }
+                              onChange={(event, newValue) =>
+                                 setManager(newValue)
                               }
                               renderInput={params => (
                                  <TextField
                                     required
                                     {...params}
-                                    name="Managers List"
+                                    name="managersList"
                                     label="Managers List"
                                  />
                               )}
@@ -151,16 +174,19 @@ export default function BranchRegisterForm() {
                            <Autocomplete
                               disablePortal
                               id="combo-box-demo"
-                              options={headManagersList}
+                              options={headManagers}
                               getOptionLabel={(option: any) =>
-                                 `${option.label} ${option.personalID}`
+                                 `${option.firstName} ${option.email}`
+                              }
+                              onChange={(event, newValue) =>
+                                 setHeadManager(newValue)
                               }
                               sx={{ mb: 2 }}
                               renderInput={params => (
                                  <TextField
                                     required
                                     {...params}
-                                    name="Head Managers List"
+                                    name="headManagersList"
                                     label="Head Managers List"
                                  />
                               )}
@@ -213,9 +239,27 @@ export default function BranchRegisterForm() {
                            }}
                            required
                            fullWidth
-                           id="alertMessage"
+                           id="faceAlertMessage"
                            label="Alert Message"
-                           name="alertMessage"
+                           name="faceAlertMessage"
+                           autoComplete="off"
+                        />
+                     </Grid>
+                     <Grid item xs={12}>
+                        <h2 className="mb-1 mt-2">
+                           <b>Queue Detect Config</b>
+                        </h2>
+                        <TextField
+                           sx={{
+                              width: {
+                                 md: "415px",
+                              },
+                           }}
+                           required
+                           fullWidth
+                           id="queueAlertMessage"
+                           label="Alert Message"
+                           name="queueAlertMessage"
                            autoComplete="off"
                         />
                      </Grid>
@@ -226,7 +270,7 @@ export default function BranchRegisterForm() {
                         <Grid container spacing={2}>
                            <Grid item xs={4}>
                               <TextField
-                                 name="PeopleAmount"
+                                 name="peopleAmount"
                                  fullWidth
                                  id="PeopleAmount"
                                  autoFocus
@@ -237,23 +281,56 @@ export default function BranchRegisterForm() {
                            </Grid>
                         </Grid>
                      </Grid>
-                     <h2 className="mt-2 mb-2">
-                        <b>Services</b>
-                     </h2>
+
                      <Grid container>
                         <FormGroup>
-                           <FormControlLabel
-                              control={<Checkbox defaultChecked />}
-                              label="Dashboard Popup"
-                           />
-                           <FormControlLabel
-                              control={<Checkbox defaultChecked />}
-                              label="Whats App"
-                           />
-                           <FormControlLabel
-                              control={<Checkbox defaultChecked />}
-                              label="Email"
-                           />
+                           <h2 className="mt-2 mb-2">
+                              <b>Face Detect Services</b>
+                           </h2>
+                           {Object.entries(servicesData.faceDetect).map(
+                              ([service, checked]) => (
+                                 <FormControlLabel
+                                    key={service}
+                                    control={
+                                       <Checkbox
+                                          defaultChecked
+                                          onChange={() =>
+                                             handleCheckboxChange(
+                                                "faceDetect",
+                                                service
+                                             )
+                                          }
+                                       />
+                                    }
+                                    label={service}
+                                 />
+                              )
+                           )}
+                        </FormGroup>
+
+                        <FormGroup>
+                           <h2 className="mt-2 mb-2">
+                              <b>Queue Detect Services</b>
+                           </h2>
+                           {Object.entries(servicesData.queueDetect).map(
+                              ([service, checked]) => (
+                                 <FormControlLabel
+                                    key={service}
+                                    control={
+                                       <Checkbox
+                                          defaultChecked
+                                          onChange={() =>
+                                             handleCheckboxChange(
+                                                "queueDetect",
+                                                service
+                                             )
+                                          }
+                                       />
+                                    }
+                                    label={service}
+                                 />
+                              )
+                           )}
                         </FormGroup>
                      </Grid>
                   </Grid>
