@@ -13,24 +13,34 @@ import { MuiTelInput } from "mui-tel-input";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import OnlyDigits from "@/utils/OnlyDigits";
+import { SendUserDataToServer } from "./SendDataToServer";
+import { Toaster, toast } from "sonner";
 
 export default function UserRegisterForm() {
    const [role, setRole] = useState("");
    const [value, setValue] = useState("");
 
-   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       event.preventDefault();
 
-      const data = new FormData(event.currentTarget);
-      console.log({
-         firstName: data.get("firstName"),
-         lastName: data.get("lastName"),
-         email: data.get("email"),
-         number: data.get("number"),
-         personalID: data.get("personalID"),
-         role: data.get("role"),
-      });
-   };
+      const formData = new FormData(event.currentTarget);
+      const data = {
+         firstName: formData.get("firstName"),
+         lastName: formData.get("lastName"),
+         email: formData.get("email"),
+         number: formData.get("number"),
+         personalID: formData.get("personalID"),
+         role: formData.get("role"),
+      };
+
+      try {
+         const responseData = await SendUserDataToServer(data);
+
+         toast(`Data sent successfully: ${JSON.stringify(responseData)}`);
+      } catch (error: any) {
+         toast(`Error while sending data: ${error.message}`);
+      }
+   }
 
    const branches = [
       { label: "Branch#1" },
@@ -192,7 +202,9 @@ export default function UserRegisterForm() {
                         </Grid>
                      </Grid>
                   </Grid>
+                  <Toaster />
                   <Button
+                     onClick={() => toast("My first toast")}
                      type="submit"
                      fullWidth
                      variant="contained"

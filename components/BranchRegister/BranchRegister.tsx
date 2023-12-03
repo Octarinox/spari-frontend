@@ -53,6 +53,7 @@ export default function BranchRegisterForm() {
    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
+
       console.log(manager);
       const data = {
          branchId: formData.get("branchID"),
