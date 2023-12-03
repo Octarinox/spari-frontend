@@ -5,7 +5,7 @@ export async function middleware(request: NextRequest) {
    const token = request.cookies.get("jwt");
 
    const res = await fetch(
-      new URL("https://octarinox.tech/api/user/check-auth").href,
+      new URL("https://octarinox.tech/api/auth/user/check-auth").href,
       {
          method: "GET",
          headers: {
