@@ -9,70 +9,23 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import TableComponent from "./TableComponent";
 
-interface Column {
-   id: "firstname" | "lastname" | "email";
-   label: string;
-   minWidth?: number;
-   align?: "right";
-   format?: (value: number) => string;
-}
+const TableComponent = ({ columns, rows }: { columns: any[]; rows: any[] }) => {
+   const [page, setPage] = useState(0);
+   const [rowsPerPage, setRowsPerPage] = useState(10);
+   const handleChangePage = (event: unknown, newPage: number) => {
+      setPage(newPage);
+   };
 
-const columns: Column[] = [
-   { id: "firstname", label: "Firstname", minWidth: 170 },
-   { id: "lastname", label: "Lastname", minWidth: 100 },
-   {
-      id: "email",
-      label: "Email",
-      minWidth: 170,
-      align: "right",
-      format: (value: number) => value.toLocaleString("en-US"),
-   },
-];
-
-interface Data {
-   firstname: string;
-   lastname: string;
-   email: number;
-}
-
-function createData(firstname: string, lastname: string, email: any): Data {
-   const density = email;
-   return { firstname, lastname, email };
-}
-
-const rows = [
-   createData("Firstname", "Lastname", "E1mail@example.com"),
-   createData("Firstname", "Lastname", "E2mfail@example.com"),
-   createData("Firstname", "Lastname", "E3madil@example.com"),
-   createData("Firstname", "Lastname", "E4maivl@example.com"),
-   createData("Firstname", "Lastname", "E5maail@example.com"),
-   createData("Firstname", "Lastname", "E6maisl@example.com"),
-   createData("Firstname", "Lastname", "E7maihl@example.com"),
-   createData("Firstname", "Lastname", "E8mailg@example.com"),
-   createData("Firstname", "Lastname", "E9ma3il@example.com"),
-   createData("Firstname", "Lastname", "E10majil@example.com"),
-   createData("Firstname", "Lastname", "E11mkail@example.com"),
-   createData("Firstname", "Lastname", "E12mlail@example.com"),
-   createData("Firstname", "Lastname", "E13ma;il@example.com"),
-   createData("Firstname", "Lastname", "E14ma'il@example.com"),
-   createData("Firstname", "Lastname", "E15macil@example.com"),
-   createData("Firstname", "Lastname", "E16mavil@example.com"),
-   createData("Firstname", "Lastname", "E17mabil@example.com"),
-   createData("Firstname", "Lastname", "E18mainl@example.com"),
-   createData("Firstname", "Lastname", "E19maiml@example.com"),
-   createData("Firstname", "Lastname", "E20mai,l@example.com"),
-   createData("Firstname", "Lastname", "E21mai.l@example.com"),
-   createData("Firstname", "Lastname", "E22mai]l@example.com"),
-];
-
-export default function UserEdit() {
+   const handleChangeRowsPerPage = (
+      event: React.ChangeEvent<HTMLInputElement>
+   ) => {
+      setRowsPerPage(+event.target.value);
+      setPage(0);
+   };
    return (
       <>
-         <div>
-            <TableComponent columns={columns} rows={rows} />
-            {/* <div className=" flex justify-center">
+         <div className=" flex justify-center">
             <h1 className="text-3xl font-bold text-gray-700">Users List</h1>
          </div>
          <Paper sx={{ width: "100%", overflow: "hidden", marginTop: "100px" }}>
@@ -80,7 +33,7 @@ export default function UserEdit() {
                <Table stickyHeader aria-label="sticky table">
                   <TableHead sx={{ paddingBottom: "10px" }}>
                      <TableRow>
-                        {columns.map(column => (
+                        {columns.map((column: any) => (
                            <TableCell
                               key={column.id}
                               align={column.align}
@@ -101,7 +54,7 @@ export default function UserEdit() {
                            page * rowsPerPage,
                            page * rowsPerPage + rowsPerPage
                         )
-                        .map(row => {
+                        .map((row: any) => {
                            return (
                               <TableRow
                                  hover
@@ -109,7 +62,7 @@ export default function UserEdit() {
                                  tabIndex={-1}
                                  key={row.email}
                               >
-                                 {columns.map(column => {
+                                 {columns.map((column: any) => {
                                     const value = row[column.id];
                                     return (
                                        <TableCell
@@ -139,8 +92,9 @@ export default function UserEdit() {
                onRowsPerPageChange={handleChangeRowsPerPage}
                sx={{ background: "#384454", color: "white" }}
             />
-         </Paper> */}
-         </div>
+         </Paper>
       </>
    );
-}
+};
+
+export default TableComponent;

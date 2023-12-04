@@ -9,6 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import TableComponent from "./TableComponent";
 
 interface Column {
    id: "branchID" | "address";
@@ -18,7 +19,7 @@ interface Column {
    format?: (value: number) => string;
 }
 
-const columns: readonly Column[] = [
+const columns: Column[] = [
    { id: "branchID", label: "Branch ID", minWidth: 170 },
    { id: "address", label: "Address", minWidth: 100 },
 ];
@@ -43,23 +44,10 @@ const rows = [
 ];
 
 const BranchEditTable = () => {
-   const [page, setPage] = useState(0);
-   const [rowsPerPage, setRowsPerPage] = useState(10);
-
-   const handleChangePage = (event: unknown, newPage: number) => {
-      setPage(newPage);
-   };
-
-   const handleChangeRowsPerPage = (
-      event: React.ChangeEvent<HTMLInputElement>
-   ) => {
-      setRowsPerPage(+event.target.value);
-      setPage(0);
-   };
-
    return (
-      <>
-         <div className=" flex justify-center">
+      <div>
+         <TableComponent columns={columns} rows={rows} />
+         {/* <div className=" flex justify-center">
             <h1 className="text-3xl font-bold text-gray-700">Branches List</h1>
          </div>
          <Paper sx={{ width: "100%", overflow: "hidden", marginTop: "100px" }}>
@@ -126,8 +114,8 @@ const BranchEditTable = () => {
                onRowsPerPageChange={handleChangeRowsPerPage}
                sx={{ background: "#384454", color: "white" }}
             />
-         </Paper>
-      </>
+         </Paper> */}
+      </div>
    );
 };
 
