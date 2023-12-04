@@ -1,8 +1,6 @@
-import { url } from "@/constants/shared-constants";
-
 export async function sendDataToServer(data: any) {
    try {
-      const apiUrl = `${url}/api/auth/branch/register`;
+      const apiUrl = `https://octarinox.tech/api/branch/register`;
       const response = await fetch(apiUrl, {
          method: "POST",
          headers: {
