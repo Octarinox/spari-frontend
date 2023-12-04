@@ -1,6 +1,6 @@
 export async function SendUserDataToServer(data: any) {
    try {
-      const apiUrl = "https://octarinox.tech/api/user/register";
+      const apiUrl = "https://octarinox.tech/api/auth/user/register";
       const response = await fetch(apiUrl, {
          method: "POST",
          headers: {
