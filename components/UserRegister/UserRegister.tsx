@@ -34,10 +34,13 @@ export default function UserRegisterForm() {
       };
 
       try {
+         // Call the SendUserDataToServer function and get the response data
          const responseData = await SendUserDataToServer(data);
 
+         // Display the response data in a toast message
          toast(`Data sent successfully: ${JSON.stringify(responseData)}`);
       } catch (error: any) {
+         // Handle errors and display them in a toast message
          toast(`Error while sending data: ${error.message}`);
       }
    }
@@ -204,7 +207,6 @@ export default function UserRegisterForm() {
                   </Grid>
                   <Toaster />
                   <Button
-                     onClick={() => toast("My first toast")}
                      type="submit"
                      fullWidth
                      variant="contained"
