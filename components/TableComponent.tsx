@@ -25,9 +25,6 @@ const TableComponent = ({ columns, rows }: { columns: any[]; rows: any[] }) => {
    };
    return (
       <>
-         <div className=" flex justify-center">
-            <h1 className="text-3xl font-bold text-gray-700">Users List</h1>
-         </div>
          <Paper sx={{ width: "100%", overflow: "hidden", marginTop: "100px" }}>
             <TableContainer sx={{ maxHeight: 440 }}>
                <Table stickyHeader aria-label="sticky table">

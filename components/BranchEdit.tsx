@@ -46,6 +46,9 @@ const rows = [
 const BranchEditTable = () => {
    return (
       <div>
+         <div className=" flex justify-center">
+            <h1 className="text-3xl font-bold text-gray-700">Branch List</h1>
+         </div>
          <TableComponent columns={columns} rows={rows} />
          {/* <div className=" flex justify-center">
             <h1 className="text-3xl font-bold text-gray-700">Branches List</h1>
