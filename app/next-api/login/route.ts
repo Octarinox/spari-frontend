@@ -1,18 +1,17 @@
+import { url } from "@/constants/shared-constants";
+
 export async function POST(request: Request) {
    const req = await request.json();
 
    try {
-      const response = await fetch(
-         "https://octarinox.tech/api/auth/user/login",
-         {
-            method: "POST",
-            body: JSON.stringify({ email: req.email, password: req.password }),
-            headers: {
-               "Content-Type": "application/json",
-            },
-            credentials: "include",
-         }
-      );
+      const response = await fetch(`${url}/api/auth/user/login`, {
+         method: "POST",
+         body: JSON.stringify({ email: req.email, password: req.password }),
+         headers: {
+            "Content-Type": "application/json",
+         },
+         credentials: "include",
+      });
 
       if (!response.ok) {
          throw new Error("network response was not OK");

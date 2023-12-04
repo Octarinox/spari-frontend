@@ -1,19 +1,17 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { url } from "@/constants/shared-constants";
 
 export async function middleware(request: NextRequest) {
    const token = request.cookies.get("jwt");
 
-   const res = await fetch(
-      new URL("https://octarinox.tech/api/auth/user/check-auth").href,
-      {
-         method: "GET",
-         headers: {
-            cookie: `${token?.name}=${token?.value}`,
-         },
-         credentials: "include",
-      }
-   );
+   const res = await fetch(new URL(`${url}/api/auth/user/check-auth`).href, {
+      method: "GET",
+      headers: {
+         cookie: `${token?.name}=${token?.value}`,
+      },
+      credentials: "include",
+   });
    const data = await res.json();
    const unauthorized = !data.user && !request.url.includes("login");
    if (unauthorized) {
