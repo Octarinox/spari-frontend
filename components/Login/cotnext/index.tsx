@@ -29,7 +29,7 @@ export const AuthProvider: FC<{
    const userLogin = useCallback(
       async (email: string, password: string) => {
          try {
-            const data = await fetch(`${url}/next-api/login`, {
+            const res = await fetch(`${url}/next-api/login`, {
                method: "POST",
                body: JSON.stringify({ email, password }),
                headers: {
@@ -37,6 +37,8 @@ export const AuthProvider: FC<{
                },
                credentials: "include",
             });
+            const data = await res.json();
+            localStorage.setItem("jwtToken", data.token);
             router.push("/dashboard");
          } catch (e) {
             console.log(e);
@@ -49,6 +51,7 @@ export const AuthProvider: FC<{
          method: "POST",
          credentials: "include",
       });
+      localStorage.removeItem("jwtToken");
    }, []);
 
    const value = useMemo(

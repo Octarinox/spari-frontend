@@ -1,21 +1,12 @@
-export async function SendUserDataToServer(data: any) {
-   try {
-      const apiUrl = `https://octarinox.tech/api/auth/user/register`;
-      const response = await fetch(apiUrl, {
-         method: "POST",
-         headers: {
-            "Content-Type": "application/json",
-         },
-         body: JSON.stringify(data),
-         credentials: "include",
-      });
+import axiosInstance from "@/axios/axios-instance";
 
-      if (response.ok) {
-         const responseData = await response.json();
-         console.log("Data sent successfully:", responseData);
-         return responseData; // Return the response data
+export async function sendUserDataToServer(data: any) {
+   try {
+      const response = await axiosInstance.post("/auth/user/register", data);
+
+      if (response.status === 200) {
+         return response.data;
       } else {
-         console.error("Failed to send data:", response.statusText);
          throw new Error("Failed to send data");
       }
    } catch (error: any) {

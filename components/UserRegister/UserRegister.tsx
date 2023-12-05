@@ -13,8 +13,8 @@ import { MuiTelInput } from "mui-tel-input";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import OnlyDigits from "@/utils/OnlyDigits";
-import { SendUserDataToServer } from "./SendDataToServer";
-import { Toaster, toast } from "sonner";
+import { sendUserDataToServer } from "./SendDataToServer";
+import { toast, Toaster } from "sonner";
 
 export default function UserRegisterForm() {
    const [role, setRole] = useState("");
@@ -28,19 +28,17 @@ export default function UserRegisterForm() {
          firstName: formData.get("firstName"),
          lastName: formData.get("lastName"),
          email: formData.get("email"),
-         number: formData.get("number"),
-         personalID: formData.get("personalID"),
+         phoneNumber: formData.get("number"),
+         nationalId: formData.get("personalID"),
          role: formData.get("role"),
+         password: formData.get("password"),
       };
 
       try {
-         // Call the SendUserDataToServer function and get the response data
-         const responseData = await SendUserDataToServer(data);
+         const responseData = await sendUserDataToServer(data);
 
-         // Display the response data in a toast message
          toast.error(`Data sent successfully: ${JSON.stringify(responseData)}`);
       } catch (error: any) {
-         // Handle errors and display them in a toast message
          toast.error(`Error while sending data: ${error.message}`);
       }
    }

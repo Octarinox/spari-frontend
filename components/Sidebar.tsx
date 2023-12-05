@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 const Sidebar = (props: any) => {
    const path = usePathname();
    const { menu } = props;
-   console.log(menu);
+
    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
    const [menuItems, setMenuItems] = useState(menu);
