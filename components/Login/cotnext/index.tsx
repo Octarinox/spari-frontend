@@ -53,7 +53,7 @@ export const AuthProvider: FC<{
       });
 
       localStorage.removeItem("jwtToken");
-      router.replace("/login");
+      router.refresh();
    }, [router]);
 
    const value = useMemo(
