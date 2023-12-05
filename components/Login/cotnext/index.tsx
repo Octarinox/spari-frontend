@@ -54,7 +54,7 @@ export const AuthProvider: FC<{
 
       localStorage.removeItem("jwtToken");
       router.replace("/login");
-   }, []);
+   }, [router]);
 
    const value = useMemo(
       () => ({ state, actions: { userLogin, logOut } }),
