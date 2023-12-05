@@ -51,7 +51,9 @@ export const AuthProvider: FC<{
          method: "POST",
          credentials: "include",
       });
+
       localStorage.removeItem("jwtToken");
+      router.replace("/login");
    }, []);
 
    const value = useMemo(
