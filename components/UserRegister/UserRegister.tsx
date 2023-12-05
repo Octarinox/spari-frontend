@@ -15,6 +15,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 import OnlyDigits from "@/utils/OnlyDigits";
 import { SendUserDataToServer } from "./SendDataToServer";
 import { Toaster, toast } from "sonner";
+import { ToastComponentFailed } from "../ToastComponent";
+import { ToastComponentSuccess } from "../ToastComponent";
 
 export default function UserRegisterForm() {
    const [role, setRole] = useState("");
@@ -38,10 +40,12 @@ export default function UserRegisterForm() {
          const responseData = await SendUserDataToServer(data);
 
          // Display the response data in a toast message
-         toast.error(`Data sent successfully: ${JSON.stringify(responseData)}`);
+         ToastComponentSuccess(
+            `Data sent successfully: ${JSON.stringify(responseData)}`
+         );
       } catch (error: any) {
          // Handle errors and display them in a toast message
-         toast.error(`Error while sending data: ${error.message}`);
+         ToastComponentFailed(`Error while sending data: ${error.message}`);
       }
    }
 

@@ -11,6 +11,7 @@ import {
 import { reducer } from "@/components/Login/cotnext/auth.reducer";
 import { AuthContextInterface } from "@/components/Login/cotnext/auth.interface";
 import { initialContext } from "@/components/Login/cotnext/auth.state";
+import { ToastComponentFailed } from "@/components/ToastComponent";
 import { useRouter } from "next/navigation";
 
 export const AuthContext = createContext<AuthContextInterface>(initialContext);
@@ -37,8 +38,9 @@ export const AuthProvider: FC<{
                credentials: "include",
             });
             router.push("/dashboard");
-         } catch (e) {
-            console.log(e);
+         } catch (error: any) {
+            ToastComponentFailed(`Error while sending data: ${error.message}`);
+            console.log(error);
          }
       },
       [router]

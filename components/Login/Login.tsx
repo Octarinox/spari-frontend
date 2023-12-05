@@ -1,7 +1,9 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import styles from "./login.module.scss";
+import { Toaster, toast } from "sonner";
+import { ToastComponentFailed } from "../ToastComponent";
+import { ToastComponentSuccess } from "../ToastComponent";
 import { useAuthActions } from "@/components/Login/cotnext";
 
 const Login = () => {
@@ -14,41 +16,19 @@ const Login = () => {
       const email = formData.get("email");
       const password = formData.get("password");
       const res = await userLogin(email as string, password as string);
-      console.log("res");
+      console.log(res);
    };
    return (
       <div className="flex justify-center items-center h-screen flex-col shrink w-full">
-         <div className="flex justify-between w-4/5 lg:w-2/5">
-            <button
-               className={`h-16 w-1/2 md:h-24 sm:h-20 sm:text-xl ${
-                  !isActive ? "hover:bg-neutral-400" : ""
-               } ${
-                  isActive ? "text-white" : ""
-               } rounded-tl-2xl text-l font-thin ${
-                  isActive ? styles.buttonActive : styles.button
-               }`}
-               onClick={() => setIsActive(true)}
-            >
-               ADMIN LOGIN
-            </button>
-            <button
-               className={`${
-                  isActive ? "hover:bg-neutral-400" : ""
-               } h-16 text-l font-light lg:h-24 md:h-24 sm:text-xl sm:h-20 ${
-                  !isActive ? "text-white" : ""
-               } w-1/2 rounded-tr-2xl ${
-                  !isActive ? styles.buttonActive : styles.button
-               }`}
-               onClick={() => setIsActive(false)}
-            >
-               Branch ID
-            </button>
-         </div>
+         <div className="flex justify-between w-4/5 lg:w-2/5"></div>
 
-         <div className="bg-white md:h-2/4 h-2/5 w-4/5 lg:h-3/5 lg:w-2/5 rounded-b-2xl shadow-xl">
+         <div className="bg-white md:h-2/4 h-2/5 w-4/5 lg:h-3/5 lg:w-2/5 rounded-2xl shadow-xl">
+            <div className="w-4/4 flex justify-center items-end h-1/5">
+               <h1 className="text-3xl">Sign In With Email</h1>
+            </div>
             <form
                onSubmit={handleLogin}
-               className="flex flex-col items-center justify-evenly h-5/6 w-4/4 mt-10"
+               className="flex flex-col items-center justify-evenly h-4/6 w-4/4"
             >
                <div className="flex flex-col items-center justify-center">
                   <input
@@ -69,6 +49,9 @@ const Login = () => {
                      onInput={() => setErrorMessage("")}
                   />
                </div>
+
+               <Toaster richColors />
+
                <div>
                   <button
                      className={`bg-sky-950 text-white w-60 md:w-80 md:h-16 sm:w-72 h-14 rounded-lg hover:bg-gray-900`}
