@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       });
    } catch (error) {
       return new Response(JSON.stringify({ error }), {
-         status: 500,
+         status: 400,
          headers: { "Content-Type": "application/json" },
       });
    }
