@@ -13,6 +13,7 @@ import { AuthContextInterface } from "@/components/Login/cotnext/auth.interface"
 import { initialContext } from "@/components/Login/cotnext/auth.state";
 import { ToastComponentFailed } from "@/components/ToastComponent";
 import { useRouter } from "next/navigation";
+import { url } from "@/constants/shared-constants";
 
 export const AuthContext = createContext<AuthContextInterface>(initialContext);
 
@@ -29,7 +30,7 @@ export const AuthProvider: FC<{
    const userLogin = useCallback(
       async (email: string, password: string) => {
          try {
-            const data = await fetch("http://localhost:3000/next-api/login", {
+            const res = await fetch(`${url}/next-api/login`, {
                method: "POST",
                body: JSON.stringify({ email, password }),
                headers: {
@@ -37,6 +38,8 @@ export const AuthProvider: FC<{
                },
                credentials: "include",
             });
+            const data = await res.json();
+            localStorage.setItem("jwtToken", data.token);
             router.push("/dashboard");
          } catch (error: any) {
             ToastComponentFailed(`Error while sending data: ${error.message}`);
@@ -46,10 +49,11 @@ export const AuthProvider: FC<{
       [router]
    );
    const logOut = useCallback(async () => {
-      await fetch("http://localhost:3000/next-api/logout", {
+      await fetch(`${url}/next-api/logout`, {
          method: "POST",
          credentials: "include",
       });
+      localStorage.removeItem("jwtToken");
    }, []);
 
    const value = useMemo(

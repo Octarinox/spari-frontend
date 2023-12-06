@@ -1,36 +1,83 @@
-export async function POST(request: Request) {
-   const req = await request.json();
+import { AxiosResponse } from "axios";
+import axiosInstance from "@/axios/axios-instance";
+
+interface LoginRequest {
+   email: string;
+   password: string;
+}
+
+interface LoginResponse {
+   data: any;
+}
+
+export async function POST(request: Request): Promise<Response> {
+   const req: LoginRequest = await request.json();
 
    try {
-      const response = await fetch(
-         "https://octarinox.tech/api/auth/user/login",
+      const response: AxiosResponse<LoginResponse> = await axiosInstance.post(
+         "/auth/user/login",
          {
-            method: "POST",
-            body: JSON.stringify({ email: req.email, password: req.password }),
-            headers: {
-               "Content-Type": "application/json",
-            },
-            credentials: "include",
+            email: req.email,
+            password: req.password,
          }
       );
 
-      if (!response.ok) {
-         throw new Error("network response was not OK");
+      if (response.status !== 200) {
+         throw new Error("Network response was not OK");
       }
-      const data = await response.json();
-      console.log(data);
-      const rawCookies = response.headers.get("set-cookie");
-      return new Response(JSON.stringify({ data }), {
+
+      const data: LoginResponse = response.data;
+      let jwtToken;
+      const rawCookies: string | null = getCookieFromResponse(response, "/");
+      if (rawCookies && process.env.NEXT_PUBLIC_ENV) {
+         jwtToken = extractJwtToken(rawCookies);
+      }
+      return new Response(JSON.stringify({ data, token: jwtToken }), {
          status: 200,
          headers: {
             "Content-Type": "application/json",
-            "Set-Cookie": rawCookies as string,
+            "Set-Cookie": rawCookies || "",
          },
       });
-   } catch (error) {
-      return new Response(JSON.stringify({ error }), {
+   } catch (error: any) {
+      console.error(error);
+      return new Response(JSON.stringify({ error: error.message }), {
          status: 400,
          headers: { "Content-Type": "application/json" },
       });
    }
+}
+
+function extractJwtToken(cookie: string): string | null {
+   const cookieParts = cookie.split(";");
+   console.log(cookieParts);
+   for (const part of cookieParts) {
+      const [name, value] = part.trim().split("=");
+
+      if (name === "jwt" && value) {
+         return value;
+      }
+   }
+
+   return null;
+}
+
+function getCookieFromResponse(
+   response: AxiosResponse,
+   path: string
+): string | null {
+   const rawCookies: string[] | undefined = response.headers["set-cookie"];
+   return rawCookies
+      ? rawCookies
+           .map(cookie => {
+              const cookieAttributes = cookie
+                 .split(";")
+                 .map(attr => attr.trim());
+              const cookieName = cookieAttributes.shift();
+              return `${cookieName}; Path=${path}; ${cookieAttributes.join(
+                 "; "
+              )}`;
+           })
+           .join("; ")
+      : null;
 }

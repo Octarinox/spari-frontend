@@ -15,7 +15,6 @@ const Login = () => {
       const email = formData.get("email");
       const password = formData.get("password");
       const res = await userLogin(email as string, password as string);
-      console.log(res);
    };
    return (
       <div className="flex justify-center items-center h-screen flex-col shrink w-full">

@@ -58,7 +58,6 @@ export default function BranchRegisterForm() {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
 
-      console.log(manager);
       const data = {
          branchId: formData.get("branchID"),
          address: formData.get("Address"),
