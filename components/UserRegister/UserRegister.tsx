@@ -14,12 +14,10 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import OnlyDigits from "@/utils/OnlyDigits";
 
-import { Toaster, toast } from "sonner";
-import { ToastComponentFailed } from "../ToastComponent";
-import { ToastComponentSuccess } from "../ToastComponent";
+import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
 
 import { sendUserDataToServer } from "./SendDataToServer";
-import { toast, Toaster } from "sonner";
+import { Toaster } from "sonner";
 
 export default function UserRegisterForm() {
    const [role, setRole] = useState("");
@@ -42,19 +40,11 @@ export default function UserRegisterForm() {
       try {
          const responseData = await sendUserDataToServer(data);
 
-<<<<<<< HEAD
-         // Display the response data in a toast message
          ToastComponentSuccess(
             `Data sent successfully: ${JSON.stringify(responseData)}`
          );
       } catch (error: any) {
-         // Handle errors and display them in a toast message
          ToastComponentFailed(`Error while sending data: ${error.message}`);
-=======
-         toast.error(`Data sent successfully: ${JSON.stringify(responseData)}`);
-      } catch (error: any) {
-         toast.error(`Error while sending data: ${error.message}`);
->>>>>>> af2d2d8271ab43ccd95838202e9ccf9d91c0f7a9
       }
    }
 
