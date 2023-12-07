@@ -1,7 +1,7 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
 import "/styles/globals.css";
-import { settingsSidebarItems } from "@/constants/settingsSidebarItems";
+import { settingsSidebarItems } from "@/shared/constants/settingsSidebarItems";
 
 export default function LoggedInRootLayout({
    children,

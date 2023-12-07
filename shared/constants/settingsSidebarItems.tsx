@@ -1,8 +1,6 @@
-import React from "react";
 import styles from "@/shared/activeItems.module.scss";
 import { generateImageTag } from "@/utils/generateImageTag";
-import { activeClass, inactiveClass } from "@/shared/constant";
-import EditIcon from "@mui/icons-material/Edit";
+import { activeClass, inactiveClass } from "@/shared/styleConstant";
 
 export const settingsSidebarItems = [
    {

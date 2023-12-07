@@ -2,7 +2,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { classNames } from "@/utils/classConcatenate";
 import Link from "next/link";
-import { useAuthActions } from "@/components/Login/cotnext";
+import { useAuthActions } from "@/contexts/LoginContext/context";
 import { useRouter } from "next/navigation";
 
 const UserMenu = () => {

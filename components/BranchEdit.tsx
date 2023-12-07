@@ -41,7 +41,7 @@ const BranchEditTable = () => {
          <div className=" flex justify-center">
             <h1 className="text-3xl font-bold text-gray-700">Branch List</h1>
          </div>
-         <TableComponent columns={columns} rows={rows} />
+         <TableComponent columns={columns} />
       </div>
    );
 };

@@ -1,14 +1,14 @@
 "use client";
 
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { classNames } from "@/utils/classConcatenate";
 import UserMenu from "@/components/UserMenu";
-import {navBarItems} from '@/constants/navBarItems';
-import {usePathname} from 'next/navigation';
-import {getActiveItemByRoute} from '@/utils/getActiveItemByRoute';
+import { navBarItems } from "@/shared/constants/navBarItems";
+import { usePathname } from "next/navigation";
+import { getActiveItemByRoute } from "@/utils/getActiveItemByRoute";
 
 export default function Navbar() {
    const [navigationItems, setNavigationItems] = useState(navBarItems);
@@ -27,7 +27,7 @@ export default function Navbar() {
    }, [path]);
 
    return (
-      <Disclosure as="nav" className="bg-gray-700 z-50">
+      <Disclosure as="nav" className="bg-gray-700 z-50 w-full">
          {({ open }: any) => (
             <>
                <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -53,24 +53,26 @@ export default function Navbar() {
                         <div className="flex flex-shrink-0 items-center logo"></div>
                         <div className="hidden sm:ml-6 sm:block">
                            <div className="flex space-x-4">
-                              {navigationItems.map((item: any, index: number) => (
-                                 <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    onClick={() => handleClick(index)}
-                                    className={classNames(
-                                       item.current
-                                          ? "bg-gray-900 text-white"
-                                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                                       "rounded-md px-3 py-2 text-sm font-medium"
-                                    )}
-                                    aria-current={
-                                       item.current ? "page" : undefined
-                                    }
-                                 >
-                                    {item.name}
-                                 </Link>
-                              ))}
+                              {navigationItems.map(
+                                 (item: any, index: number) => (
+                                    <Link
+                                       key={item.name}
+                                       href={item.href}
+                                       onClick={() => handleClick(index)}
+                                       className={classNames(
+                                          item.current
+                                             ? "bg-gray-900 text-white"
+                                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                          "rounded-md px-3 py-2 text-sm font-medium"
+                                       )}
+                                       aria-current={
+                                          item.current ? "page" : undefined
+                                       }
+                                    >
+                                       {item.name}
+                                    </Link>
+                                 )
+                              )}
                            </div>
                         </div>
                      </div>

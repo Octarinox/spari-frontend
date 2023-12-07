@@ -8,12 +8,12 @@ import {
    useMemo,
    useReducer,
 } from "react";
-import { reducer } from "@/components/Login/cotnext/auth.reducer";
-import { AuthContextInterface } from "@/components/Login/cotnext/auth.interface";
-import { initialContext } from "@/components/Login/cotnext/auth.state";
+import { reducer } from "@/contexts/LoginContext/context/auth.reducer";
+import { AuthContextInterface } from "@/contexts/LoginContext/context/auth.interface";
+import { initialContext } from "@/contexts/LoginContext/context/auth.state";
 import { ToastComponentFailed } from "@/components/ToastComponent";
 import { useRouter } from "next/navigation";
-import { url } from "@/constants/shared-constants";
+import { url } from "@/shared/constants/shared-constants";
 
 export const AuthContext = createContext<AuthContextInterface>(initialContext);
 
@@ -40,6 +40,7 @@ export const AuthProvider: FC<{
             });
             const data = await res.json();
             localStorage.setItem("jwtToken", data.token);
+            console.log("hi");
             router.push("/dashboard");
          } catch (error: any) {
             ToastComponentFailed(`Error while sending data: ${error.message}`);
