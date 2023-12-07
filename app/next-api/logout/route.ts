@@ -1,8 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: any, res: any) {
    try {
       cookies().delete("jwt");
 
