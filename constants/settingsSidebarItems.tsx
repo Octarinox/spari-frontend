@@ -93,4 +93,22 @@ export const settingsSidebarItems = [
       className: inactiveClass,
       classNameCurrent: activeClass,
    },
+   {
+      text: "Edit Branch Configs",
+
+      getCurrentItem() {
+         const activeItemStyle = this.current
+            ? styles.activeIcon
+            : styles.inactiveIcon;
+         return generateImageTag(
+            "/settings.svg",
+            "blacklist_icon",
+            activeItemStyle
+         );
+      },
+      href: "/settings/edit-branch-configs",
+      current: false,
+      className: inactiveClass,
+      classNameCurrent: activeClass,
+   },
 ];
