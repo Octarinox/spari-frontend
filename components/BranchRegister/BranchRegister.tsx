@@ -23,8 +23,7 @@ import {
 } from "@/components/BranchRegister/constants";
 import { sendDataToServer } from "@/components/BranchRegister/sendDataToServer";
 
-import { ToastComponentFailed } from "../ToastComponent";
-import { ToastComponentSuccess } from "../ToastComponent";
+import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
 
 export default function BranchRegisterForm() {
    const [queueInput, setQueueInput] = useState(queueInputsValues);
@@ -61,7 +60,6 @@ export default function BranchRegisterForm() {
       const data = {
          branchId: formData.get("branchID"),
          address: formData.get("Address"),
-         password: formData.get("Password"),
          users: {
             manager,
             headManager,
@@ -74,23 +72,20 @@ export default function BranchRegisterForm() {
             },
          },
          faceAiConfig: { alertMessage: formData.get("faceAlertMessage") },
-         queueAiConfigs: {
+         queueConfig: {
             alertMessage: formData.get("queueAlertMessage"),
             warningOnAmount: formData.get("peopleAmount"),
          },
          serviceConfig: servicesData,
       };
       try {
-         // Call the SendUserDataToServer function and get the response data
          await sendDataToServer(data);
          const responseData = await sendDataToServer(data);
 
-         // Display the response data in a toast message
          ToastComponentSuccess(
             `Data sent successfully: ${JSON.stringify(responseData)}`
          );
       } catch (error: any) {
-         // Handle errors and display them in a toast message
          ToastComponentFailed(`Error while sending data: ${error.message}`);
       }
    };
@@ -150,17 +145,6 @@ export default function BranchRegisterForm() {
                               id="Address"
                               label="Address"
                               name="Address"
-                              autoComplete="off"
-                           />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                           <TextField
-                              required
-                              fullWidth
-                              id="Password"
-                              label="Password"
-                              name="Password"
                               autoComplete="off"
                            />
                         </Grid>

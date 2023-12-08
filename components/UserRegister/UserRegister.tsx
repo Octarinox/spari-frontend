@@ -31,15 +31,14 @@ export default function UserRegisterForm() {
          firstName: formData.get("firstName"),
          lastName: formData.get("lastName"),
          email: formData.get("email"),
-         phoneNumber: formData.get("number"),
+         phoneNumber: (formData.get("number") as string)?.replace(/\s+/g, ""),
          nationalId: formData.get("personalID"),
          role: formData.get("role"),
          password: formData.get("password"),
       };
-
+      console.log(data);
       try {
          const responseData = await sendUserDataToServer(data);
-
          ToastComponentSuccess(
             `Data sent successfully: ${JSON.stringify(responseData)}`
          );

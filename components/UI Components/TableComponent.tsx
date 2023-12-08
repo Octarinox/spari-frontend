@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -10,10 +8,19 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
-const TableComponent = ({ columns, rows }: { columns: any[]; rows: any[] }) => {
+const TableComponent = ({
+   data,
+   allowedProperties,
+   rowsPerPageOptions = [10, 25, 100],
+}: {
+   data?: any[] | null;
+   allowedProperties: string[];
+   rowsPerPageOptions?: number[];
+}) => {
    const [page, setPage] = useState(0);
-   const [rowsPerPage, setRowsPerPage] = useState(10);
-   const handleChangePage = (event: unknown, newPage: number) => {
+   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
+
+   const handleChangePage = (_: any, newPage: number) => {
       setPage(newPage);
    };
 
@@ -23,6 +30,14 @@ const TableComponent = ({ columns, rows }: { columns: any[]; rows: any[] }) => {
       setRowsPerPage(+event.target.value);
       setPage(0);
    };
+
+   const rows = data ? data.flatMap(pageData => pageData.data) : [];
+   const headRows = allowedProperties.map(property => ({
+      id: property,
+      label: property.toUpperCase(), // Convert to uppercase
+      align: "left",
+   }));
+
    return (
       <>
          <Paper sx={{ width: "100%", overflow: "hidden", marginTop: "100px" }}>
@@ -30,17 +45,17 @@ const TableComponent = ({ columns, rows }: { columns: any[]; rows: any[] }) => {
                <Table stickyHeader aria-label="sticky table">
                   <TableHead sx={{ paddingBottom: "10px" }}>
                      <TableRow>
-                        {columns.map((column: any) => (
+                        {headRows.map((headRow: any) => (
                            <TableCell
-                              key={column.id}
-                              align={column.align}
+                              key={headRow.id}
+                              align={headRow.align}
                               style={{
-                                 minWidth: column.minWidth,
+                                 minWidth: "100px",
                                  background: "#384454",
                                  color: "white",
                               }}
                            >
-                              {column.label}
+                              {headRow.label}
                            </TableCell>
                         ))}
                      </TableRow>
@@ -51,44 +66,38 @@ const TableComponent = ({ columns, rows }: { columns: any[]; rows: any[] }) => {
                            page * rowsPerPage,
                            page * rowsPerPage + rowsPerPage
                         )
-                        .map((row: any) => {
-                           return (
-                              <TableRow
-                                 hover
-                                 role="checkbox"
-                                 tabIndex={-1}
-                                 key={row.email}
-                              >
-                                 {columns.map((column: any) => {
-                                    const value = row[column.id];
-                                    return (
-                                       <TableCell
-                                          key={column.id}
-                                          align={column.align}
-                                       >
-                                          {column.format &&
-                                          typeof value === "number"
-                                             ? column.format(value)
-                                             : value}
-                                       </TableCell>
-                                    );
-                                 })}
-                              </TableRow>
-                           );
-                        })}
+                        .map((row: any) => (
+                           <TableRow
+                              hover
+                              role="checkbox"
+                              tabIndex={-1}
+                              key={row._id}
+                           >
+                              {headRows.map((headRow: any) => (
+                                 <TableCell
+                                    key={headRow.id}
+                                    align={headRow.align}
+                                 >
+                                    {row[headRow.id]}
+                                 </TableCell>
+                              ))}
+                           </TableRow>
+                        ))}
                   </TableBody>
                </Table>
             </TableContainer>
-            <TablePagination
-               rowsPerPageOptions={[10, 25, 100]}
-               component="div"
-               count={rows.length}
-               rowsPerPage={rowsPerPage}
-               page={page}
-               onPageChange={handleChangePage}
-               onRowsPerPageChange={handleChangeRowsPerPage}
-               sx={{ background: "#384454", color: "white" }}
-            />
+            {data && (
+               <TablePagination
+                  rowsPerPageOptions={rowsPerPageOptions}
+                  component="div"
+                  count={rows.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  sx={{ background: "#ffffff", color: "black" }}
+               />
+            )}
          </Paper>
       </>
    );

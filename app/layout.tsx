@@ -7,8 +7,9 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
-import { AuthProvider } from "@/components/Login/cotnext";
+import { AuthProvider } from "@/contexts/LoginContext/context";
 import * as React from "react";
+import { BranchProvider } from "@/contexts/BranchesContext";
 
 const openSans = Open_Sans({
    subsets: ["latin"],
@@ -27,7 +28,9 @@ export default function LoggedOutRootLayout({
    return (
       <html lang="en">
          <body className={`${openSans.className} bg-indigo-50`}>
-            <AuthProvider>{children}</AuthProvider>
+            <AuthProvider>
+               <BranchProvider>{children}</BranchProvider>
+            </AuthProvider>
          </body>
       </html>
    );

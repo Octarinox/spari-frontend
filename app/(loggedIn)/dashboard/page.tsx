@@ -1,11 +1,24 @@
+"use client";
 import Search from "@/components/Search";
-import { ListsTable } from "@/components/Lists";
+import { useEffect } from "react";
+import { useBranchActions, useBranchState } from "@/contexts/BranchesContext";
+import TableComponent from "@/components/UI Components/TableComponent";
 
-export default async function IndexPage() {
+export default function IndexPage() {
+   const { getBranches } = useBranchActions();
+   const { data } = useBranchState();
+   const allowedProperties = ["branchId", "address"];
+   useEffect(() => {
+      async function fetchData() {
+         await getBranches();
+      }
+
+      fetchData();
+   }, []);
    return (
-      <div className="p-4 md:p-10 mx-auto max-w-7xl w-full">
+      <div className="p-4 md:p-10 mx-autxo max-w-7xl w-full">
          <Search />
-         <ListsTable />
+         <TableComponent allowedProperties={allowedProperties} data={data} />
       </div>
    );
 }
