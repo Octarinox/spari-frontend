@@ -1,7 +1,7 @@
 "use client";
 
-const LoginPage = () => {
+const BranchPage = () => {
    return <div>hu</div>;
 };
 
-export default LoginPage;
+export default BranchPage;

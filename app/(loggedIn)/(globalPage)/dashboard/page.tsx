@@ -19,7 +19,7 @@ export default function IndexPage() {
    }, []);
    const handleClick = (row: any) => {
       console.log(row);
-      router.push(`branch/${row.branchId}`);
+      router.push(`branch/${row.branchId}/analytics`);
    };
    return (
       <div className="p-4 md:p-10  w-full">

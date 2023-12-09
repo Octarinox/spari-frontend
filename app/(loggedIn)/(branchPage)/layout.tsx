@@ -10,7 +10,7 @@ export default function BranchPageLayout({
    children: React.ReactNode;
 }) {
    return (
-      <main>
+      <main className={"flex flex-row"}>
          <Sidebar menu={branchPageSidebarItems} sideBarStyle={sideBarStyle} />
          {children}
       </main>

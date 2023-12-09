@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Button, ButtonGroup, useMediaQuery } from "@mui/material";
 import { groupBranchesByInterval } from "@/utils/groupBranchesByInterval";
-import { branchData } from "@/components/Analytics/constants/testBranches";
 import { calculateQueueAverage } from "@/utils/calculateQueueAverage";
 
 const options = [
@@ -13,14 +12,14 @@ const options = [
 ];
 
 const TimeIntervals = (props: any) => {
-   const { onClick } = props;
+   const { onClick, data } = props;
    const [selectedButton, setSelectedButton] = React.useState("1yr");
-   const isMobile = useMediaQuery("(max-width: 600px)"); // Adjust the breakpoint as needed
+   const isMobile = useMediaQuery("(max-width: 600px)");
 
    const handleClick = (item: any) => {
       setSelectedButton(item.value);
-      const groupedBranches = groupBranchesByInterval(branchData, item.value);
-      const averageResults = calculateQueueAverage(branchData, groupedBranches);
+      const groupedBranches = groupBranchesByInterval(data, item.value);
+      const averageResults = calculateQueueAverage(data, groupedBranches);
       onClick(averageResults);
    };
 
