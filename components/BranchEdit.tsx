@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import TableComponent from "./UI Components/TableComponent";
 
 interface Column {
    id: "branchID" | "address";
@@ -41,7 +40,6 @@ const BranchEditTable = () => {
          <div className=" flex justify-center">
             <h1 className="text-3xl font-bold text-gray-700">Branch List</h1>
          </div>
-         <TableComponent columns={columns} />
       </div>
    );
 };

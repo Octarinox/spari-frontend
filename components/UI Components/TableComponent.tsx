@@ -12,10 +12,12 @@ const TableComponent = ({
    data,
    allowedProperties,
    rowsPerPageOptions = [10, 25, 100],
+   handleClick,
 }: {
    data?: any[] | null;
    allowedProperties: string[];
    rowsPerPageOptions?: number[];
+   handleClick: Function;
 }) => {
    const [page, setPage] = useState(0);
    const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
@@ -68,7 +70,9 @@ const TableComponent = ({
                         )
                         .map((row: any) => (
                            <TableRow
+                              className={"cursor-pointer"}
                               hover
+                              onClick={(e: any) => handleClick(row)}
                               role="checkbox"
                               tabIndex={-1}
                               key={row._id}

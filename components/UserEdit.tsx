@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import TableComponent from "./UI Components/TableComponent";
 
 interface Column {
    id: "firstname" | "lastname" | "email";
@@ -66,7 +65,6 @@ export default function UserEdit() {
             <div className=" flex justify-center">
                <h1 className="text-3xl font-bold text-gray-700">Users List</h1>
             </div>
-            <TableComponent columns={columns} />
          </div>
       </>
    );

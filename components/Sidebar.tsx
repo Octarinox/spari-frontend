@@ -5,9 +5,8 @@ import Link from "next/link";
 import { getActiveItemByRoute } from "@/utils/getActiveItemByRoute";
 import { usePathname } from "next/navigation";
 
-const Sidebar = (props: any) => {
+const Sidebar = ({ menu, sideBarStyle = null, buttonStyle = null }: any) => {
    const path = usePathname();
-   const { menu } = props;
 
    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -34,12 +33,13 @@ const Sidebar = (props: any) => {
       setIsSidebarOpen(false);
    };
    return (
-      <div className="">
+      <div>
          <button
             onClick={toggleSidebar}
             data-drawer-target="default-sidebar"
             data-drawer-toggle="default-sidebar"
             aria-controls="default-sidebar"
+            style={buttonStyle}
             type="button"
             className={`inline-flex border-white drop-shadow-lg items-center absolute left-0  z-50 ${
                isSidebarOpen ? "ml-48" : ""
@@ -78,14 +78,17 @@ const Sidebar = (props: any) => {
          </button>
          <div
             id="default-sidebar"
-            className={`z-40 absolute top-0 left-0 w-64 h-screen transition-transform ${
+            className={`z-40 relative top-0 left-0 w-64 h-screen transition-transform ${
                isSidebarOpen
                   ? "translate-x-0"
                   : "-translate-x-full sm:translate-x-0"
             }`}
             aria-label="Sidebar"
          >
-            <div className="h-full w-48 md:w-48 lg:w-64 drop-shadow-lg mt-16 px-3 z-0 py-4 bg-gray-100">
+            <div
+               className="h-full w-48 md:w-48 lg:w-64 drop-shadow-lg  px-3 z-0 py-4 bg-gray-100 "
+               style={sideBarStyle}
+            >
                <ul className="space-y-2 font-medium z-0">
                   {menuItems.map((item: any, index: number) => (
                      <li key={index} onClick={() => handleClick(index)}>

@@ -7,7 +7,7 @@ export default function LoggedInRootLayout({
    children: React.ReactNode;
 }) {
    return (
-      <main className={"flex flex-col items-center"}>
+      <main>
          <NavBar />
          {children}
       </main>

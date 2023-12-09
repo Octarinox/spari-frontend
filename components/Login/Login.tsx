@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import { Toaster } from "sonner";
 
-import { useAuthActions } from "../../contexts/LoginContext/context";
+import { useAuthActions } from "@/contexts/LoginContext/context";
 
 const Login = () => {
    const [errorMessage, setErrorMessage] = useState("");
