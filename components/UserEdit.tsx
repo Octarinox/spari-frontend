@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-
+import SearchBarComponent from "./UI Components/FilterComponent";
+import { UsersSelectComponent } from "./UI Components/FilterComponent";
 interface Column {
    id: "firstname" | "lastname" | "email";
    label: string;
@@ -64,6 +65,10 @@ export default function UserEdit() {
          <div>
             <div className=" flex justify-center">
                <h1 className="text-3xl font-bold text-gray-700">Users List</h1>
+            </div>
+            <div className="flex w-4/4 justify-end">
+               <SearchBarComponent />
+               <UsersSelectComponent />
             </div>
          </div>
       </>
