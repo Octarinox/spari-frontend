@@ -1,4 +1,4 @@
-import {groupByInterval} from '@/utils/groupByIntervals';
+import { groupByInterval } from "@/utils/groupByIntervals";
 
 // @ts-ignore
 export function groupBranchesByInterval(data, timeRange) {
@@ -33,7 +33,7 @@ export function groupBranchesByInterval(data, timeRange) {
       case "1yr":
          startTime = currentTime - 365 * 24 * 60 * 60 * 1000;
          interval = 30 * 24 * 60 * 60 * 1000;
-         format = { month: "long", day: "numeric" };
+         format = { month: "long" };
          break;
       default:
          throw new Error("Invalid time range specified.");

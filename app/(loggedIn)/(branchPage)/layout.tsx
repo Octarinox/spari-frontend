@@ -1,6 +1,6 @@
 "use client";
 import "/styles/globals.css";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/UI Components/Sidebar";
 import { branchPageSidebarItems } from "@/local-constants/branchPageSidebarItems";
 import { sideBarStyle } from "@/local-constants/styles/branchPageSidebar";
 

@@ -1,5 +1,5 @@
 "use client";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/UI Components/Sidebar";
 import "/styles/globals.css";
 import { settingsSidebarItems } from "@/shared/constants/settingsSidebarItems";
 

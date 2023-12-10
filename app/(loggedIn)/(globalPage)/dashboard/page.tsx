@@ -1,9 +1,10 @@
 "use client";
 import Search from "@/components/Search";
 import { useEffect } from "react";
-import { useBranchActions, useBranchState } from "@/contexts/BranchesContext";
+
 import TableComponent from "@/components/UI Components/TableComponent";
 import { useRouter } from "next/navigation";
+import { useBranchActions, useBranchState } from "@/contexts/BranchesContext";
 
 export default function IndexPage() {
    const { getBranches } = useBranchActions();
@@ -17,6 +18,7 @@ export default function IndexPage() {
 
       fetchData();
    }, []);
+   console.log(data);
    const handleClick = (row: any) => {
       console.log(row);
       router.push(`branch/${row.branchId}/analytics`);

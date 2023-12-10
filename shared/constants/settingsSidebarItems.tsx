@@ -92,7 +92,7 @@ export const settingsSidebarItems = [
       classNameCurrent: activeClass,
    },
    {
-      text: "Edit Branch Configs",
+      text: "Edit Configs",
 
       getCurrentItem() {
          const activeItemStyle = this.current

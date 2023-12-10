@@ -1,74 +1,70 @@
 "use client";
 
-import React from "react";
-import SearchBarComponent from "./UI Components/FilterComponent";
-import { UsersSelectComponent } from "./UI Components/FilterComponent";
-interface Column {
-   id: "firstname" | "lastname" | "email";
-   label: string;
-   minWidth?: number;
-   align?: "right";
-   format?: (value: number) => string;
-}
+import React, { useEffect, useState } from "react";
 
-const columns: Column[] = [
-   { id: "firstname", label: "Firstname", minWidth: 170 },
-   { id: "lastname", label: "Lastname", minWidth: 100 },
+import TableComponent from "@/components/UI Components/TableComponent";
+import { useUsersActions, useUsersState } from "@/contexts/UsersContext";
+import FilterComponent from "@/components/UI Components/FilterComponent";
+
+const options = [
    {
-      id: "email",
+      value: "firstName",
+      label: "First Name",
+   },
+   {
+      value: "lastName",
+      label: "Last Name",
+   },
+   {
+      value: "email",
       label: "Email",
-      minWidth: 170,
-      align: "right",
-      format: (value: number) => value.toLocaleString("en-US"),
    },
 ];
-
-interface Data {
-   firstname: string;
-   lastname: string;
-   email: number;
-}
-
-function createData(firstname: string, lastname: string, email: any): Data {
-   const density = email;
-   return { firstname, lastname, email };
-}
-
-const rows = [
-   createData("Firstname", "Lastname", "E1mail@example.com"),
-   createData("Firstname", "Lastname", "E2mfail@example.com"),
-   createData("Firstname", "Lastname", "E3madil@example.com"),
-   createData("Firstname", "Lastname", "E4maivl@example.com"),
-   createData("Firstname", "Lastname", "E5maail@example.com"),
-   createData("Firstname", "Lastname", "E6maisl@example.com"),
-   createData("Firstname", "Lastname", "E7maihl@example.com"),
-   createData("Firstname", "Lastname", "E8mailg@example.com"),
-   createData("Firstname", "Lastname", "E9ma3il@example.com"),
-   createData("Firstname", "Lastname", "E10majil@example.com"),
-   createData("Firstname", "Lastname", "E11mkail@example.com"),
-   createData("Firstname", "Lastname", "E12mlail@example.com"),
-   createData("Firstname", "Lastname", "E13ma;il@example.com"),
-   createData("Firstname", "Lastname", "E14ma'il@example.com"),
-   createData("Firstname", "Lastname", "E15macil@example.com"),
-   createData("Firstname", "Lastname", "E16mavil@example.com"),
-   createData("Firstname", "Lastname", "E17mabil@example.com"),
-   createData("Firstname", "Lastname", "E18mainl@example.com"),
-   createData("Firstname", "Lastname", "E19maiml@example.com"),
-   createData("Firstname", "Lastname", "E20mai,l@example.com"),
-   createData("Firstname", "Lastname", "E21mai.l@example.com"),
-   createData("Firstname", "Lastname", "E22mai]l@example.com"),
-];
-
 export default function UserEdit() {
+   const { getUsers } = useUsersActions();
+   const { data } = useUsersState();
+   const [filteredData, setFilteredData] = useState<any>(data);
+
+   const allowedProperties = ["firstName", "lastName", "email"];
+   useEffect(() => {
+      async function fetchData() {
+         await getUsers();
+      }
+
+      fetchData();
+   }, []);
+   useEffect(() => {
+      setFilteredData(data);
+   }, [data]);
+
+   const handleClick = (item: any) => {
+      console.log(item);
+   };
+
+   const handleFilterChange = ({ selectedOption, searchValue }: any) => {
+      const updatedFilteredData = data?.filter(item => {
+         return item[selectedOption]
+            .toLowerCase()
+            .includes(searchValue.toLowerCase());
+      });
+      setFilteredData(updatedFilteredData);
+   };
    return (
       <>
-         <div>
-            <div className=" flex justify-center">
+         <div className={""}>
+            <div className=" flex justify-center sm:mr-72">
                <h1 className="text-3xl font-bold text-gray-700">Users List</h1>
             </div>
-            <div className="flex w-4/4 justify-end">
-               <SearchBarComponent />
-               <UsersSelectComponent />
+            <div className="flex flex-col">
+               <FilterComponent
+                  options={options}
+                  handleChange={handleFilterChange}
+               />
+               <TableComponent
+                  allowedProperties={allowedProperties}
+                  data={filteredData}
+                  handleClick={handleClick}
+               />
             </div>
          </div>
       </>

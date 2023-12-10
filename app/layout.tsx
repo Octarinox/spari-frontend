@@ -9,6 +9,7 @@ import "@fontsource/roboto/700.css";
 
 import { AuthProvider } from "@/contexts/LoginContext/context";
 import * as React from "react";
+import { UsersProvider } from "@/contexts/UsersContext";
 import { BranchProvider } from "@/contexts/BranchesContext";
 
 const openSans = Open_Sans({
@@ -29,7 +30,9 @@ export default function LoggedOutRootLayout({
       <html lang="en">
          <body className={`${openSans.className} bg-indigo-50`}>
             <AuthProvider>
-               <BranchProvider>{children}</BranchProvider>
+               <BranchProvider>
+                  <UsersProvider>{children}</UsersProvider>
+               </BranchProvider>
             </AuthProvider>
          </body>
       </html>

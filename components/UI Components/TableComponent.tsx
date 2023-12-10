@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -21,6 +21,7 @@ const TableComponent = ({
 }) => {
    const [page, setPage] = useState(0);
    const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
+   const rows = data || [];
 
    const handleChangePage = (_: any, newPage: number) => {
       setPage(newPage);
@@ -32,17 +33,33 @@ const TableComponent = ({
       setRowsPerPage(+event.target.value);
       setPage(0);
    };
-
-   const rows = data ? data.flatMap(pageData => pageData.data) : [];
    const headRows = allowedProperties.map(property => ({
       id: property,
-      label: property.toUpperCase(), // Convert to uppercase
+      label: property.toUpperCase(),
       align: "left",
    }));
 
+   const calculateRowsPerPage = () => {
+      const totalRows = rows.length;
+      let defaultRowsPerPage = rowsPerPageOptions[0];
+
+      for (const option of rowsPerPageOptions) {
+         if (totalRows <= option) {
+            defaultRowsPerPage = option;
+            break;
+         }
+      }
+
+      return defaultRowsPerPage;
+   };
+
+   useEffect(() => {
+      setRowsPerPage(calculateRowsPerPage());
+   }, [data]);
+
    return (
       <>
-         <Paper sx={{ width: "100%", overflow: "hidden", marginTop: "100px" }}>
+         <Paper sx={{ width: "100%", overflow: "hidden", marginTop: "50px" }}>
             <TableContainer sx={{ maxHeight: 440 }}>
                <Table stickyHeader aria-label="sticky table">
                   <TableHead sx={{ paddingBottom: "10px" }}>

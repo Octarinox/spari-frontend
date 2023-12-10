@@ -1,72 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-export default function SearchBarComponent() {
-   return (
-      <Box
-         component="form"
-         sx={{
-            paddingRight: "10px",
-         }}
-         noValidate
-         autoComplete="off"
-      >
-         <TextField id="outlined-basic" label="Search" variant="outlined" />
-      </Box>
-   );
-}
+import Select from "@mui/material/Select";
 
-export function UsersSelectComponent() {
-   const [age, setAge] = React.useState("");
+export default function FilterComponent(props: any) {
+   const { options, handleChange } = props;
+   const [selectedValue, setSelectedValue] = useState("");
 
-   const handleChange = (event: SelectChangeEvent) => {
-      setAge(event.target.value as string);
+   const handleSearchChange = (searchValue: string) => {
+      handleChange({
+         selectedOption: selectedValue,
+         searchValue,
+      });
+   };
+
+   const handleSelectChange = (newValue: string) => {
+      setSelectedValue(newValue);
+      handleChange({
+         selectedOption: newValue,
+         searchValue: "", // Reset search value when changing the filter option
+      });
    };
 
    return (
-      <Box sx={{ minWidth: 120 }}>
+      <Box component="div" className={"flex flex-row gap-4 md:w-1/2 mt-20"}>
+         <TextField
+            id="outlined-basic"
+            label="Search"
+            variant="outlined"
+            sx={{
+               width: "100%",
+            }}
+            onChange={e => handleSearchChange(e.target.value)}
+         />
          <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Select</InputLabel>
             <Select
                labelId="demo-simple-select-label"
                id="demo-simple-select"
-               value={age}
-               label="Age"
-               onChange={handleChange}
+               label="Select"
+               value={selectedValue}
+               onChange={e => handleSelectChange(e.target.value)}
             >
-               <MenuItem value={10}>Name</MenuItem>
-               <MenuItem value={20}>Lastname</MenuItem>
-               <MenuItem value={30}>Email</MenuItem>
-            </Select>
-         </FormControl>
-      </Box>
-   );
-}
-
-export function BranchesSelectComponent() {
-   const [age, setAge] = React.useState("");
-
-   const handleChange = (event: SelectChangeEvent) => {
-      setAge(event.target.value as string);
-   };
-
-   return (
-      <Box sx={{ minWidth: 120 }}>
-         <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Select</InputLabel>
-            <Select
-               labelId="demo-simple-select-label"
-               id="demo-simple-select"
-               value={age}
-               label="Age"
-               onChange={handleChange}
-            >
-               <MenuItem value={10}>Branch ID</MenuItem>
-               <MenuItem value={20}>Address</MenuItem>
+               {options.map((option: any) => (
+                  <MenuItem value={option.value} key={option.label}>
+                     {option.label}
+                  </MenuItem>
+               ))}
             </Select>
          </FormControl>
       </Box>
