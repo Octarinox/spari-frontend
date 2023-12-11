@@ -2,7 +2,7 @@
 
 import React from "react";
 import SearchBarComponent from "./UI Components/FilterComponent";
-import { BranchesSelectComponent } from "./UI Components/FilterComponent";
+import FilterComponent from "./UI Components/FilterComponent";
 
 interface Column {
    id: "branchID" | "address";
@@ -44,7 +44,7 @@ const BranchEditTable = () => {
          </div>
          <div className="flex w-4/4 justify-end">
             <SearchBarComponent />
-            <BranchesSelectComponent />
+            <FilterComponent />
          </div>
       </div>
    );

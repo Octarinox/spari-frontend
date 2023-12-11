@@ -168,42 +168,20 @@ export default function UserRegisterForm() {
                            </Select>
                         </FormControl>
                         <Grid item xs={12}>
-                           {role === "Admin" ? (
-                              <TextField
-                                 required
-                                 fullWidth
-                                 // sx={{
-                                 //    width: {
-                                 //       xs: 320,
-                                 //       sm: 400,
-                                 //    },
-                                 // }}
-                                 name="password"
-                                 label="Password"
-                                 type="password"
-                                 id="password"
-                              />
-                           ) : role === "Manager" || role === "HeadManager" ? (
-                              <Autocomplete
-                                 disablePortal
-                                 id="combo-box-demo"
-                                 options={branches}
-                                 sx={{
-                                    width: {
-                                       xs: 410,
-                                    },
-                                    mb: 2,
-                                 }}
-                                 renderInput={params => (
-                                    <TextField
-                                       required
-                                       {...params}
-                                       label="Branch"
-                                       name="branch"
-                                    />
-                                 )}
-                              />
-                           ) : null}
+                           <TextField
+                              required
+                              fullWidth
+                              // sx={{
+                              //    width: {
+                              //       xs: 320,
+                              //       sm: 400,
+                              //    },
+                              // }}
+                              name="password"
+                              label="Password"
+                              type="password"
+                              id="password"
+                           />
                         </Grid>
                      </Grid>
                   </Grid>
