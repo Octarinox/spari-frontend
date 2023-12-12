@@ -1,34 +1,48 @@
 "use client";
-import Search from "@/components/Search";
-import { useEffect } from "react";
-
 import TableComponent from "@/components/UI Components/TableComponent";
 import { useRouter } from "next/navigation";
-import { useBranchActions, useBranchState } from "@/contexts/BranchesContext";
+import { useBranchState } from "@/contexts/BranchesContext";
+import useBranchFetcher from "@/shared/hooks/useBranchFetch";
+import FilterComponent from "@/components/UI Components/FilterComponent";
+import React, { useEffect, useState } from "react";
 
+const options = [
+   {
+      value: "branchId",
+      label: "Branch ID",
+   },
+   {
+      value: "address",
+      label: "Address",
+   },
+];
 export default function IndexPage() {
-   const { getBranches } = useBranchActions();
+   useBranchFetcher();
    const router = useRouter();
    const { data } = useBranchState();
+   const [filteredData, setFilteredData] = useState<any>(data);
    const allowedProperties = ["branchId", "address"];
-   useEffect(() => {
-      async function fetchData() {
-         await getBranches();
-      }
-
-      fetchData();
-   }, []);
-   console.log(data);
    const handleClick = (row: any) => {
       console.log(row);
       router.push(`branch/${row.branchId}/analytics`);
    };
+   useEffect(() => {
+      setFilteredData(data);
+   }, [data]);
+   const handleFilterChange = ({ selectedOption, searchValue }: any) => {
+      const updatedFilteredData = data?.filter(item => {
+         return item[selectedOption]
+            .toLowerCase()
+            .includes(searchValue.toLowerCase());
+      });
+      setFilteredData(updatedFilteredData);
+   };
    return (
       <div className="p-4 md:p-10  w-full">
-         <Search />
+         <FilterComponent options={options} handleChange={handleFilterChange} />
          <TableComponent
             allowedProperties={allowedProperties}
-            data={data}
+            data={filteredData}
             handleClick={handleClick}
          />
       </div>

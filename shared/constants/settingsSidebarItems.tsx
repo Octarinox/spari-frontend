@@ -74,24 +74,6 @@ export const settingsSidebarItems = [
       classNameCurrent: activeClass,
    },
    {
-      text: "Edit Branches",
-
-      getCurrentItem() {
-         const activeItemStyle = this.current
-            ? styles.activeIcon
-            : styles.inactiveIcon;
-         return generateImageTag(
-            "/edit-branch.svg",
-            "blacklist_icon",
-            activeItemStyle
-         );
-      },
-      href: "/settings/branch-edit",
-      current: false,
-      className: inactiveClass,
-      classNameCurrent: activeClass,
-   },
-   {
       text: "Edit Configs",
 
       getCurrentItem() {

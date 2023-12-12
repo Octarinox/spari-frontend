@@ -91,17 +91,7 @@ export default function BranchRegisterForm() {
    };
 
    return (
-      <Container
-         sx={{
-            marginLeft: {
-               md: "300px",
-               sm: "200px",
-               lg: "350px",
-            },
-         }}
-         component="main"
-         maxWidth="xs"
-      >
+      <Container component="main" maxWidth="xs">
          <Box
             sx={{
                marginTop: 8,

@@ -45,7 +45,7 @@ export default function FilterComponent(props: any) {
                value={selectedValue}
                onChange={e => handleSelectChange(e.target.value)}
             >
-               {options.map((option: any) => (
+               {options?.map((option: any) => (
                   <MenuItem value={option.value} key={option.label}>
                      {option.label}
                   </MenuItem>
