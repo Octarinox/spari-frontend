@@ -44,14 +44,6 @@ export default function UserRegisterForm() {
       }
    }
 
-   const branches = [
-      { label: "Branch#1" },
-      { label: "Branch#2" },
-      { label: "Branch#3" },
-      { label: "Branch#4" },
-      { label: "Branch#5" },
-   ];
-
    const handleChange = (newValue: any) => {
       setValue(newValue);
    };

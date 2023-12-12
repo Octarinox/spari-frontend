@@ -37,11 +37,12 @@ export default function FilterComponent(props: any) {
             onChange={e => handleSearchChange(e.target.value)}
          />
          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Select</InputLabel>
+            <InputLabel id="demo-simple-select-label">Filter By</InputLabel>
             <Select
                labelId="demo-simple-select-label"
                id="demo-simple-select"
                label="Select"
+               variant="filled"
                value={selectedValue}
                onChange={e => handleSelectChange(e.target.value)}
             >

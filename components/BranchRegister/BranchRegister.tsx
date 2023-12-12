@@ -82,11 +82,9 @@ export default function BranchRegisterForm() {
          await sendDataToServer(data);
          const responseData = await sendDataToServer(data);
 
-         ToastComponentSuccess(
-            `Data sent successfully: ${JSON.stringify(responseData)}`
-         );
+         ToastComponentSuccess(responseData.data.message);
       } catch (error: any) {
-         ToastComponentFailed(`Error while sending data: ${error.message}`);
+         ToastComponentFailed(`${error.response.data.errors}`);
       }
    };
 
