@@ -17,15 +17,10 @@ import FormGroup from "@mui/material/FormGroup";
 import { Toaster } from "sonner";
 import EnhancedTable from "./UI Components/CheckboxTableComponent";
 import QueueInputs from "./BranchRegister/QueueInputs";
-import {
-   headManagers,
-   managers,
-   queueInputsValues,
-} from "@/components/BranchRegister/constants";
+import { queueInputsValues } from "@/components/BranchRegister/constants";
 import { ToastComponentFailed } from "./ToastComponent";
-import { ToastComponentSuccess } from "./ToastComponent";
 
-const EditBranchConfigsComponent = () => {
+const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
    const [queueInput, setQueueInput] = useState(queueInputsValues);
    const [servicesData, setServicesData] = useState<any>({
       faceDetect: {
