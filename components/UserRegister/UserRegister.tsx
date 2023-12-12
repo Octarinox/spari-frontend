@@ -11,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { MuiTelInput } from "mui-tel-input";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import Autocomplete from "@mui/material/Autocomplete";
 import OnlyDigits from "@/utils/OnlyDigits";
 
 import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
@@ -39,11 +38,9 @@ export default function UserRegisterForm() {
       console.log(data);
       try {
          const responseData = await sendUserDataToServer(data);
-         ToastComponentSuccess(
-            `Data sent successfully: ${JSON.stringify(responseData)}`
-         );
+         ToastComponentSuccess(responseData.data.message);
       } catch (error: any) {
-         ToastComponentFailed(`Error while sending data: ${error.message}`);
+         ToastComponentFailed(`${error.response.data.errors}`);
       }
    }
 
