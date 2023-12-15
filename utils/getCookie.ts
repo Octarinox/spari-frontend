@@ -5,7 +5,6 @@ export const getCookie = (headers: any) => {
       const jwtCookie = document.cookie
          .split(";")
          .find(cookie => cookie.trim().startsWith("jwt="));
-      console.log(document.cookie);
       if (jwtCookie) {
          jwt = jwtCookie.split("=")[1];
       }

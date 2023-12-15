@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import TableComponent from "@/components/UI Components/TableComponent";
 import { useUsersActions, useUsersState } from "@/contexts/UsersContext";
 import FilterComponent from "@/components/UI Components/FilterComponent";
+import { useRouter } from "next/navigation";
 
 const options = [
    {
@@ -22,6 +23,7 @@ const options = [
 ];
 export default function UserEdit() {
    const { getUsers } = useUsersActions();
+   const router = useRouter();
    const { data } = useUsersState();
    const [filteredData, setFilteredData] = useState<any>(data);
 
@@ -38,7 +40,7 @@ export default function UserEdit() {
    }, [data]);
 
    const handleClick = (item: any) => {
-      console.log(item);
+      router.push(`users-edit/${item._id}`);
    };
 
    const handleFilterChange = ({ selectedOption, searchValue }: any) => {

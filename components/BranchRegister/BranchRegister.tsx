@@ -9,21 +9,18 @@ import Box from "@mui/material/Box";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Autocomplete from "@mui/material/Autocomplete";
 import OnlyDigits from "@/utils/OnlyDigits";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import { Toaster } from "sonner";
 import QueueInputs from "./QueueInputs";
-import {
-   headManagers,
-   managers,
-   queueInputsValues,
-} from "@/components/BranchRegister/constants";
+import { queueInputsValues } from "@/components/BranchRegister/constants";
 import { sendDataToServer } from "@/components/BranchRegister/sendDataToServer";
 
 import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
+import SelectManagers from "@/components/UI Components/SelectManagers";
+import SelectHeadManagers from "../UI Components/SelectHeadManagers";
 
 export default function BranchRegisterForm() {
    const [queueInput, setQueueInput] = useState(queueInputsValues);
@@ -138,46 +135,15 @@ export default function BranchRegisterForm() {
                         </Grid>
 
                         <Grid item xs={12}>
-                           <Autocomplete
-                              disablePortal
-                              id="combo-box-demo"
-                              options={managers}
-                              getOptionLabel={(option: any) =>
-                                 `${option.firstName} ${option.email}`
-                              }
-                              onChange={(event, newValue) =>
-                                 setManager(newValue)
-                              }
-                              renderInput={params => (
-                                 <TextField
-                                    required
-                                    {...params}
-                                    name="managersList"
-                                    label="Managers List"
-                                 />
-                              )}
+                           <SelectManagers
+                              onChange={(manager: any) => setManager(manager)}
                            />
                         </Grid>
                         <Grid item xs={12}>
-                           <Autocomplete
-                              disablePortal
-                              id="combo-box-demo"
-                              options={headManagers}
-                              getOptionLabel={(option: any) =>
-                                 `${option.firstName} ${option.email}`
+                           <SelectHeadManagers
+                              onChange={(headManager: any) =>
+                                 setManager(headManager)
                               }
-                              onChange={(event, newValue) =>
-                                 setHeadManager(newValue)
-                              }
-                              sx={{ mb: 2 }}
-                              renderInput={params => (
-                                 <TextField
-                                    required
-                                    {...params}
-                                    name="headManagersList"
-                                    label="Head Managers List"
-                                 />
-                              )}
                            />
                         </Grid>
                      </Grid>

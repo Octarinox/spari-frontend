@@ -7,12 +7,12 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const QueueInputs = (props: any) => {
    const { queueInput, handleQueueInputChange } = props;
-
+   console.log(queueInput);
    const addInputField = () => {
       const newId = queueInput[queueInput.length - 1].id + 1;
       handleQueueInputChange([
          ...queueInput,
-         { id: newId, name: "", address: "" },
+         { id: newId, name: "", ipaddress: "" },
       ]);
    };
 
@@ -30,7 +30,7 @@ const QueueInputs = (props: any) => {
 
    return (
       <Grid container spacing={2}>
-         {queueInput.map((input: any, index: any) => (
+         {queueInput?.map((input: any, index: any) => (
             <Grid key={input.id} item xs={12}>
                <h2
                   className="mb-1"
@@ -69,7 +69,11 @@ const QueueInputs = (props: any) => {
                         label="Name"
                         autoFocus
                         autoComplete="off"
+                        defaultValue={input?.name}
                         type="text"
+                        InputLabelProps={{
+                           shrink: !!input?.name,
+                        }}
                         onChange={e => handleInputChange(e, index)}
                      />
                   </Grid>
@@ -87,7 +91,11 @@ const QueueInputs = (props: any) => {
                         label="IP Address"
                         onChange={e => handleInputChange(e, index)}
                         name="ipaddress"
+                        defaultValue={input?.ipaddress}
                         autoComplete="off"
+                        InputLabelProps={{
+                           shrink: !!input?.ipaddress,
+                        }}
                      />
                   </Grid>
                </Grid>

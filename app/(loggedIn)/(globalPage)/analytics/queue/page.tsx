@@ -24,7 +24,6 @@ const QueueStats = () => {
          branchesData,
          groupedBranches
       );
-      console.log(groupedBranches);
       setQueueData(averageResults);
    }, []);
    return (

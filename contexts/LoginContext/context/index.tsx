@@ -40,7 +40,6 @@ export const AuthProvider: FC<{
             });
             const data = await res.json();
             localStorage.setItem("jwtToken", data.token);
-            console.log("hi");
             router.push("/dashboard");
          } catch (error: any) {
             ToastComponentFailed(`Error while sending data: ${error.message}`);

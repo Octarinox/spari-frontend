@@ -1,0 +1,212 @@
+"use client";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import StorefrontIcon from "@mui/icons-material/Storefront";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import OnlyDigits from "@/utils/OnlyDigits";
+import { Toaster } from "sonner";
+import {
+   headManagers,
+   managers,
+   queueInputsValues,
+} from "@/components/BranchRegister/constants";
+
+import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
+import QueueInputs from "@/components/BranchRegister/QueueInputs";
+import ManagerSelect from "@/components/UI Components/SelectManagers";
+import HeadManagerSelect from "@/components/UI Components/SelectHeadManagers";
+import { updateBranchesRequest } from "@/httpRequests/updateBranches";
+
+export default function BranchEditForm({ data }: any) {
+   const [queueInput, setQueueInput] = useState(queueInputsValues);
+   const [manager, setManager] = useState({});
+   const [headManager, setHeadManager] = useState({});
+
+   useEffect(() => {
+      setQueueInput(data?.cams?.queue);
+      setManager(
+         managers.find((manager: any) => manager?._id === data?.users?.[0])
+      );
+      setHeadManager(
+         headManagers.find(
+            (headManager: any) => headManager?._id === data?.users?.[1]
+         )
+      );
+   }, [data]);
+   console.log(data);
+   const handleQueueInputChange = (value: any) => {
+      setQueueInput(value);
+   };
+
+   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const formData = new FormData(event.currentTarget);
+      console.log(manager);
+      const formDataObject = {
+         branchId: formData.get("branchID"),
+         address: formData.get("Address"),
+         users: {
+            manager,
+            headManager,
+         },
+         cams: {
+            queue: queueInput,
+            face: {
+               name: formData.get("facecamName"),
+               address: formData.get("FaceIPAddress"),
+            },
+         },
+      };
+
+      try {
+         const responseData = await updateBranchesRequest(formDataObject, [
+            data._id,
+         ]);
+         ToastComponentSuccess(responseData.data.message);
+      } catch (error: any) {
+         ToastComponentFailed(`${error.response.data.errors}`);
+      }
+   };
+
+   return (
+      <Container component="main" maxWidth="xs">
+         <Box
+            sx={{
+               marginTop: 8,
+               display: "flex",
+               flexDirection: "column",
+               alignItems: "center",
+            }}
+         >
+            <Avatar sx={{ m: 1, bgcolor: "#384454" }}>
+               <StorefrontIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+               Branch Edit
+            </Typography>
+            <Box
+               component="form"
+               noValidate
+               onSubmit={handleSubmit}
+               sx={{ mt: 3 }}
+            >
+               <Grid container item xs={12} spacing={2} direction="row">
+                  <Grid>
+                     <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                           <TextField
+                              name="branchID"
+                              required
+                              fullWidth
+                              id="branchID"
+                              label="Branch ID"
+                              autoFocus
+                              autoComplete="off"
+                              type="text"
+                              onInput={OnlyDigits}
+                              defaultValue={data?.branchId || ""}
+                              InputLabelProps={{
+                                 shrink: !!data?.branchId,
+                              }}
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                           <TextField
+                              required
+                              fullWidth
+                              id="Address"
+                              autoFocus
+                              label="Address"
+                              name="Address"
+                              autoComplete="off"
+                              defaultValue={data?.address}
+                              InputLabelProps={{
+                                 shrink: !!data?.address,
+                              }}
+                           />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                           <ManagerSelect
+                              onChange={(e: any) => {
+                                 setManager(e);
+                              }}
+                           />
+                        </Grid>
+                        <Grid item xs={12}>
+                           <HeadManagerSelect
+                              onChange={(e: any) => {
+                                 setHeadManager(e);
+                              }}
+                           />
+                        </Grid>
+                     </Grid>
+
+                     <Grid container>
+                        <QueueInputs
+                           queueInput={queueInput}
+                           handleQueueInputChange={handleQueueInputChange}
+                        />
+                        <h2 className="mb-1">
+                           <b>Face Detection Camera</b>
+                        </h2>
+                        <Grid container spacing={2}>
+                           <Grid item xs={6}>
+                              <TextField
+                                 name="facecamName"
+                                 fullWidth
+                                 id="facecamName"
+                                 label="Name"
+                                 autoFocus
+                                 autoComplete="off"
+                                 type="text"
+                                 defaultValue={data?.cams?.face?.name}
+                                 InputLabelProps={{
+                                    shrink: !!data?.cams?.face?.name,
+                                 }}
+                              />
+                           </Grid>
+                           <Grid item xs={6}>
+                              <TextField
+                                 fullWidth
+                                 id="FaceIPAddress"
+                                 label="IP Address"
+                                 name="FaceIPAddress"
+                                 autoComplete="off"
+                                 defaultValue={data?.cams?.face?.address}
+                                 InputLabelProps={{
+                                    shrink: !!data?.cams?.face?.address,
+                                 }}
+                              />
+                           </Grid>
+                        </Grid>
+                     </Grid>
+                  </Grid>
+               </Grid>
+               <Toaster richColors />
+               <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{
+                     mt: 5,
+                     mb: 2,
+                     "&:hover": {
+                        backgroundColor: "#181c24 !important",
+                     },
+                     backgroundColor: "#384454 !important",
+                  }}
+               >
+                  Save
+               </Button>
+            </Box>
+         </Box>
+      </Container>
+   );
+}

@@ -23,7 +23,6 @@ export default function IndexPage() {
    const [filteredData, setFilteredData] = useState<any>(data);
    const allowedProperties = ["branchId", "address"];
    const handleClick = (row: any) => {
-      console.log(row);
       router.push(`branch/${row.branchId}/analytics`);
    };
    useEffect(() => {

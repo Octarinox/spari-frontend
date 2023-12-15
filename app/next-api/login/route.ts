@@ -50,7 +50,6 @@ export async function POST(request: Request): Promise<Response> {
 
 function extractJwtToken(cookie: string): string | null {
    const cookieParts = cookie.split(";");
-   console.log(cookieParts);
    for (const part of cookieParts) {
       const [name, value] = part.trim().split("=");
 

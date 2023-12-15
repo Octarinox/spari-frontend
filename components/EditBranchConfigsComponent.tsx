@@ -15,13 +15,10 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import { Toaster } from "sonner";
-import EnhancedTable from "./UI Components/CheckboxTableComponent";
-import QueueInputs from "./BranchRegister/QueueInputs";
-import { queueInputsValues } from "@/components/BranchRegister/constants";
-import { ToastComponentFailed } from "./ToastComponent";
+import { DataGrid } from "@mui/x-data-grid";
+import { updateBranchesRequest } from "@/httpRequests/updateBranches";
 
 const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
-   const [queueInput, setQueueInput] = useState(queueInputsValues);
    const [servicesData, setServicesData] = useState<any>({
       faceDetect: {
          dashboardPopup: true,
@@ -34,6 +31,7 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
          email: true,
       },
    });
+   const [branchIds, setBranchIds] = useState([]);
    const handleCheckboxChange = (category: any, service: any) => {
       setServicesData((prevFormData: any) => ({
          ...prevFormData,
@@ -44,14 +42,31 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
       }));
    };
 
-   const handleQueueInputChange = (value: any) => {
-      setQueueInput(value);
-   };
    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
-      ToastComponentFailed("Failed");
+
+      const data = {
+         faceAiConfig: { alertMessage: formData.get("faceAlertMessage") },
+         queueConfig: {
+            alertMessage: formData.get("queueAlertMessage"),
+            warningOnAmount: formData.get("peopleAmount"),
+         },
+         serviceConfig: servicesData,
+      };
+      await updateBranchesRequest(data, branchIds);
    };
+
+   const handleRowSelection = (e: any) => {
+      console.log(e);
+      setBranchIds(e);
+   };
+   const headRows = allowedProperties.map((property: string) => ({
+      field: property,
+      headerName: property,
+      width: 150,
+   }));
+
    return (
       <>
          <Container
@@ -86,39 +101,6 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
                   sx={{ mt: 3 }}
                >
                   <Grid container item xs={12} spacing={2} direction="row">
-                     <Grid>
-                        <Grid container>
-                           <QueueInputs
-                              queueInput={queueInput}
-                              handleQueueInputChange={handleQueueInputChange}
-                           />
-                           <h2 className="mb-1">
-                              <b>Face Detection Camera</b>
-                           </h2>
-                           <Grid container spacing={2}>
-                              <Grid item xs={6}>
-                                 <TextField
-                                    name="facecamName"
-                                    fullWidth
-                                    id="facecamName"
-                                    label="Name"
-                                    autoFocus
-                                    autoComplete="off"
-                                    type="text"
-                                 />
-                              </Grid>
-                              <Grid item xs={6}>
-                                 <TextField
-                                    fullWidth
-                                    id="FaceIPAddress"
-                                    label="IP Address"
-                                    name="FaceIPAddress"
-                                    autoComplete="off"
-                                 />
-                              </Grid>
-                           </Grid>
-                        </Grid>
-                     </Grid>
                      <Grid>
                         <Grid item xs={12}>
                            <h2 className="mb-1 mt-2">
@@ -247,7 +229,17 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
                </Box>
             </Box>
          </Container>
-         <EnhancedTable />
+         <div style={{ height: 400, width: "100%" }}>
+            <DataGrid
+               rows={data}
+               columns={headRows as any}
+               pagination
+               rowCount={data.length}
+               checkboxSelection
+               getRowId={row => row._id}
+               onRowSelectionModelChange={handleRowSelection}
+            />
+         </div>
       </>
    );
 };

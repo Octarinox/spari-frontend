@@ -6,7 +6,6 @@ export const calculateQueueAverage = (
 
    Object.keys(result).forEach(intervalKey => {
       const branchIds = result[intervalKey];
-      console.log("branc", branchIds);
       const totalSalaro1 = branchIds.reduce((sum, branch: any) => {
          return sum + (branch?.detect.Salaro1?.person || 0);
       }, 0);
@@ -21,6 +20,5 @@ export const calculateQueueAverage = (
 
       averages.push({ interval: intervalKey, value: finalAverage });
    });
-   console.log(averages);
    return averages;
 };

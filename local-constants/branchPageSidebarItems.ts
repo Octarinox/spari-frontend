@@ -15,7 +15,26 @@ export const branchPageSidebarItems = [
             activeItemStyle
          );
       },
-      href: "/analytics/queue",
+      key: "analytics",
+      href: "analytics",
+      current: false,
+      className: inactiveClass,
+      classNameCurrent: activeClass,
+   },
+   {
+      text: "Branch Edit",
+      getCurrentItem() {
+         const activeItemStyle = this.current
+            ? styles.activeIcon
+            : styles.inactiveIcon;
+         return generateImageTag(
+            "/users.svg",
+            "user_register_icon",
+            activeItemStyle
+         );
+      },
+      key: "edit-branch",
+      href: "edit-branch",
       current: false,
       className: inactiveClass,
       classNameCurrent: activeClass,
