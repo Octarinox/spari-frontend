@@ -7,7 +7,10 @@ const HeadManagerSelect: React.FC<any> = ({ options, value, onChange }) => {
    useUserFetcher();
    const { data } = useUsersState();
    const headManagers = data?.filter(user => user.role === "headmanager");
-   console.log(data);
+   const isOptionEqualToValue = (option: any, value: any) => {
+      return option?._id === value[0]?._id;
+   };
+
    return (
       <Autocomplete
          disablePortal
@@ -15,7 +18,9 @@ const HeadManagerSelect: React.FC<any> = ({ options, value, onChange }) => {
          getOptionLabel={(option: any) =>
             `${option.firstName}  ${option.lastName}/${option.email}`
          }
+         value={value?.[0] || null}
          onChange={(event, newValue) => onChange(newValue)}
+         isOptionEqualToValue={isOptionEqualToValue}
          renderInput={params => (
             <TextField
                {...params}

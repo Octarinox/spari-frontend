@@ -7,7 +7,6 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const QueueInputs = (props: any) => {
    const { queueInput, handleQueueInputChange } = props;
-   console.log(queueInput);
    const addInputField = () => {
       const newId = queueInput[queueInput.length - 1].id + 1;
       handleQueueInputChange([

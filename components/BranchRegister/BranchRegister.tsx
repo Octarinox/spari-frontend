@@ -24,8 +24,8 @@ import SelectHeadManagers from "../UI Components/SelectHeadManagers";
 
 export default function BranchRegisterForm() {
    const [queueInput, setQueueInput] = useState(queueInputsValues);
-   const [manager, setManager] = useState({});
-   const [headManager, setHeadManager] = useState({});
+   const [manager, setManager] = useState<any>({});
+   const [headManager, setHeadManager] = useState<any>({});
    const [servicesData, setServicesData] = useState<any>({
       faceDetect: {
          dashboardPopup: true,
@@ -57,10 +57,7 @@ export default function BranchRegisterForm() {
       const data = {
          branchId: formData.get("branchID"),
          address: formData.get("Address"),
-         users: {
-            manager,
-            headManager,
-         },
+         users: [manager?._id, headManager?._id],
          cams: {
             queue: queueInput,
             face: {

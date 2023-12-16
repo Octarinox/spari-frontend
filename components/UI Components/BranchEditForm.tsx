@@ -11,35 +11,33 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import OnlyDigits from "@/utils/OnlyDigits";
 import { Toaster } from "sonner";
-import {
-   headManagers,
-   managers,
-   queueInputsValues,
-} from "@/components/BranchRegister/constants";
+import { queueInputsValues } from "@/components/BranchRegister/constants";
 
 import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
 import QueueInputs from "@/components/BranchRegister/QueueInputs";
 import ManagerSelect from "@/components/UI Components/SelectManagers";
 import HeadManagerSelect from "@/components/UI Components/SelectHeadManagers";
 import { updateBranchesRequest } from "@/httpRequests/updateBranches";
+import { findHeadManager } from "@/utils/findHeadManager";
+import { useUsersState } from "@/contexts/UsersContext";
+import { findManager } from "@/utils/findManager";
 
-export default function BranchEditForm({ data }: any) {
+export default function BranchEditForm({ data: branchData }: any) {
    const [queueInput, setQueueInput] = useState(queueInputsValues);
-   const [manager, setManager] = useState({});
-   const [headManager, setHeadManager] = useState({});
+   const [manager, setManager] = useState<any>({});
+   const [headManager, setHeadManager] = useState<any>({});
+   const { data } = useUsersState();
 
    useEffect(() => {
-      setQueueInput(data?.cams?.queue);
-      setManager(
-         managers.find((manager: any) => manager?._id === data?.users?.[0])
-      );
-      setHeadManager(
-         headManagers.find(
-            (headManager: any) => headManager?._id === data?.users?.[1]
-         )
-      );
+      setQueueInput(branchData?.cams?.queue);
+   }, [branchData]);
+
+   useEffect(() => {
+      const headManager = findHeadManager(data, branchData?.users);
+      const manager = findManager(data, branchData?.users);
+      setManager(manager);
+      setHeadManager(headManager);
    }, [data]);
-   console.log(data);
    const handleQueueInputChange = (value: any) => {
       setQueueInput(value);
    };
@@ -47,14 +45,10 @@ export default function BranchEditForm({ data }: any) {
    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
-      console.log(manager);
       const formDataObject = {
          branchId: formData.get("branchID"),
          address: formData.get("Address"),
-         users: {
-            manager,
-            headManager,
-         },
+         users: [manager?._id, headManager?._id],
          cams: {
             queue: queueInput,
             face: {
@@ -66,7 +60,7 @@ export default function BranchEditForm({ data }: any) {
 
       try {
          const responseData = await updateBranchesRequest(formDataObject, [
-            data._id,
+            branchData._id,
          ]);
          ToastComponentSuccess(responseData.data.message);
       } catch (error: any) {
@@ -110,9 +104,9 @@ export default function BranchEditForm({ data }: any) {
                               autoComplete="off"
                               type="text"
                               onInput={OnlyDigits}
-                              defaultValue={data?.branchId || ""}
+                              defaultValue={branchData?.branchId || ""}
                               InputLabelProps={{
-                                 shrink: !!data?.branchId,
+                                 shrink: !!branchData?.branchId,
                               }}
                            />
                         </Grid>
@@ -125,15 +119,16 @@ export default function BranchEditForm({ data }: any) {
                               label="Address"
                               name="Address"
                               autoComplete="off"
-                              defaultValue={data?.address}
+                              defaultValue={branchData?.address}
                               InputLabelProps={{
-                                 shrink: !!data?.address,
+                                 shrink: !!branchData?.address,
                               }}
                            />
                         </Grid>
 
                         <Grid item xs={12}>
                            <ManagerSelect
+                              value={manager}
                               onChange={(e: any) => {
                                  setManager(e);
                               }}
@@ -141,6 +136,7 @@ export default function BranchEditForm({ data }: any) {
                         </Grid>
                         <Grid item xs={12}>
                            <HeadManagerSelect
+                              value={headManager}
                               onChange={(e: any) => {
                                  setHeadManager(e);
                               }}
@@ -166,9 +162,9 @@ export default function BranchEditForm({ data }: any) {
                                  autoFocus
                                  autoComplete="off"
                                  type="text"
-                                 defaultValue={data?.cams?.face?.name}
+                                 defaultValue={branchData?.cams?.face?.name}
                                  InputLabelProps={{
-                                    shrink: !!data?.cams?.face?.name,
+                                    shrink: !!branchData?.cams?.face?.name,
                                  }}
                               />
                            </Grid>
@@ -179,9 +175,9 @@ export default function BranchEditForm({ data }: any) {
                                  label="IP Address"
                                  name="FaceIPAddress"
                                  autoComplete="off"
-                                 defaultValue={data?.cams?.face?.address}
+                                 defaultValue={branchData?.cams?.face?.address}
                                  InputLabelProps={{
-                                    shrink: !!data?.cams?.face?.address,
+                                    shrink: !!branchData?.cams?.face?.address,
                                  }}
                               />
                            </Grid>

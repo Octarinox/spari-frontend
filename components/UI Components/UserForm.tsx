@@ -33,7 +33,6 @@ export default function UserForm({
    useEffect(() => {
       setPhoneNumber(data?.phoneNumber);
    }, []);
-   console.log(data);
 
    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       event.preventDefault();
@@ -50,7 +49,6 @@ export default function UserForm({
       };
       try {
          const responseData = await requestHandler(userData, data?._id);
-         console.log(responseData);
          ToastComponentSuccess(responseData?.data?.message);
       } catch (error: any) {
          ToastComponentFailed(`${error.response.data.errors}`);

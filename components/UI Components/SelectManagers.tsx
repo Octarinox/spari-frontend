@@ -7,22 +7,23 @@ const ManagerSelect: React.FC<any> = ({ options, value, onChange }) => {
    useUserFetcher();
    const { data } = useUsersState();
    const managers = data?.filter(user => user.role === "manager");
-   console.log(managers);
+
+   const isOptionEqualToValue = (option: any, value: any) => {
+      return option?._id === value?.[0]?._id;
+   };
+
    return (
       <Autocomplete
          disablePortal
          options={managers || options || []}
          getOptionLabel={(option: any) =>
-            `${option.firstName}  ${option.lastName}/${option.email}`
+            `${option.firstName} ${option.lastName}/${option.email}`
          }
+         value={value?.[0] || null}
          onChange={(event, newValue) => onChange(newValue)}
+         isOptionEqualToValue={isOptionEqualToValue}
          renderInput={params => (
-            <TextField
-               {...params}
-               value={value}
-               name="managers"
-               label="Managers"
-            />
+            <TextField {...params} name="managers" label="Managers" />
          )}
       />
    );

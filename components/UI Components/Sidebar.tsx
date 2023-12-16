@@ -26,7 +26,6 @@ const Sidebar = ({ menu, sideBarStyle = null, buttonStyle = null }: any) => {
    };
 
    useEffect(() => {
-      console.log(path);
       const newMenu = getActiveItemByRoute(menuItems, path);
       setMenuItems(newMenu);
    }, [path]);

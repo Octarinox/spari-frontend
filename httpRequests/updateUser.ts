@@ -5,6 +5,5 @@ export async function updateUserRequest(data: any, id: string) {
       id,
       data,
    };
-   console.log(payload);
    return await axiosInstance.put("/auth/user/update", payload);
 }
