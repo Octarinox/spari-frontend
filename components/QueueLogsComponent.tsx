@@ -38,7 +38,8 @@ const QueueLogsComponent = () => {
       const updatedTable = tableComponents.filter(item => item.id !== id);
       setTableComponents(updatedTable);
    };
-
+   const classNames =
+      "text-sm sm:text-sm xl:px-10 xl:py-3 px-2 py-1 sm:px-3 sm:py-2 md:px-6 md:py-3 lg:px-10 lg:py-5";
    return (
       <>
          <div className="flex w-full flex-col items-center mt-10">
@@ -49,10 +50,7 @@ const QueueLogsComponent = () => {
                <thead>
                   <tr className="border-b-2 border-gray-300">
                      {tableHeadComponents.map(item => (
-                        <td
-                           key={item}
-                           className="text-sm xl:px-10 xl:py-3 px-2 py-1 sm:px-3 sm:py-2 md:px-6 md:py-3 lg:px-10 lg:py-5"
-                        >
+                        <td key={item} className={classNames}>
                            {item}
                         </td>
                      ))}
@@ -61,18 +59,10 @@ const QueueLogsComponent = () => {
                <tbody>
                   {tableComponents.map(item => (
                      <tr key={item.id} className="border-b-2 border-gray-300">
-                        <th className="text-sm sm:text-sm xl:px-10 xl:py-3 px-2 py-1 sm:px-3 sm:py-2 md:px-6 md:py-3 lg:px-10 lg:py-5">
-                           {item.subject}
-                        </th>
-                        <td className="text-sm sm:text-sm xl:px-10 xl:py-3 px-2 py-1 sm:px-3 sm:py-2 md:px-6 md:py-3 lg:px-10 lg:py-5">
-                           {item.similarity}
-                        </td>
-                        <td className="text-sm sm:text-sm xl:px-10 xl:py-3 px-2 py-1 sm:px-3 sm:py-2 md:px-6 md:py-3 lg:px-10 lg:py-5">
-                           {item.time}
-                        </td>
-                        <td className="text-sm sm:text-sm xl:px-10 xl:py-3 px-2 py-1 sm:px-3 sm:py-2 md:px-6 md:py-3 lg:px-10 lg:py-5">
-                           {item.mask}
-                        </td>
+                        <th className={classNames}>{item.subject}</th>
+                        <td className={classNames}>{item.similarity}</td>
+                        <td className={classNames}>{item.time}</td>
+                        <td className={classNames}>{item.mask}</td>
                         <th className="text-sm sm:text-sm xl:px-60 xl:py-3 px-2  py-1 sm:px-3 sm:py-2 md:px-6 md:py-3 lg:px-10 lg:py-5">
                            <button
                               className="cursor-pointer"
