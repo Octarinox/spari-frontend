@@ -1,42 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const QueueLogsComponent = () => {
-   const [tableComponents, setTableComponents] = useState([
-      {
-         id: 1,
-         subject: "Dadu",
-         similarity: 0.9733,
-         time: "16:42:32",
-         mask: "Without mask",
-      },
-      {
-         id: 2,
-         subject: "Gio",
-         similarity: 0.9733,
-         time: "16:42:32",
-         mask: "Without mask",
-      },
-      {
-         id: 3,
-         subject: "Nika",
-         similarity: 0.9733,
-         time: "16:42:32",
-         mask: "Without mask",
-      },
-      {
-         id: 4,
-         subject: "lasha",
-         similarity: 0.97353,
-         time: "18:42:22",
-         mask: "With mask",
-      },
-   ]);
+const LogsComponent = (props: any) => {
+   const [logsData, setLogsData] = useState(props.logs);
+
    const tableHeadComponents = ["Subject", "Similarity", "Time", "Mask"];
    const handleDelete = (id: number) => {
-      const updatedTable = tableComponents.filter(item => item.id !== id);
-      setTableComponents(updatedTable);
+      const updatedTable = logsData.filter((item: any) => item.id !== id);
+      setLogsData(updatedTable);
    };
    const classNames =
       "text-sm sm:text-sm xl:px-10 xl:py-3 px-2 py-1 sm:px-3 sm:py-2 md:px-6 md:py-3 lg:px-10 lg:py-5";
@@ -57,7 +29,7 @@ const QueueLogsComponent = () => {
                   </tr>
                </thead>
                <tbody>
-                  {tableComponents.map(item => (
+                  {logsData.map((item: any) => (
                      <tr key={item.id} className="border-b-2 border-gray-300">
                         <th className={classNames}>{item.subject}</th>
                         <td className={classNames}>{item.similarity}</td>
@@ -80,4 +52,4 @@ const QueueLogsComponent = () => {
    );
 };
 
-export default QueueLogsComponent;
+export default LogsComponent;
