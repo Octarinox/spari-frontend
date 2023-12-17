@@ -1,4 +1,5 @@
-export const queueLogs = [
+import { Logs } from "./LogsTypes";
+export const queueLogs: Logs[] = [
    {
       id: 1,
       subject: "Dadu",
@@ -22,14 +23,14 @@ export const queueLogs = [
    },
    {
       id: 4,
-      subject: "lasha",
+      subject: "Lasha",
       similarity: 0.97353,
       time: "18:42:22",
       mask: "With mask",
    },
 ];
 
-export const faceDetectionLogs = [
+export const faceDetectionLogs: Logs[] = [
    {
       id: 1,
       subject: "Dadu Face",

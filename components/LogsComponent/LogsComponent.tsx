@@ -1,11 +1,16 @@
 "use client";
+import { TableHeadComponents } from "./LogsTypes";
+import React, { useState } from "react";
 
-import React, { useState, useEffect } from "react";
+const LogsComponent = ({ logs }: any) => {
+   const [logsData, setLogsData] = useState(logs);
 
-const LogsComponent = (props: any) => {
-   const [logsData, setLogsData] = useState(props.logs);
-
-   const tableHeadComponents = ["Subject", "Similarity", "Time", "Mask"];
+   const tableHeadComponents: TableHeadComponents = [
+      "Subject",
+      "Similarity",
+      "Time",
+      "Mask",
+   ];
    const handleDelete = (id: number) => {
       const updatedTable = logsData.filter((item: any) => item.id !== id);
       setLogsData(updatedTable);
