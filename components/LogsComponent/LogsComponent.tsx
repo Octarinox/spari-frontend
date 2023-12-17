@@ -1,5 +1,5 @@
 "use client";
-import { TableHeadComponents } from "./LogsTypes";
+import { Logs, TableHeadComponents } from "./LogsTypes";
 import React, { useState } from "react";
 
 const LogsComponent = ({ logs }: any) => {
@@ -12,7 +12,7 @@ const LogsComponent = ({ logs }: any) => {
       "Mask",
    ];
    const handleDelete = (id: number) => {
-      const updatedTable = logsData.filter((item: any) => item.id !== id);
+      const updatedTable = logsData.filter((item: Logs) => item.id !== id);
       setLogsData(updatedTable);
    };
    const classNames =
@@ -34,7 +34,7 @@ const LogsComponent = ({ logs }: any) => {
                   </tr>
                </thead>
                <tbody>
-                  {logsData.map((item: any) => (
+                  {logsData.map((item: Logs) => (
                      <tr key={item.id} className="border-b-2 border-gray-300">
                         <th className={classNames}>{item.subject}</th>
                         <td className={classNames}>{item.similarity}</td>
