@@ -27,7 +27,7 @@ const QueueChart = ({ data }: any) => {
          {
             label: "Queue Data",
             data: data.map((item: any) => item.value),
-            backgroundColor: "#252d33",
+            backgroundColor: "#19207e",
          },
       ],
    };

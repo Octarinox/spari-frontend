@@ -2,6 +2,8 @@ import React from "react";
 import { Box, Button, ButtonGroup, useMediaQuery } from "@mui/material";
 import { groupBranchesByInterval } from "@/utils/groupBranchesByInterval";
 import { calculateQueueAverage } from "@/utils/calculateQueueAverage";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 const options = [
    { option: "Last Hour", value: "1hr" },
@@ -24,38 +26,44 @@ const TimeIntervals = (props: any) => {
    };
 
    return (
-      <Box
-         sx={{
-            display: "flex",
-            "& > *": {},
-         }}
-      >
-         <ButtonGroup
-            orientation={"horizontal"}
-            variant={"outlined"}
-            size={isMobile ? "small" : "large"} // Set size based on isMobile
-            color={"info"}
-            aria-label="vertical outlined button group"
+      <Container className={"flex flex-col items-center mt-12"}>
+         <Typography component="h1" variant="h5">
+            Select Time Interval
+         </Typography>
+         <Box
+            sx={{
+               marginTop: "30px",
+               display: "flex",
+               "& > *": {},
+            }}
          >
-            {options.map((item: any) => (
-               <Button
-                  key={item.value}
-                  onClick={() => handleClick(item)}
-                  variant={
-                     selectedButton === item.value ? "contained" : "outlined"
-                  }
-                  sx={{
-                     backgroundColor:
-                        selectedButton === item.value
-                           ? "#252D33 !important"
-                           : "inherit",
-                  }}
-               >
-                  {item.option}
-               </Button>
-            ))}
-         </ButtonGroup>
-      </Box>
+            <ButtonGroup
+               orientation={"horizontal"}
+               variant={"text"}
+               size={isMobile ? "small" : "large"} // Set size based on isMobile
+               color={"primary"}
+               aria-label="vertical outlined button group"
+            >
+               {options.map((item: any) => (
+                  <Button
+                     key={item.value}
+                     onClick={() => handleClick(item)}
+                     variant={
+                        selectedButton === item.value ? "contained" : "text"
+                     }
+                     sx={{
+                        backgroundColor:
+                           selectedButton === item.value
+                              ? "#252D33 !important"
+                              : "inherit",
+                     }}
+                  >
+                     {item.option}
+                  </Button>
+               ))}
+            </ButtonGroup>
+         </Box>
+      </Container>
    );
 };
 

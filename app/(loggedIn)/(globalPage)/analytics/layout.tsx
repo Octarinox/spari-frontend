@@ -9,7 +9,7 @@ export default function LoggedInRootLayout({
    children: React.ReactNode;
 }) {
    return (
-      <div className={"flex"}>
+      <div className={"flex flex-row"}>
          <Sidebar menu={sidebarItems} />
          {children}
       </div>

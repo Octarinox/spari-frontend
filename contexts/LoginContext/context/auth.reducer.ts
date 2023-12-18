@@ -10,8 +10,10 @@ export const reducer = (state: AuthState, action: AuthAction): AuthState => {
       case AuthActionType.LOGIN_SUCCESSFUL:
          return {
             ...state,
-            isLoggedIn: payload?.isLoggedIn || null,
+            isLoggedIn: true,
+            role: payload?.role || null,
             email: payload?.email || null,
+            id: payload?.id || null,
          };
       case AuthActionType.LOGIN_IN_FAILED:
          return { ...state, error: payload?.error || null };

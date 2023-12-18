@@ -9,11 +9,15 @@ import {
    useReducer,
 } from "react";
 import { reducer } from "@/contexts/LoginContext/context/auth.reducer";
-import { AuthContextInterface } from "@/contexts/LoginContext/context/auth.interface";
+import {
+   AuthActionType,
+   AuthContextInterface,
+} from "@/contexts/LoginContext/context/auth.interface";
 import { initialContext } from "@/contexts/LoginContext/context/auth.state";
 import { ToastComponentFailed } from "@/components/ToastComponent";
 import { useRouter } from "next/navigation";
 import { url } from "@/shared/constants/shared-constants";
+import axiosInstance from "@/axios/axios-instance";
 
 export const AuthContext = createContext<AuthContextInterface>(initialContext);
 
@@ -40,7 +44,16 @@ export const AuthProvider: FC<{
             });
             const data = await res.json();
             localStorage.setItem("jwtToken", data.token);
-            router.push("/dashboard");
+            dispatch({
+               payload: { email: data.email, role: data.role },
+               type: AuthActionType.LOGIN_SUCCESSFUL,
+            });
+            console.log(data.role);
+            if (data.role === "manager") {
+               //  router.push("/branch");
+            } else {
+               router.push("/dashboard");
+            }
          } catch (error: any) {
             ToastComponentFailed(`Error while sending data: ${error.message}`);
             console.log(error);
@@ -48,6 +61,23 @@ export const AuthProvider: FC<{
       },
       [router]
    );
+   const checkAuth = useCallback(async () => {
+      try {
+         const res = await axiosInstance.get("/auth/user/check-auth");
+         const data = await res.data.user;
+         dispatch({
+            payload: {
+               email: data.email,
+               role: data.role,
+               id: data.id,
+            },
+            type: AuthActionType.LOGIN_SUCCESSFUL,
+         });
+      } catch (error: any) {
+         ToastComponentFailed(`Error while sending data: ${error.message}`);
+         console.log(error);
+      }
+   }, []);
    const logOut = useCallback(async () => {
       await fetch(`${url}/next-api/logout`, {
          method: "POST",
@@ -59,8 +89,8 @@ export const AuthProvider: FC<{
    }, [router]);
 
    const value = useMemo(
-      () => ({ state, actions: { userLogin, logOut } }),
-      [state, userLogin, logOut]
+      () => ({ state, actions: { userLogin, logOut, checkAuth } }),
+      [state, userLogin, logOut, checkAuth]
    );
 
    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

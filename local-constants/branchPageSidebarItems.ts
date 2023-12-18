@@ -28,7 +28,7 @@ export const branchPageSidebarItems = [
             ? styles.activeIcon
             : styles.inactiveIcon;
          return generateImageTag(
-            "/users.svg",
+            "/branch.svg",
             "user_register_icon",
             activeItemStyle
          );

@@ -1,7 +1,9 @@
 export interface AuthState {
    isLoggedIn: boolean | null;
    email: string | null;
+   role?: string | null;
    error: object | null;
+   id?: string | null;
 }
 
 export interface AuthContextInterface {
@@ -16,11 +18,17 @@ export enum AuthActionType {
 
 export interface AuthActions {
    userLogin: (email: string, password: string) => Promise<void | string>;
-
    logOut: () => Promise<void | string>;
+   checkAuth: () => Promise<void | string>;
 }
 
 export interface AuthAction {
    type: AuthActionType;
-   payload?: { email?: string; isLoggedIn?: boolean; error?: object };
+   payload?: {
+      email?: string;
+      isLoggedIn?: boolean;
+      error?: object;
+      id?: string;
+      role?: string;
+   };
 }

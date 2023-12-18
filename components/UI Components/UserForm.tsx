@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -12,14 +12,15 @@ import {
    IconButton,
    InputAdornment,
    InputLabel,
-   MenuItem,
    OutlinedInput,
-   Select,
 } from "@mui/material";
 import OnlyDigits from "@/utils/OnlyDigits";
 
 import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
 import { Toaster } from "sonner";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 export default function UserForm({
    data,
@@ -29,7 +30,17 @@ export default function UserForm({
 }: any) {
    const [showPassword, setShowPassword] = React.useState(false);
    const [phoneNumber, setPhoneNumber] = React.useState("");
-   const [role, setRole] = React.useState(data?.role || "");
+   const [permissions, setPermissions] = useState<any>({
+      facePermissions: {
+         analytics: true,
+         logs: true,
+         database: true,
+      },
+      queuePermissions: {
+         analytics: true,
+         logs: true,
+      },
+   });
    useEffect(() => {
       setPhoneNumber(data?.phoneNumber);
    }, []);
@@ -44,7 +55,7 @@ export default function UserForm({
          email: formData.get("email"),
          phoneNumber: (formData.get("number") as string)?.replace(/\s+/g, ""),
          nationalId: formData.get("personalID"),
-         role: formData.get("role"),
+         permissions,
          password: formData.get("password") || undefined,
       };
       try {
@@ -55,6 +66,15 @@ export default function UserForm({
       }
    }
 
+   const handleCheckboxChange = (category: any, service: any) => {
+      setPermissions((prevFormData: any) => ({
+         ...prevFormData,
+         [category]: {
+            ...prevFormData[category],
+            [service]: !prevFormData[category][service],
+         },
+      }));
+   };
    return (
       <form onSubmit={handleSubmit} autoComplete="off">
          <Box component="div" sx={{ mt: 3 }}>
@@ -130,23 +150,6 @@ export default function UserForm({
                </Grid>
                <Grid item xs={12}>
                   <FormControl fullWidth required sx={{ mb: 2 }}>
-                     <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                     <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Role"
-                        name="role"
-                        defaultValue={data?.role}
-                        onChange={event => setRole(event.target.value)}
-                     >
-                        <MenuItem value={"manager"}>Manager</MenuItem>
-                        <MenuItem value={"headManager"}>Head Manager</MenuItem>
-                        <MenuItem value={"admin"}>Admin</MenuItem>
-                     </Select>
-                  </FormControl>
-               </Grid>
-               <Grid item xs={12}>
-                  <FormControl fullWidth required sx={{ mb: 2 }}>
                      <InputLabel htmlFor="password">Password</InputLabel>
                      <OutlinedInput
                         required={passwordRequired}
@@ -173,6 +176,58 @@ export default function UserForm({
                            </InputAdornment>
                         }
                      />
+                  </FormControl>
+               </Grid>
+               <Grid item xs={12}>
+                  <FormControl fullWidth required sx={{ mb: 2 }}>
+                     <FormGroup>
+                        <h2 className="mt-2 mb-2">
+                           <b>Face Permissions</b>
+                        </h2>
+                        {Object.entries(permissions.facePermissions).map(
+                           ([service, checked]) => (
+                              <FormControlLabel
+                                 key={service}
+                                 control={
+                                    <Checkbox
+                                       defaultChecked
+                                       onChange={() =>
+                                          handleCheckboxChange(
+                                             "facePermissions",
+                                             service
+                                          )
+                                       }
+                                    />
+                                 }
+                                 label={service}
+                              />
+                           )
+                        )}
+                     </FormGroup>
+                     <FormGroup>
+                        <h2 className="mt-2 mb-2">
+                           <b>Queue Permissions</b>
+                        </h2>
+                        {Object.entries(permissions.queuePermissions).map(
+                           ([service, checked]) => (
+                              <FormControlLabel
+                                 key={service}
+                                 control={
+                                    <Checkbox
+                                       defaultChecked
+                                       onChange={() =>
+                                          handleCheckboxChange(
+                                             "queuePermissions",
+                                             service
+                                          )
+                                       }
+                                    />
+                                 }
+                                 label={service}
+                              />
+                           )
+                        )}
+                     </FormGroup>
                   </FormControl>
                </Grid>
             </Grid>

@@ -2,7 +2,6 @@
 import TableComponent from "@/components/UI Components/TableComponent";
 import { useRouter } from "next/navigation";
 import { useBranchState } from "@/contexts/BranchesContext";
-import useBranchFetcher from "@/shared/hooks/useBranchFetch";
 import FilterComponent from "@/components/UI Components/FilterComponent";
 import React, { useEffect, useState } from "react";
 
@@ -17,7 +16,6 @@ const options = [
    },
 ];
 export default function IndexPage() {
-   useBranchFetcher();
    const router = useRouter();
    const { data } = useBranchState();
    const [filteredData, setFilteredData] = useState<any>(data);

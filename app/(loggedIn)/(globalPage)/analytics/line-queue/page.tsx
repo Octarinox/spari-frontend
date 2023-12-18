@@ -1,11 +1,9 @@
 "use client";
-import QueueChart from "@/components/Analytics/Queue";
-import styles from "@/components/Analytics/styles/queueAnalytics.module.scss";
 import { useEffect, useState } from "react";
-import TimeIntervals from "@/components/Analytics/TimeIntervals";
 import { groupBranchesByInterval } from "@/utils/groupBranchesByInterval";
 import { branchesData } from "@/components/Analytics/constants/testBranches";
 import { calculateQueueAverage } from "@/utils/calculateQueueAverage";
+import LineChart from "@/components/Analytics/LineChart";
 
 const selectOptions = [
    { option: "1 Hour", value: "1hr" },
@@ -27,14 +25,8 @@ const QueueStats = () => {
       setQueueData(averageResults);
    }, []);
    return (
-      <div className={`${styles.container} `}>
-         <QueueChart data={queueData} />
-         <div className={"flex items-center flex-col"}>
-            <TimeIntervals
-               data={branchesData}
-               onClick={(data: any) => setQueueData(data)}
-            />
-         </div>
+      <div className={"w-full h-full"}>
+         <LineChart />
       </div>
    );
 };

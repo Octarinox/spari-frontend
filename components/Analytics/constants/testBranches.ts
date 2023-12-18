@@ -33,7 +33,7 @@ export const branchesData = [
             person: 20,
          },
       },
-      timestamp: "2023-10-8T14:30:00Z",
+      timestamp: "2023-10-08T14:30:00Z",
    },
    {
       branch_id: 2,
