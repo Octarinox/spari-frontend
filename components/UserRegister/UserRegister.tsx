@@ -10,17 +10,29 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { MuiTelInput } from "mui-tel-input";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Chip, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import OnlyDigits from "@/utils/OnlyDigits";
-
-import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
-
-import { sendUserDataToServer } from "./SendDataToServer";
 import { Toaster } from "sonner";
+import Autocomplete from "@mui/material/Autocomplete";
+import { UserPermsInterface } from "@/components/UserRegister/interfaces/userRegister.interface";
+import {
+   ToastComponentFailed,
+   ToastComponentSuccess,
+} from "@/components/ToastComponent";
+import { sendUserDataToServer } from "@/components/UserRegister/SendDataToServer";
 
 export default function UserRegisterForm() {
    const [role, setRole] = useState("");
    const [value, setValue] = useState("");
+   const [perms, setPerms] = useState([]);
+
+   const permOptions: UserPermsInterface[] = [
+      { label: "Face Logs", value: "face.logs" },
+      { label: "Face Analytics", value: "face.analytics" },
+      { label: "Face DataBase", value: "face.db" },
+      { label: "Queue Logs", value: "queue.logs" },
+      { label: "Queue Analytics", value: "queue.analytics" },
+   ];
 
    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       event.preventDefault();
@@ -33,6 +45,12 @@ export default function UserRegisterForm() {
          phoneNumber: (formData.get("number") as string)?.replace(/\s+/g, ""),
          nationalId: formData.get("personalID"),
          role: formData.get("role"),
+         perms: perms.map(
+            (label: string) =>
+               permOptions.find(
+                  (perm: UserPermsInterface): boolean => perm.label === label
+               )?.value
+         ),
          password: formData.get("password"),
       };
       console.log(data);
@@ -51,6 +69,8 @@ export default function UserRegisterForm() {
    const handleRoleChange = (event: any) => {
       setRole(event.target.value);
    };
+
+   const handlePermChange = (_: any, values: any): void => setPerms(values);
 
    return (
       <Container
@@ -149,13 +169,54 @@ export default function UserRegisterForm() {
                               name="role"
                               onChange={handleRoleChange}
                            >
-                              <MenuItem value={"Manager"}>Manager</MenuItem>
-                              <MenuItem value={"HeadManager"}>
-                                 Head Manager
-                              </MenuItem>
                               <MenuItem value={"Admin"}>Admin</MenuItem>
+                              <MenuItem value={"Manager"}>Manager</MenuItem>
                            </Select>
                         </FormControl>
+                        {role === "Manager" && (
+                           <Grid item xs={12} sx={{ mb: 2 }}>
+                              <Autocomplete
+                                 multiple
+                                 id="permissions"
+                                 options={permOptions.map(
+                                    (option: UserPermsInterface) => option.label
+                                 )}
+                                 value={perms}
+                                 onChange={handlePermChange}
+                                 renderTags={(
+                                    value: string[],
+                                    getTagProps: any
+                                 ) =>
+                                    value.map(
+                                       (option: string, index: number) => (
+                                          <Chip
+                                             variant="outlined"
+                                             label={option}
+                                             {...getTagProps({ index })}
+                                             onDelete={(): void => {
+                                                const updatedPermissions: never[] =
+                                                   [...perms];
+                                                updatedPermissions.splice(
+                                                   index,
+                                                   1
+                                                );
+                                                setPerms(updatedPermissions);
+                                             }}
+                                          />
+                                       )
+                                    )
+                                 }
+                                 renderInput={params => (
+                                    <TextField
+                                       {...params}
+                                       fullWidth
+                                       label="Permissions"
+                                       name="permissions"
+                                    />
+                                 )}
+                              />
+                           </Grid>
+                        )}
                         <Grid item xs={12}>
                            <TextField
                               required
