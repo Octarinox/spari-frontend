@@ -1,9 +1,10 @@
-import React from "react";
-import LogsComponent from "@/components/QueueLogsComponent";
+"use client";
+import { faceDetectionLogs } from "@/components/LogsComponent/LogsData";
+import LogsComponent from "@/components/LogsComponent/LogsComponent";
 const FaceDetectionLogs = () => {
    return (
       <div className="mt-16">
-         <LogsComponent />
+         <LogsComponent logs={faceDetectionLogs} />
       </div>
    );
 };

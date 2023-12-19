@@ -1,13 +1,14 @@
 "use client";
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
+
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-import UserForm from "@/components/UI Components/UserForm";
 import { sendUserDataToServer } from "@/components/UserRegister/SendDataToServer";
+import UserForm from "@/components/UI Components/UserForm";
 
 export default function UserRegisterForm() {
    return (

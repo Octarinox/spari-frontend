@@ -5,22 +5,14 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { MuiTelInput } from "mui-tel-input";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import {
-   FormControl,
-   IconButton,
-   InputAdornment,
-   InputLabel,
-   OutlinedInput,
-} from "@mui/material";
+import { Chip, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import OnlyDigits from "@/utils/OnlyDigits";
 
 import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
 import { Toaster } from "sonner";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import Autocomplete from "@mui/material/Autocomplete";
+import { UserPermsInterface } from "@/components/UserRegister/interfaces/userRegister.interface";
+import { sendUserDataToServer } from "@/components/UserRegister/SendDataToServer";
 
 export default function UserForm({
    data,
@@ -30,6 +22,18 @@ export default function UserForm({
 }: any) {
    const [showPassword, setShowPassword] = React.useState(false);
    const [phoneNumber, setPhoneNumber] = React.useState("");
+   const [perms, setPerms] = useState([]);
+   const [role, setRole] = useState("");
+   const [value, setValue] = useState("");
+
+   const permOptions: UserPermsInterface[] = [
+      { label: "Face Logs", value: "face.logs" },
+      { label: "Face Analytics", value: "face.analytics" },
+      { label: "Face DataBase", value: "face.db" },
+      { label: "Queue Logs", value: "queue.logs" },
+      { label: "Queue Analytics", value: "queue.analytics" },
+   ];
+
    const [permissions, setPermissions] = useState<any>({
       facePermissions: {
          analytics: true,
@@ -49,22 +53,31 @@ export default function UserForm({
       event.preventDefault();
 
       const formData = new FormData(event.currentTarget);
-      const userData = {
+      const data = {
          firstName: formData.get("firstName"),
          lastName: formData.get("lastName"),
          email: formData.get("email"),
          phoneNumber: (formData.get("number") as string)?.replace(/\s+/g, ""),
          nationalId: formData.get("personalID"),
-         permissions,
-         password: formData.get("password") || undefined,
+         role: formData.get("role"),
+         perms: perms.map(
+            (label: string) =>
+               permOptions.find(
+                  (perm: UserPermsInterface): boolean => perm.label === label
+               )?.value
+         ),
+         password: formData.get("password"),
       };
+      console.log(data);
       try {
-         const responseData = await requestHandler(userData, data?._id);
-         ToastComponentSuccess(responseData?.data?.message);
+         const responseData = await sendUserDataToServer(data);
+         ToastComponentSuccess(responseData.data.message);
       } catch (error: any) {
          ToastComponentFailed(`${error.response.data.errors}`);
       }
    }
+
+   const handlePermChange = (_: any, values: any): void => setPerms(values);
 
    const handleCheckboxChange = (category: any, service: any) => {
       setPermissions((prevFormData: any) => ({
@@ -75,8 +88,16 @@ export default function UserForm({
          },
       }));
    };
+
+   const handleChange = (newValue: any) => {
+      setValue(newValue);
+   };
+
+   const handleRoleChange = (event: any) => {
+      setRole(event.target.value);
+   };
    return (
-      <form onSubmit={handleSubmit} autoComplete="off">
+      <form onSubmit={handleSubmit}>
          <Box component="div" sx={{ mt: 3 }}>
             <Grid container spacing={2}>
                <Grid item xs={12} sm={6}>
@@ -86,11 +107,8 @@ export default function UserForm({
                      fullWidth
                      id="firstName"
                      label="First Name"
+                     autoFocus
                      autoComplete="off"
-                     defaultValue={data?.firstName || ""}
-                     InputLabelProps={{
-                        shrink: !!data?.firstName,
-                     }}
                   />
                </Grid>
                <Grid item xs={12} sm={6}>
@@ -101,12 +119,9 @@ export default function UserForm({
                      label="Last Name"
                      name="lastName"
                      autoComplete="off"
-                     defaultValue={data?.lastName || ""}
-                     InputLabelProps={{
-                        shrink: !!data?.lastName,
-                     }}
                   />
                </Grid>
+
                <Grid item xs={12}>
                   <TextField
                      required
@@ -115,20 +130,16 @@ export default function UserForm({
                      label="Email Address"
                      name="email"
                      autoComplete="off"
-                     defaultValue={data?.email || ""}
-                     InputLabelProps={{
-                        shrink: !!data?.email,
-                     }}
                   />
                </Grid>
                <Grid item xs={12}>
                   <MuiTelInput
+                     value={value}
                      fullWidth
-                     id="number"
-                     name="number"
+                     id={"number"}
+                     name={"number"}
                      label="Number"
-                     value={phoneNumber}
-                     onChange={value => setPhoneNumber(value)}
+                     onChange={handleChange}
                      autoComplete="off"
                   />
                </Grid>
@@ -142,93 +153,76 @@ export default function UserForm({
                      type="text"
                      onInput={OnlyDigits}
                      autoComplete="off"
-                     defaultValue={data?.nationalId || ""}
-                     InputLabelProps={{
-                        shrink: !!data?.nationalId,
-                     }}
                   />
                </Grid>
                <Grid item xs={12}>
                   <FormControl fullWidth required sx={{ mb: 2 }}>
-                     <InputLabel htmlFor="password">Password</InputLabel>
-                     <OutlinedInput
-                        required={passwordRequired}
+                     <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                     <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={role}
+                        label="Age"
+                        name="role"
+                        onChange={handleRoleChange}
+                     >
+                        <MenuItem value={"Admin"}>Admin</MenuItem>
+                        <MenuItem value={"Manager"}>Manager</MenuItem>
+                     </Select>
+                  </FormControl>
+                  {role === "Manager" && (
+                     <Grid item xs={12} sx={{ mb: 2 }}>
+                        <Autocomplete
+                           multiple
+                           id="permissions"
+                           options={permOptions.map(
+                              (option: UserPermsInterface) => option.label
+                           )}
+                           value={perms}
+                           onChange={handlePermChange}
+                           renderTags={(value: string[], getTagProps: any) =>
+                              value.map((option: string, index: number) => (
+                                 <Chip
+                                    variant="outlined"
+                                    label={option}
+                                    {...getTagProps({ index })}
+                                    onDelete={(): void => {
+                                       const updatedPermissions: never[] = [
+                                          ...perms,
+                                       ];
+                                       updatedPermissions.splice(index, 1);
+                                       setPerms(updatedPermissions);
+                                    }}
+                                 />
+                              ))
+                           }
+                           renderInput={params => (
+                              <TextField
+                                 {...params}
+                                 fullWidth
+                                 label="Permissions"
+                                 name="permissions"
+                              />
+                           )}
+                        />
+                     </Grid>
+                  )}
+                  <Grid item xs={12}>
+                     <TextField
+                        required
                         fullWidth
+                        // sx={{
+                        //    width: {
+                        //       xs: 320,
+                        //       sm: 400,
+                        //    },
+                        // }}
                         name="password"
-                        label="password"
+                        label="Password"
+                        type="password"
                         id="password"
-                        defaultValue={data?.password}
-                        type={showPassword ? "text" : "password"}
-                        endAdornment={
-                           <InputAdornment position="end">
-                              <IconButton
-                                 aria-label="toggle password visibility"
-                                 onClick={() => setShowPassword(!showPassword)}
-                                 onMouseDown={event => event.preventDefault()}
-                                 edge="end"
-                              >
-                                 {showPassword ? (
-                                    <VisibilityOff />
-                                 ) : (
-                                    <Visibility />
-                                 )}
-                              </IconButton>
-                           </InputAdornment>
-                        }
                      />
-                  </FormControl>
-               </Grid>
-               <Grid item xs={12}>
-                  <FormControl fullWidth required sx={{ mb: 2 }}>
-                     <FormGroup>
-                        <h2 className="mt-2 mb-2">
-                           <b>Face Permissions</b>
-                        </h2>
-                        {Object.entries(permissions.facePermissions).map(
-                           ([service, checked]) => (
-                              <FormControlLabel
-                                 key={service}
-                                 control={
-                                    <Checkbox
-                                       defaultChecked
-                                       onChange={() =>
-                                          handleCheckboxChange(
-                                             "facePermissions",
-                                             service
-                                          )
-                                       }
-                                    />
-                                 }
-                                 label={service}
-                              />
-                           )
-                        )}
-                     </FormGroup>
-                     <FormGroup>
-                        <h2 className="mt-2 mb-2">
-                           <b>Queue Permissions</b>
-                        </h2>
-                        {Object.entries(permissions.queuePermissions).map(
-                           ([service, checked]) => (
-                              <FormControlLabel
-                                 key={service}
-                                 control={
-                                    <Checkbox
-                                       defaultChecked
-                                       onChange={() =>
-                                          handleCheckboxChange(
-                                             "queuePermissions",
-                                             service
-                                          )
-                                       }
-                                    />
-                                 }
-                                 label={service}
-                              />
-                           )
-                        )}
-                     </FormGroup>
-                  </FormControl>
+                  </Grid>
                </Grid>
             </Grid>
             <Toaster richColors />
@@ -245,7 +239,7 @@ export default function UserForm({
                   backgroundColor: "#384454 !important",
                }}
             >
-               {buttonText || "Register User"}
+               Register User
             </Button>
          </Box>
       </form>
