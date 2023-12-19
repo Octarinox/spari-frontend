@@ -6,7 +6,9 @@ import useUserFetcher from "@/shared/hooks/useUserFetch";
 const HeadManagerSelect: React.FC<any> = ({ options, value, onChange }) => {
    useUserFetcher();
    const { data } = useUsersState();
-   const headManagers = data?.filter(user => user.role === "headmanager");
+   const headManagers = data?.filter(
+      (user: any) => user.role === "headmanager"
+   );
    const isOptionEqualToValue = (option: any, value: any) => {
       return option?._id === value[0]?._id;
    };

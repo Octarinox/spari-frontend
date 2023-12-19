@@ -11,7 +11,7 @@ const ManagerSelect: React.FC<any> = ({
 }) => {
    useUserFetcher();
    const { data } = useUsersState();
-   const managers = data?.filter(user => user.role === "manager");
+   const managers = data?.filter((user: any) => user.role === "manager");
 
    const isOptionEqualToValue = (option: any, value: any) => {
       return option?._id === value?.[0]?._id;

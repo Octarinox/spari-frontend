@@ -23,7 +23,7 @@ const UserPage = () => {
 
       fetchData();
    }, []);
-   const user = data?.find(user => user._id === params.id);
+   const user = data?.find((user: any) => user._id === params.id);
    return (
       <Container
          component="main"

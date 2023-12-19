@@ -47,14 +47,12 @@ export default function UserForm({
    }, [data]);
 
    useEffect(() => {
-      console.log("perms", data?.perms);
       const newPerms = data?.perms.map(
          (value: string) =>
             permOptions.find(
                (perm: UserPermsInterface): boolean => perm.value === value
             )?.label
       );
-      console.log(newPerms);
       setPerms(newPerms);
    }, [data]);
 
@@ -76,6 +74,7 @@ export default function UserForm({
          ),
          password: formData.get("password") || undefined,
       };
+      console.log(userData);
       try {
          const responseData = await requestHandler(userData, data?._id);
          ToastComponentSuccess(responseData?.data?.message);
@@ -90,7 +89,6 @@ export default function UserForm({
       }
    }, [data]);
    const handlePermChange = (_: any, values: any): void => {
-      console.log("values", values);
       setPerms(values);
    };
 

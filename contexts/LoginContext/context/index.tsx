@@ -54,6 +54,7 @@ export const AuthProvider: FC<{
                type: AuthActionType.LOGIN_SUCCESSFUL,
             });
             router.push("/dashboard");
+            router.refresh();
          } catch (error: any) {
             ToastComponentFailed(`Error while sending data: ${error.message}`);
             console.log(error);
@@ -74,7 +75,6 @@ export const AuthProvider: FC<{
             },
             type: AuthActionType.LOGIN_SUCCESSFUL,
          });
-         console.log(data);
       } catch (error: any) {
          ToastComponentFailed(`Error while sending data: ${error.message}`);
          console.log(error);
