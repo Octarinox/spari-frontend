@@ -15,17 +15,14 @@ import { queueInputsValues } from "@/components/BranchRegister/constants";
 
 import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
 import QueueInputs from "@/components/BranchRegister/QueueInputs";
-import ManagerSelect from "@/components/UI Components/SelectManagers";
-import HeadManagerSelect from "@/components/UI Components/SelectHeadManagers";
+import ManagerSelect from "@/components/UI Components/SelectManager";
 import { updateBranchesRequest } from "@/httpRequests/updateBranches";
-import { findHeadManager } from "@/utils/findHeadManager";
 import { useUsersState } from "@/contexts/UsersContext";
 import { findManager } from "@/utils/findManager";
 
 export default function BranchEditForm({ data: branchData }: any) {
    const [queueInput, setQueueInput] = useState(queueInputsValues);
    const [manager, setManager] = useState<any>({});
-   const [headManager, setHeadManager] = useState<any>({});
    const { data } = useUsersState();
 
    useEffect(() => {
@@ -33,10 +30,8 @@ export default function BranchEditForm({ data: branchData }: any) {
    }, [branchData]);
 
    useEffect(() => {
-      const headManager = findHeadManager(data, branchData?.users);
       const manager = findManager(data, branchData?.users);
       setManager(manager);
-      setHeadManager(headManager);
    }, [data]);
    const handleQueueInputChange = (value: any) => {
       setQueueInput(value);
@@ -48,7 +43,7 @@ export default function BranchEditForm({ data: branchData }: any) {
       const formDataObject = {
          branchId: formData.get("branchID"),
          address: formData.get("Address"),
-         users: [manager?._id, headManager?._id],
+         users: [manager?._id],
          cams: {
             queue: queueInput,
             face: {
@@ -131,14 +126,6 @@ export default function BranchEditForm({ data: branchData }: any) {
                               value={manager}
                               onChange={(e: any) => {
                                  setManager(e);
-                              }}
-                           />
-                        </Grid>
-                        <Grid item xs={12}>
-                           <HeadManagerSelect
-                              value={headManager}
-                              onChange={(e: any) => {
-                                 setHeadManager(e);
                               }}
                            />
                         </Grid>

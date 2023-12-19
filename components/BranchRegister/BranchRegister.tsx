@@ -19,13 +19,11 @@ import { queueInputsValues } from "@/components/BranchRegister/constants";
 import { sendDataToServer } from "@/components/BranchRegister/sendDataToServer";
 
 import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
-import SelectManagers from "@/components/UI Components/SelectManagers";
-import SelectHeadManagers from "../UI Components/SelectHeadManagers";
+import SelectManagers from "@/components/UI Components/SelectManager";
 
 export default function BranchRegisterForm() {
    const [queueInput, setQueueInput] = useState(queueInputsValues);
    const [manager, setManager] = useState<any>({});
-   const [headManager, setHeadManager] = useState<any>({});
    const [servicesData, setServicesData] = useState<any>({
       faceDetect: {
          dashboardPopup: true,
@@ -57,7 +55,7 @@ export default function BranchRegisterForm() {
       const data = {
          branchId: formData.get("branchID"),
          address: formData.get("Address"),
-         users: [manager?._id, headManager?._id],
+         users: [manager?._id],
          cams: {
             queue: queueInput,
             face: {
@@ -134,13 +132,6 @@ export default function BranchRegisterForm() {
                         <Grid item xs={12}>
                            <SelectManagers
                               onChange={(manager: any) => setManager(manager)}
-                           />
-                        </Grid>
-                        <Grid item xs={12}>
-                           <SelectHeadManagers
-                              onChange={(headManager: any) =>
-                                 setManager(headManager)
-                              }
                            />
                         </Grid>
                      </Grid>

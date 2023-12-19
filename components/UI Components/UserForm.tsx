@@ -5,14 +5,23 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { MuiTelInput } from "mui-tel-input";
-import { Chip, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+   Chip,
+   FormControl,
+   IconButton,
+   InputAdornment,
+   InputLabel,
+   OutlinedInput,
+   Select,
+} from "@mui/material";
 import OnlyDigits from "@/utils/OnlyDigits";
 
 import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
 import { Toaster } from "sonner";
-import Autocomplete from "@mui/material/Autocomplete";
 import { UserPermsInterface } from "@/components/UserRegister/interfaces/userRegister.interface";
-import { sendUserDataToServer } from "@/components/UserRegister/SendDataToServer";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Autocomplete from "@mui/material/Autocomplete";
+import MenuItem from "@mui/material/MenuItem";
 
 export default function UserForm({
    data,
@@ -24,8 +33,6 @@ export default function UserForm({
    const [phoneNumber, setPhoneNumber] = React.useState("");
    const [perms, setPerms] = useState([]);
    const [role, setRole] = useState("");
-   const [value, setValue] = useState("");
-
    const permOptions: UserPermsInterface[] = [
       { label: "Face Logs", value: "face.logs" },
       { label: "Face Analytics", value: "face.analytics" },
@@ -34,26 +41,19 @@ export default function UserForm({
       { label: "Queue Analytics", value: "queue.analytics" },
    ];
 
-   const [permissions, setPermissions] = useState<any>({
-      facePermissions: {
-         analytics: true,
-         logs: true,
-         database: true,
-      },
-      queuePermissions: {
-         analytics: true,
-         logs: true,
-      },
-   });
    useEffect(() => {
       setPhoneNumber(data?.phoneNumber);
-   }, []);
+   }, [data]);
+
+   useEffect(() => {
+      setPerms(data?.perms);
+   }, [data]);
 
    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       event.preventDefault();
 
       const formData = new FormData(event.currentTarget);
-      const data = {
+      const userData = {
          firstName: formData.get("firstName"),
          lastName: formData.get("lastName"),
          email: formData.get("email"),
@@ -66,38 +66,29 @@ export default function UserForm({
                   (perm: UserPermsInterface): boolean => perm.label === label
                )?.value
          ),
-         password: formData.get("password"),
+         password: formData.get("password") || undefined,
       };
-      console.log(data);
       try {
-         const responseData = await sendUserDataToServer(data);
-         ToastComponentSuccess(responseData.data.message);
+         const responseData = await requestHandler(userData, data?._id);
+         ToastComponentSuccess(responseData?.data?.message);
       } catch (error: any) {
          ToastComponentFailed(`${error.response.data.errors}`);
       }
    }
 
+   console.log(data);
+   useEffect(() => {
+      if (data) {
+         setRole(data.role);
+      }
+   }, [data]);
    const handlePermChange = (_: any, values: any): void => setPerms(values);
-
-   const handleCheckboxChange = (category: any, service: any) => {
-      setPermissions((prevFormData: any) => ({
-         ...prevFormData,
-         [category]: {
-            ...prevFormData[category],
-            [service]: !prevFormData[category][service],
-         },
-      }));
-   };
-
-   const handleChange = (newValue: any) => {
-      setValue(newValue);
-   };
 
    const handleRoleChange = (event: any) => {
       setRole(event.target.value);
    };
    return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete={"off"}>
          <Box component="div" sx={{ mt: 3 }}>
             <Grid container spacing={2}>
                <Grid item xs={12} sm={6}>
@@ -107,8 +98,13 @@ export default function UserForm({
                      fullWidth
                      id="firstName"
                      label="First Name"
-                     autoFocus
                      autoComplete="off"
+                     defaultValue={data?.firstName || ""}
+                     InputLabelProps={
+                        data && {
+                           shrink: !!data?.firstName,
+                        }
+                     }
                   />
                </Grid>
                <Grid item xs={12} sm={6}>
@@ -119,9 +115,14 @@ export default function UserForm({
                      label="Last Name"
                      name="lastName"
                      autoComplete="off"
+                     defaultValue={data?.lastName || ""}
+                     InputLabelProps={
+                        data && {
+                           shrink: !!data?.lastName,
+                        }
+                     }
                   />
                </Grid>
-
                <Grid item xs={12}>
                   <TextField
                      required
@@ -130,16 +131,22 @@ export default function UserForm({
                      label="Email Address"
                      name="email"
                      autoComplete="off"
+                     defaultValue={data?.email || ""}
+                     InputLabelProps={
+                        data && {
+                           shrink: !!data?.email,
+                        }
+                     }
                   />
                </Grid>
                <Grid item xs={12}>
                   <MuiTelInput
-                     value={value}
                      fullWidth
-                     id={"number"}
-                     name={"number"}
+                     id="number"
+                     name="number"
                      label="Number"
-                     onChange={handleChange}
+                     value={phoneNumber}
+                     onChange={value => setPhoneNumber(value)}
                      autoComplete="off"
                   />
                </Grid>
@@ -153,6 +160,12 @@ export default function UserForm({
                      type="text"
                      onInput={OnlyDigits}
                      autoComplete="off"
+                     defaultValue={data?.nationalId || ""}
+                     InputLabelProps={
+                        data && {
+                           shrink: !!data?.nationalId,
+                        }
+                     }
                   />
                </Grid>
                <Grid item xs={12}>
@@ -162,15 +175,15 @@ export default function UserForm({
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={role}
-                        label="Age"
                         name="role"
+                        defaultValue={role}
                         onChange={handleRoleChange}
                      >
-                        <MenuItem value={"Admin"}>Admin</MenuItem>
-                        <MenuItem value={"Manager"}>Manager</MenuItem>
+                        <MenuItem value={"admin"}>Admin</MenuItem>
+                        <MenuItem value={"manager"}>Manager</MenuItem>
                      </Select>
                   </FormControl>
-                  {role === "Manager" && (
+                  {role === "manager" && (
                      <Grid item xs={12} sx={{ mb: 2 }}>
                         <Autocomplete
                            multiple
@@ -179,6 +192,7 @@ export default function UserForm({
                               (option: UserPermsInterface) => option.label
                            )}
                            value={perms}
+                           defaultValue={perms}
                            onChange={handlePermChange}
                            renderTags={(value: string[], getTagProps: any) =>
                               value.map((option: string, index: number) => (
@@ -207,22 +221,37 @@ export default function UserForm({
                         />
                      </Grid>
                   )}
-                  <Grid item xs={12}>
-                     <TextField
-                        required
+               </Grid>
+               <Grid item xs={12}>
+                  <FormControl fullWidth required sx={{ mb: 2 }}>
+                     <InputLabel htmlFor="password">Password</InputLabel>
+                     <OutlinedInput
+                        required={passwordRequired}
                         fullWidth
-                        // sx={{
-                        //    width: {
-                        //       xs: 320,
-                        //       sm: 400,
-                        //    },
-                        // }}
                         name="password"
-                        label="Password"
-                        type="password"
+                        label="password"
+                        autoComplete={"new-password"}
                         id="password"
+                        defaultValue={data?.password}
+                        type={showPassword ? "text" : "password"}
+                        endAdornment={
+                           <InputAdornment position="end">
+                              <IconButton
+                                 aria-label="toggle password visibility"
+                                 onClick={() => setShowPassword(!showPassword)}
+                                 onMouseDown={event => event.preventDefault()}
+                                 edge="end"
+                              >
+                                 {showPassword ? (
+                                    <VisibilityOff />
+                                 ) : (
+                                    <Visibility />
+                                 )}
+                              </IconButton>
+                           </InputAdornment>
+                        }
                      />
-                  </Grid>
+                  </FormControl>
                </Grid>
             </Grid>
             <Toaster richColors />
@@ -239,7 +268,7 @@ export default function UserForm({
                   backgroundColor: "#384454 !important",
                }}
             >
-               Register User
+               {buttonText || "Register User"}
             </Button>
          </Box>
       </form>

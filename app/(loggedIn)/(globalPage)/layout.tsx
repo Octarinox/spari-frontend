@@ -5,8 +5,8 @@ import useBranchFetcher from "@/shared/hooks/useBranchFetch";
 import useUserFetcher from "@/shared/hooks/useUserFetch";
 import { useAuthState } from "@/contexts/LoginContext/context";
 import { useBranchState } from "@/contexts/BranchesContext";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoggedInRootLayout({
    children,
@@ -18,12 +18,8 @@ export default function LoggedInRootLayout({
    const router = useRouter();
    const { role } = useAuthState();
    const { data } = useBranchState();
-   console.log(role, data);
    useEffect(() => {
-      console.log("hi");
-      if (role === "manager" && data) {
-         router.push(`/branch/${data?.[0]?.branchId}/analytics`);
-      }
+      console.log();
    }, [router, role, data]);
    return (
       <main>

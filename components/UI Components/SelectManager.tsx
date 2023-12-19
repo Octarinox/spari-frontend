@@ -3,7 +3,12 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { useUsersState } from "@/contexts/UsersContext";
 import useUserFetcher from "@/shared/hooks/useUserFetch";
 
-const ManagerSelect: React.FC<any> = ({ options, value, onChange }) => {
+const ManagerSelect: React.FC<any> = ({
+   options,
+   value,
+   onChange,
+   defaultValue,
+}) => {
    useUserFetcher();
    const { data } = useUsersState();
    const managers = data?.filter(user => user.role === "manager");
