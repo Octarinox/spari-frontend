@@ -6,6 +6,7 @@ export const initialContext: AuthContextInterface = {
       email: "",
       role: "",
       id: "",
+      perms: [],
       error: null,
    },
    actions: {

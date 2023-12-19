@@ -95,12 +95,11 @@ export default function LineChart({ branchData, id }: any) {
    };
 
    return (
-      <main>
+      <main className={"flex justify-center"}>
          <div
             style={{
-               width: "60%",
+               width: "90%",
                height: "500px",
-               margin: "auto",
                marginTop: "100px",
             }}
             className={"flex justify-center"}

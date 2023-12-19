@@ -2,11 +2,12 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { classNames } from "@/utils/classConcatenate";
 import Link from "next/link";
-import { useAuthActions } from "@/contexts/LoginContext/context";
+import { useAuthActions, useAuthState } from "@/contexts/LoginContext/context";
 import { useRouter } from "next/navigation";
 
 const UserMenu = () => {
    const { logOut } = useAuthActions();
+   const { email } = useAuthState();
    const router = useRouter();
    const handleLogout = async () => {
       await logOut();
@@ -46,6 +47,19 @@ const UserMenu = () => {
                         </Link>
                      </>
                   )}
+               </Menu.Item>
+               <Menu.Item>
+                  <>
+                     {email && (
+                        <p
+                           className={classNames(
+                              "block px-4 py-2 text-sm text-gray-700"
+                           )}
+                        >
+                           {email}
+                        </p>
+                     )}
+                  </>
                </Menu.Item>
             </Menu.Items>
          </Transition>

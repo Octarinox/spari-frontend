@@ -44,7 +44,7 @@ export default function UserEdit() {
    };
 
    const handleFilterChange = ({ selectedOption, searchValue }: any) => {
-      const updatedFilteredData = data?.filter(item => {
+      const updatedFilteredData = data?.filter((item: any) => {
          return item[selectedOption]
             .toLowerCase()
             .includes(searchValue.toLowerCase());

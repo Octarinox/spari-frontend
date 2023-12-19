@@ -37,24 +37,24 @@ export const settingsSidebarItems = [
       className: inactiveClass,
       classNameCurrent: activeClass,
    },
-   {
-      text: "Blacklist",
-
-      getCurrentItem() {
-         const activeItemStyle = this.current
-            ? styles.activeIcon
-            : styles.inactiveIcon;
-         return generateImageTag(
-            "/blacklist.svg",
-            "blacklist_icon",
-            activeItemStyle
-         );
-      },
-      href: "/settings/blacklist",
-      current: false,
-      className: inactiveClass,
-      classNameCurrent: activeClass,
-   },
+   // {
+   //    text: "Blacklist",
+   //
+   //    getCurrentItem() {
+   //       const activeItemStyle = this.current
+   //          ? styles.activeIcon
+   //          : styles.inactiveIcon;
+   //       return generateImageTag(
+   //          "/blacklist.svg",
+   //          "blacklist_icon",
+   //          activeItemStyle
+   //       );
+   //    },
+   //    href: "/settings/blacklist",
+   //    current: false,
+   //    className: inactiveClass,
+   //    classNameCurrent: activeClass,
+   // },
    {
       text: "Edit Users",
 

@@ -71,7 +71,6 @@ export default function BranchRegisterForm() {
          serviceConfig: servicesData,
       };
       try {
-         await sendDataToServer(data);
          const responseData = await sendDataToServer(data);
 
          ToastComponentSuccess(responseData.data.message);

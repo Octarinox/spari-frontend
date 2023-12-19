@@ -3,10 +3,10 @@ export const branchesData = [
       branch_id: 3,
       detect: {
          Salaro1: {
-            person: 22,
+            person: 3,
          },
          Salaro2: {
-            person: 15,
+            person: 4,
          },
       },
       timestamp: "2023-05-16T10:00:00Z",
@@ -15,10 +15,10 @@ export const branchesData = [
       branch_id: 4,
       detect: {
          Salaro1: {
-            person: 28,
+            person: 6,
          },
          Salaro2: {
-            person: 12,
+            person: 10,
          },
       },
       timestamp: "2023-11-02T12:15:00Z",
@@ -27,10 +27,10 @@ export const branchesData = [
       branch_id: 2,
       detect: {
          Salaro1: {
-            person: 182,
+            person: 5,
          },
          Salaro2: {
-            person: 20,
+            person: 2,
          },
       },
       timestamp: "2023-10-08T14:30:00Z",
@@ -39,10 +39,10 @@ export const branchesData = [
       branch_id: 2,
       detect: {
          Salaro1: {
-            person: 50,
+            person: 1,
          },
          Salaro2: {
-            person: 17,
+            person: 2,
          },
       },
       timestamp: "2023-05-16T16:45:00Z",
@@ -51,10 +51,10 @@ export const branchesData = [
       branch_id: 2,
       detect: {
          Salaro1: {
-            person: 25,
+            person: 3,
          },
          Salaro2: {
-            person: 12,
+            person: 10,
          },
       },
       timestamp: "2023-03-16T16:45:00Z",
@@ -63,10 +63,10 @@ export const branchesData = [
       branch_id: 2,
       detect: {
          Salaro1: {
-            person: 111,
+            person: 5,
          },
          Salaro2: {
-            person: 17,
+            person: 2,
          },
       },
       timestamp: "2023-02-16T16:45:00Z",
@@ -75,10 +75,10 @@ export const branchesData = [
       branch_id: 2,
       detect: {
          Salaro1: {
-            person: 25,
+            person: 2,
          },
          Salaro2: {
-            person: 17,
+            person: 5,
          },
       },
       timestamp: "2023-01-16T16:45:00Z",
@@ -87,10 +87,10 @@ export const branchesData = [
       branch_id: 7,
       detect: {
          Salaro1: {
-            person: 15,
+            person: 1,
          },
          Salaro2: {
-            person: 22,
+            person: 2,
          },
       },
       timestamp: "2023-11-14T12:01:00Z",
@@ -99,10 +99,10 @@ export const branchesData = [
       branch_id: 33,
       detect: {
          Salaro1: {
-            person: 12.3,
+            person: 4,
          },
          Salaro2: {
-            person: 22,
+            person: 6,
          },
       },
       timestamp: "2023-11-20T12:02:00Z",
@@ -111,10 +111,10 @@ export const branchesData = [
       branch_id: 22,
       detect: {
          Salaro1: {
-            person: 11.1,
+            person: 7,
          },
          Salaro2: {
-            person: 22,
+            person: 3,
          },
       },
       timestamp: "2023-11-17T12:03:00Z",
@@ -123,10 +123,10 @@ export const branchesData = [
       branch_id: 11,
       detect: {
          Salaro1: {
-            person: 15,
+            person: 5,
          },
          Salaro2: {
-            person: 22,
+            person: 5,
          },
       },
       timestamp: "2023-11-14T12:00:00Z",

@@ -2,7 +2,7 @@ import { UsersContextInterface } from "@/contexts/UsersContext/users.interface";
 
 export const initialContext: UsersContextInterface = {
    state: {
-      data: [],
+      data: {},
    },
    actions: {
       getUsers: async (): Promise<undefined> => undefined,

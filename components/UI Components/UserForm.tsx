@@ -31,14 +31,15 @@ export default function UserForm({
 }: any) {
    const [showPassword, setShowPassword] = React.useState(false);
    const [phoneNumber, setPhoneNumber] = React.useState("");
-   const [perms, setPerms] = useState([]);
+   const [perms, setPerms] = useState<any>([]);
    const [role, setRole] = useState("");
    const permOptions: UserPermsInterface[] = [
       { label: "Face Logs", value: "face.logs" },
       { label: "Face Analytics", value: "face.analytics" },
       { label: "Face DataBase", value: "face.db" },
       { label: "Queue Logs", value: "queue.logs" },
-      { label: "Queue Analytics", value: "queue.analytics" },
+      { label: "Queue Analytics Global", value: "queue.analytics.global" },
+      { label: "Queue Analytics Branch", value: "queue.analytics.branch" },
    ];
 
    useEffect(() => {
@@ -46,12 +47,19 @@ export default function UserForm({
    }, [data]);
 
    useEffect(() => {
-      setPerms(data?.perms);
+      console.log("perms", data?.perms);
+      const newPerms = data?.perms.map(
+         (value: string) =>
+            permOptions.find(
+               (perm: UserPermsInterface): boolean => perm.value === value
+            )?.label
+      );
+      console.log(newPerms);
+      setPerms(newPerms);
    }, [data]);
 
    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       event.preventDefault();
-
       const formData = new FormData(event.currentTarget);
       const userData = {
          firstName: formData.get("firstName"),
@@ -76,13 +84,15 @@ export default function UserForm({
       }
    }
 
-   console.log(data);
    useEffect(() => {
       if (data) {
          setRole(data.role);
       }
    }, [data]);
-   const handlePermChange = (_: any, values: any): void => setPerms(values);
+   const handlePermChange = (_: any, values: any): void => {
+      console.log("values", values);
+      setPerms(values);
+   };
 
    const handleRoleChange = (event: any) => {
       setRole(event.target.value);
@@ -191,8 +201,7 @@ export default function UserForm({
                            options={permOptions.map(
                               (option: UserPermsInterface) => option.label
                            )}
-                           value={perms}
-                           defaultValue={perms}
+                           value={perms || []}
                            onChange={handlePermChange}
                            renderTags={(value: string[], getTagProps: any) =>
                               value.map((option: string, index: number) => (
@@ -201,7 +210,7 @@ export default function UserForm({
                                     label={option}
                                     {...getTagProps({ index })}
                                     onDelete={(): void => {
-                                       const updatedPermissions: never[] = [
+                                       const updatedPermissions: any[] = [
                                           ...perms,
                                        ];
                                        updatedPermissions.splice(index, 1);

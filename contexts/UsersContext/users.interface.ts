@@ -1,5 +1,5 @@
 export interface UsersState {
-   data: any[] | null;
+   data: any | null;
 }
 
 export interface UsersContextInterface {

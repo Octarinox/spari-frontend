@@ -3,6 +3,7 @@ export interface AuthState {
    email: string | null;
    role?: string | null;
    error: object | null;
+   perms?: any[] | null;
    id?: string | null;
 }
 
@@ -28,6 +29,7 @@ export interface AuthAction {
       email?: string;
       isLoggedIn?: boolean;
       error?: object;
+      perms?: any[];
       id?: string;
       role?: string;
    };

@@ -33,6 +33,7 @@ export const branchPageSidebarItems = [
             activeItemStyle
          );
       },
+      bannedRole: "manager",
       key: "edit-branch",
       href: "edit-branch",
       current: false,

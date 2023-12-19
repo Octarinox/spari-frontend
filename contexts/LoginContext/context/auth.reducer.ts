@@ -14,6 +14,7 @@ export const reducer = (state: AuthState, action: AuthAction): AuthState => {
             role: payload?.role || null,
             email: payload?.email || null,
             id: payload?.id || null,
+            perms: payload?.perms || null,
          };
       case AuthActionType.LOGIN_IN_FAILED:
          return { ...state, error: payload?.error || null };

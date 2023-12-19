@@ -43,10 +43,14 @@ export const AuthProvider: FC<{
                credentials: "include",
             });
             const data = await res.json();
-            console.log(data);
             localStorage.setItem("jwtToken", data.token);
             dispatch({
-               payload: { email: data.email, role: data.role },
+               payload: {
+                  email: data.email,
+                  role: data.role,
+                  perms: data.perms,
+                  id: data.id,
+               },
                type: AuthActionType.LOGIN_SUCCESSFUL,
             });
             router.push("/dashboard");
@@ -66,9 +70,11 @@ export const AuthProvider: FC<{
                email: data.email,
                role: data.role,
                id: data.id,
+               perms: data.perms,
             },
             type: AuthActionType.LOGIN_SUCCESSFUL,
          });
+         console.log(data);
       } catch (error: any) {
          ToastComponentFailed(`Error while sending data: ${error.message}`);
          console.log(error);

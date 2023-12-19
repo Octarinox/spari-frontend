@@ -26,7 +26,10 @@ const TimeIntervals = (props: any) => {
    };
 
    return (
-      <Container className={"flex flex-col items-center mt-12"}>
+      <Container
+         className={"flex flex-col items-center mt-12"}
+         style={{ display: "flex" }}
+      >
          <Typography component="h1" variant="h5">
             Select Time Interval
          </Typography>
