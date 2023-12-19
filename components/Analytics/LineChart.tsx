@@ -23,6 +23,7 @@ export default function LineChart({ branchData, id }: any) {
       Tooltip,
       Legend
    );
+
    const sortedData: any = branchData?.sort(
       (a: any, b: any) =>
          (new Date(a.timestamp) as any) - (new Date(b.timestamp) as any)
@@ -43,32 +44,6 @@ export default function LineChart({ branchData, id }: any) {
       updateMode: "resize",
    };
 
-   const formatTimestamp = (timestamp: any) => {
-      const months = [
-         "Jan",
-         "Feb",
-         "Mar",
-         "Apr",
-         "May",
-         "Jun",
-         "Jul",
-         "Aug",
-         "Sep",
-         "Oct",
-         "Nov",
-         "Dec",
-      ];
-      const date = new Date(timestamp);
-      const monthAbbreviation = months[date.getMonth()];
-      const day = date.getDate().toString().padStart(2, "0");
-      const hours = date.getHours().toString();
-      const minutes = date.getMinutes().toString();
-      return `${monthAbbreviation}-${day}-${hours}:${minutes}`;
-   };
-
-   const timestamps = sortedData?.map((timestamp: any) =>
-      formatTimestamp(timestamp.timestamp)
-   );
    const cashier1 = sortedData?.map(
       (entry: any) => entry.detect.Salaro1.person
    );
@@ -76,18 +51,50 @@ export default function LineChart({ branchData, id }: any) {
       (entry: any) => entry.detect.Salaro2.person
    );
 
-   const data: ChartData<"line", any, unknown> = {
-      labels: timestamps,
+   const formatTimestamp = (timestamp: any) => {
+      const date: Date = new Date(timestamp);
+      return date.getTime();
+   };
+
+   const timestamps = sortedData?.map((data: any) => {
+      return formatTimestamp(data.timestamp);
+   });
+
+   const downsampleData = (data: any[], factor: number) => {
+      const downsampled = [];
+      for (let i = 0; i < data.length; i += factor) {
+         const startIndex = i;
+         const endIndex = Math.min(i + factor, data.length);
+         const subset = data.slice(startIndex, endIndex);
+         if (subset.length > 0) {
+            const average =
+               subset.reduce((sum, value) => sum + value, 0) / subset.length;
+            downsampled.push(average);
+         }
+      }
+      return downsampled;
+   };
+
+   const downsampleFactor = 2; // Adjust this factor based on your data size and preference
+
+   const downsampledTimestamps = downsampleData(timestamps, downsampleFactor);
+   const downsampledCashier1 = downsampleData(cashier1, downsampleFactor);
+   const downsampledCashier2 = downsampleData(cashier2, downsampleFactor);
+
+   const downsampledData: ChartData<"line", any, unknown> = {
+      labels: downsampledTimestamps.map(
+         timestamp => new Date(timestamp).toISOString() // Convert back to timestamp string
+      ),
       datasets: [
          {
             label: "Cashier 1",
-            data: cashier1,
+            data: downsampledCashier1,
             borderColor: "purple",
             cubicInterpolationMode: "monotone",
          } as ChartDataset<"line", any>,
          {
             label: "Cashier 2",
-            data: cashier2,
+            data: downsampledCashier2,
             borderColor: "black",
             cubicInterpolationMode: "monotone",
          } as ChartDataset<"line", any>,
@@ -104,7 +111,7 @@ export default function LineChart({ branchData, id }: any) {
             }}
             className={"flex justify-center"}
          >
-            <Line options={options} data={data} />
+            <Line options={options} data={downsampledData} />
          </div>
       </main>
    );
