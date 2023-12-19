@@ -4,7 +4,7 @@ const axiosFacerec = axios.create({
     baseURL: "http://localhost:8000",
     withCredentials: false,
     headers: {
-        'x-api-key': "69a88479-c977-42e0-af61-486eb4cadf1c",
+        'x-api-key': "287a6bce-7d57-4c1a-ac71-4512f6510854",
     },
 });
 
