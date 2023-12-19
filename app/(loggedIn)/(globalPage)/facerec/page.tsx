@@ -90,7 +90,7 @@ export default function FacerecPage() {
                CurrentName,
                // @ts-ignore
 
-               reader?.result?.replace("data:image/jpeg;base64,", "")
+               reader?.result?.split(",")[1]
             ).then(() => window.location.reload());
          },
          false
@@ -224,7 +224,7 @@ export default function FacerecPage() {
                </div>
             </Box>
          </Modal>
-         <div className="flex justify-center p-10 h-[70rem]">
+         <div className="flex justify-center p-10 h-[60rem]">
             <aside className="border-[1px] scrollbar-thin text-center p-2 scrollbar-thumb-gray-100 scrollbar-track-gray-200 overflow-y-scroll border-gray-200 bg-gray-200 w-[20rem] rounded-l-3xl h-full">
                <div className="h-[95%]">
                   {Object.keys(Subjects).map((key, idx) => (
@@ -345,7 +345,7 @@ export default function FacerecPage() {
                            <figure>
                               <img
                                  className="w-[100px] object-cover rounded-t-lg"
-                                 src={`http://localhost:8000/api/v1/static/69a88479-c977-42e0-af61-486eb4cadf1c/images/${el}`}
+                                 src={`http://localhost:8000/api/v1/static/287a6bce-7d57-4c1a-ac71-4512f6510854/images/${el}`}
                               />
                               <figcaption>
                                  <button
