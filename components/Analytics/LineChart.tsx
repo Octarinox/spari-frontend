@@ -11,9 +11,25 @@ import {
    Title,
    Tooltip,
 } from "chart.js";
+import {
+   downsampleData,
+   formatTimestamps,
+} from "@/app/(loggedIn)/(branchPage)/branch/[id]/edit-branch/dataTransformer";
+import { useState } from "react";
+import Typography from "@mui/material/Typography";
+import { Slider, StyledEngineProvider, ThemeProvider } from "@mui/material";
 import { Line } from "react-chartjs-2";
+import { sliderTheme } from "@/app/(loggedIn)/(branchPage)/branch/[id]/edit-branch/sliderTheme";
 
 export default function LineChart({ branchData, id }: any) {
+   const [downsampleFactor, setDownsampleFactor] = useState<number>(
+      Math.ceil(branchData.length / 18) || 1
+   );
+
+   const handleSliderChange = (_: any, value: number | number[]) => {
+      setDownsampleFactor(value as number);
+   };
+
    ChartJS.register(
       CategoryScale,
       LinearScale,
@@ -24,11 +40,6 @@ export default function LineChart({ branchData, id }: any) {
       Legend
    );
 
-   const sortedData: any = branchData?.sort(
-      (a: any, b: any) =>
-         (new Date(a.timestamp) as any) - (new Date(b.timestamp) as any)
-   );
-
    const options = {
       responsive: true,
       plugins: {
@@ -37,54 +48,42 @@ export default function LineChart({ branchData, id }: any) {
          },
          title: {
             display: true,
-            text: `Branch ${id}`,
+            text: `Branch #${id}`,
          },
       },
       maintainAspectRatio: false,
       updateMode: "resize",
    };
 
+   const sortedData: any = branchData?.sort(
+      (a: any, b: any) =>
+         (new Date(a.timestamp) as any) - (new Date(b.timestamp) as any)
+   );
    const cashier1 = sortedData?.map(
       (entry: any) => entry.detect.Salaro1.person
    );
    const cashier2 = sortedData?.map(
       (entry: any) => entry.detect.Salaro2.person
    );
-
-   const formatTimestamp = (timestamp: any) => {
-      const date: Date = new Date(timestamp);
-      return date.getTime();
-   };
-
    const timestamps = sortedData?.map((data: any) => {
-      return formatTimestamp(data.timestamp);
+      return new Date(data.timestamp).getTime();
    });
 
-   const downsampleData = (data: any[], factor: number) => {
-      const downsampled = [];
-      for (let i = 0; i < data.length; i += factor) {
-         const startIndex = i;
-         const endIndex = Math.min(i + factor, data.length);
-         const subset = data.slice(startIndex, endIndex);
-         if (subset.length > 0) {
-            const average =
-               subset.reduce((sum, value) => sum + value, 0) / subset.length;
-            downsampled.push(average);
-         }
-      }
-      return downsampled;
-   };
-
-   const downsampleFactor = 2; // Adjust this factor based on your data size and preference
-
-   const downsampledTimestamps = downsampleData(timestamps, downsampleFactor);
-   const downsampledCashier1 = downsampleData(cashier1, downsampleFactor);
-   const downsampledCashier2 = downsampleData(cashier2, downsampleFactor);
+   const downsampledTimestamps: number[] = downsampleData(
+      timestamps,
+      downsampleFactor
+   );
+   const downsampledCashier1: number[] = downsampleData(
+      cashier1,
+      downsampleFactor
+   );
+   const downsampledCashier2: number[] = downsampleData(
+      cashier2,
+      downsampleFactor
+   );
 
    const downsampledData: ChartData<"line", any, unknown> = {
-      labels: downsampledTimestamps.map(
-         timestamp => new Date(timestamp).toISOString() // Convert back to timestamp string
-      ),
+      labels: formatTimestamps(downsampledTimestamps),
       datasets: [
          {
             label: "Cashier 1",
@@ -102,17 +101,40 @@ export default function LineChart({ branchData, id }: any) {
    };
 
    return (
-      <main className={"flex justify-center"}>
-         <div
-            style={{
-               width: "90%",
-               height: "500px",
-               marginTop: "100px",
-            }}
-            className={"flex justify-center"}
-         >
-            <Line options={options} data={downsampledData} />
-         </div>
-      </main>
+      <StyledEngineProvider injectFirst>
+         <ThemeProvider theme={sliderTheme}>
+            <main className={"flex flex-col justify-center"}>
+               <div
+                  style={{
+                     width: "90%",
+                     height: "500px",
+                     marginTop: "100px",
+                  }}
+               >
+                  <Line options={options} data={downsampledData} />
+               </div>
+               <div className={"flex justify-center mt-6"}>
+                  <div className={"w-2/4"}>
+                     <Typography
+                        className={"text-gray-500"}
+                        id="downsample-factor-slider"
+                        gutterBottom
+                     >
+                        Downsample Strength
+                     </Typography>
+                     <Slider
+                        value={downsampleFactor}
+                        min={1}
+                        max={10}
+                        step={1}
+                        onChange={handleSliderChange}
+                        valueLabelDisplay="auto"
+                        aria-labelledby="downsample-factor-slider"
+                     />
+                  </div>
+               </div>
+            </main>
+         </ThemeProvider>
+      </StyledEngineProvider>
    );
 }

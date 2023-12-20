@@ -135,169 +135,133 @@ export const branchesData = [
       branch_id: 2,
       detect: {
          Salaro1: {
-            person: 9,
+            person: 5,
          },
          Salaro2: {
-            person: 8,
+            person: 4,
          },
       },
-      timestamp: "2023-10-23T12:59:38Z",
+      timestamp: "2023-01-20T01:31:09.993Z",
    },
    {
       branch_id: 2,
       detect: {
          Salaro1: {
-            person: 1,
+            person: 5,
+         },
+         Salaro2: {
+            person: 5,
+         },
+      },
+      timestamp: "2023-01-20T01:31:09.994Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 6,
+         },
+         Salaro2: {
+            person: 5,
+         },
+      },
+      timestamp: "2023-02-20T01:31:09.994Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 5,
+         },
+         Salaro2: {
+            person: 4,
+         },
+      },
+      timestamp: "2023-02-20T01:31:09.994Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 4,
+         },
+         Salaro2: {
+            person: 5,
+         },
+      },
+      timestamp: "2023-02-20T01:31:09.994Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 6,
+         },
+         Salaro2: {
+            person: 4,
+         },
+      },
+      timestamp: "2023-03-20T01:31:09.994Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 4,
+         },
+         Salaro2: {
+            person: 4,
+         },
+      },
+      timestamp: "2023-05-20T01:31:09.994Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 5,
+         },
+         Salaro2: {
+            person: 5,
+         },
+      },
+      timestamp: "2023-08-20T01:31:09.994Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 4,
+         },
+         Salaro2: {
+            person: 4,
+         },
+      },
+      timestamp: "2023-11-20T01:31:09.994Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 5,
          },
          Salaro2: {
             person: 6,
          },
       },
-      timestamp: "2023-04-10T12:34:12Z",
-   },
-   {
-      branch_id: 2,
-      detect: {
-         Salaro1: {
-            person: 3,
-         },
-         Salaro2: {
-            person: 4,
-         },
-      },
-      timestamp: "2023-01-22T01:50:18Z",
-   },
-   {
-      branch_id: 2,
-      detect: {
-         Salaro1: {
-            person: 11,
-         },
-         Salaro2: {
-            person: 5,
-         },
-      },
-      timestamp: "2023-09-11T05:23:14Z",
-   },
-   {
-      branch_id: 2,
-      detect: {
-         Salaro1: {
-            person: 3,
-         },
-         Salaro2: {
-            person: 3,
-         },
-      },
-      timestamp: "2023-11-18T16:54:27Z",
-   },
-   {
-      branch_id: 2,
-      detect: {
-         Salaro1: {
-            person: 12,
-         },
-         Salaro2: {
-            person: 7,
-         },
-      },
-      timestamp: "2023-06-13T05:09:32Z",
-   },
-   {
-      branch_id: 2,
-      detect: {
-         Salaro1: {
-            person: 5,
-         },
-         Salaro2: {
-            person: 4,
-         },
-      },
-      timestamp: "2023-01-20T23:26:11Z",
-   },
-   {
-      branch_id: 2,
-      detect: {
-         Salaro1: {
-            person: 3,
-         },
-         Salaro2: {
-            person: 13,
-         },
-      },
-      timestamp: "2023-04-04T23:54:11Z",
-   },
-   {
-      branch_id: 2,
-      detect: {
-         Salaro1: {
-            person: 14,
-         },
-         Salaro2: {
-            person: 3,
-         },
-      },
-      timestamp: "2023-02-19T17:36:00Z",
-   },
-   {
-      branch_id: 2,
-      detect: {
-         Salaro1: {
-            person: 11,
-         },
-         Salaro2: {
-            person: 4,
-         },
-      },
-      timestamp: "2023-01-11T15:51:07Z",
+      timestamp: "2023-12-20T01:31:09.994Z",
    },
    {
       branch_id: 2,
       detect: {
          Salaro1: {
             person: 4,
-         },
-         Salaro2: {
-            person: 2,
-         },
-      },
-      timestamp: "2023-04-10T02:41:31Z",
-   },
-   {
-      branch_id: 2,
-      detect: {
-         Salaro1: {
-            person: 7,
          },
          Salaro2: {
             person: 6,
          },
       },
-      timestamp: "2023-01-14T03:16:18Z",
-   },
-   {
-      branch_id: 2,
-      detect: {
-         Salaro1: {
-            person: 1,
-         },
-         Salaro2: {
-            person: 14,
-         },
-      },
-      timestamp: "2023-07-16T04:49:26Z",
-   },
-   {
-      branch_id: 2,
-      detect: {
-         Salaro1: {
-            person: 2,
-         },
-         Salaro2: {
-            person: 4,
-         },
-      },
-      timestamp: "2023-01-15T12:17:16Z",
+      timestamp: "2023-02-20T01:32:23.583Z",
    },
    {
       branch_id: 2,
@@ -306,10 +270,22 @@ export const branchesData = [
             person: 5,
          },
          Salaro2: {
-            person: 7,
+            person: 5,
          },
       },
-      timestamp: "2023-04-15T10:51:05Z",
+      timestamp: "2023-02-20T01:32:23.583Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 6,
+         },
+         Salaro2: {
+            person: 6,
+         },
+      },
+      timestamp: "2023-03-20T01:32:23.583Z",
    },
    {
       branch_id: 2,
@@ -318,57 +294,201 @@ export const branchesData = [
             person: 4,
          },
          Salaro2: {
-            person: 15,
+            person: 5,
          },
       },
-      timestamp: "2023-08-23T04:36:37Z",
+      timestamp: "2023-03-20T01:32:23.583Z",
    },
    {
       branch_id: 2,
       detect: {
          Salaro1: {
-            person: 3,
+            person: 6,
          },
          Salaro2: {
-            person: 8,
+            person: 4,
          },
       },
-      timestamp: "2023-12-08T20:59:10Z",
+      timestamp: "2023-04-20T01:32:23.583Z",
    },
    {
       branch_id: 2,
       detect: {
          Salaro1: {
-            person: 11,
+            person: 5,
          },
          Salaro2: {
-            person: 7,
+            person: 4,
          },
       },
-      timestamp: "2023-04-19T07:09:09Z",
+      timestamp: "2023-04-20T01:32:23.583Z",
    },
    {
       branch_id: 2,
       detect: {
          Salaro1: {
-            person: 11,
+            person: 4,
          },
          Salaro2: {
-            person: 1,
+            person: 4,
          },
       },
-      timestamp: "2023-04-01T13:55:07Z",
+      timestamp: "2023-04-20T01:32:23.583Z",
    },
    {
       branch_id: 2,
       detect: {
          Salaro1: {
-            person: 11,
+            person: 4,
          },
          Salaro2: {
-            person: 11,
+            person: 6,
          },
       },
-      timestamp: "2023-08-14T15:38:27Z",
+      timestamp: "2023-05-20T01:32:23.583Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 4,
+         },
+         Salaro2: {
+            person: 6,
+         },
+      },
+      timestamp: "2023-06-20T01:32:23.583Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 6,
+         },
+         Salaro2: {
+            person: 5,
+         },
+      },
+      timestamp: "2023-07-20T01:32:23.582Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 5,
+         },
+         Salaro2: {
+            person: 4,
+         },
+      },
+      timestamp: "2023-07-20T01:32:23.583Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 5,
+         },
+         Salaro2: {
+            person: 6,
+         },
+      },
+      timestamp: "2023-08-20T01:32:23.583Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 5,
+         },
+         Salaro2: {
+            person: 6,
+         },
+      },
+      timestamp: "2023-09-20T01:32:23.583Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 5,
+         },
+         Salaro2: {
+            person: 6,
+         },
+      },
+      timestamp: "2023-10-20T01:32:23.583Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 5,
+         },
+         Salaro2: {
+            person: 5,
+         },
+      },
+      timestamp: "2023-10-20T01:32:23.583Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 4,
+         },
+         Salaro2: {
+            person: 6,
+         },
+      },
+      timestamp: "2023-11-20T01:32:23.583Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 4,
+         },
+         Salaro2: {
+            person: 5,
+         },
+      },
+      timestamp: "2023-11-20T01:32:23.583Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 4,
+         },
+         Salaro2: {
+            person: 5,
+         },
+      },
+      timestamp: "2023-11-20T01:32:23.583Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 5,
+         },
+         Salaro2: {
+            person: 6,
+         },
+      },
+      timestamp: "2023-12-20T01:32:23.583Z",
+   },
+   {
+      branch_id: 2,
+      detect: {
+         Salaro1: {
+            person: 5,
+         },
+         Salaro2: {
+            person: 4,
+         },
+      },
+      timestamp: "2023-12-20T01:32:23.583Z",
    },
 ];

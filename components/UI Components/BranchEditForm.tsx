@@ -83,7 +83,7 @@ export default function BranchEditForm({ data: branchData }: any) {
                component="form"
                noValidate
                onSubmit={handleSubmit}
-               sx={{ mt: 3 }}
+               sx={{ mt: 3, ml: 2 }}
             >
                <Grid container item xs={12} spacing={2} direction="row">
                   <Grid>
