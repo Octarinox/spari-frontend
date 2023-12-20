@@ -11,6 +11,7 @@ import { AuthProvider } from "@/contexts/LoginContext/context";
 import * as React from "react";
 import { UsersProvider } from "@/contexts/UsersContext";
 import { BranchProvider } from "@/contexts/BranchesContext";
+import { SocketProvider } from "@/contexts/SocketContext";
 
 const openSans = Open_Sans({
    subsets: ["latin"],
@@ -30,9 +31,12 @@ export default function LoggedOutRootLayout({
       <html lang="en">
          <body className={`${openSans.className} bg-indigo-50`}>
             <AuthProvider>
-               <BranchProvider>
-                  <UsersProvider>{children}</UsersProvider>
-               </BranchProvider>
+               <SocketProvider>
+                  {" "}
+                  <BranchProvider>
+                     <UsersProvider>{children}</UsersProvider>
+                  </BranchProvider>
+               </SocketProvider>
             </AuthProvider>
          </body>
       </html>
