@@ -32,7 +32,6 @@ export default function LoggedOutRootLayout({
          <body className={`${openSans.className} bg-indigo-50`}>
             <AuthProvider>
                <SocketProvider>
-                  {" "}
                   <BranchProvider>
                      <UsersProvider>{children}</UsersProvider>
                   </BranchProvider>

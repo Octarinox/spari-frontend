@@ -1,12 +1,5 @@
-// SocketContext.ts
-import {
-   createContext,
-   ReactNode,
-   useContext,
-   useEffect,
-   useMemo,
-   useState,
-} from "react";
+"use client";
+import { createContext, ReactNode, useContext, useMemo } from "react";
 import io, { Socket } from "socket.io-client";
 
 interface SocketContextProps {
@@ -17,43 +10,35 @@ interface SocketContextValue {
    socket: Socket;
 }
 
-const SocketContext = createContext<SocketContextValue | undefined>(undefined);
+const SocketContext = createContext<SocketContextValue | any>(undefined);
 
 const SOCKET_SERVER_URL = "https://octarinox.tech/api/popup";
 
 export const SocketProvider: React.FC<SocketContextProps> = ({ children }) => {
-   const [socket, setSocket] = useState<Socket | null>(null);
+   const socket = useMemo(() => {
+      if (typeof window !== "undefined") {
+         // Check if running in a browser environment
+         const token = localStorage?.getItem("jwtToken");
 
-   const memoizedConnect = useMemo(() => {
-      return () => {
-         const newSocket = io(SOCKET_SERVER_URL, {
+         return io(SOCKET_SERVER_URL, {
             withCredentials: true,
-            // extraHeaders: {
-            //    jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1N2Y4MGM4MmEyYWJiMzdhOTY1Zjc5NCIsImlhdCI6MTcwMzAyMjYwMiwiZXhwIjoxNzAzMTA5MDAyfQ.82EUswqAQxpLTcEXp3dtxxu5XjdVThKF1yHwLeBmzhk",
-            // },
+            extraHeaders: {
+               jwt: token || "",
+            },
          });
-         setSocket(newSocket);
-
-         return () => {
-            newSocket.disconnect();
-         };
-      };
+      }
    }, []);
-   useEffect(() => {
-      memoizedConnect();
-   }, [memoizedConnect]);
-   const value: SocketContextValue = {
-      socket: socket!,
-   };
+
+   const value = useMemo(() => ({ actions: { socket } }), [socket]);
    return (
       <SocketContext.Provider value={value}>{children}</SocketContext.Provider>
    );
 };
 
-export const useSocket = (): SocketContextValue => {
-   const context = useContext(SocketContext);
-   if (!context) {
+export const useSocket = () => {
+   const { actions } = useContext(SocketContext);
+   if (!actions) {
       throw new Error("useSocket must be used within a SocketProvider");
    }
-   return context;
+   return actions;
 };

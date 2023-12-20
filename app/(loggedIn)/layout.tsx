@@ -1,8 +1,8 @@
 "use client";
 import "/styles/globals.css";
-import { useAuthActions } from "@/contexts/LoginContext/context";
 import { useEffect, useState } from "react";
 import { useSocket } from "@/contexts/SocketContext";
+import { Toast } from "@/components/UI Components/Toast";
 
 export default function LoggedInRootLayout({
    children,
@@ -10,21 +10,21 @@ export default function LoggedInRootLayout({
    children: React.ReactNode;
 }) {
    const { socket } = useSocket();
-   const [notifications, setNotifications] = useState<string[]>([]);
-
-   const { checkAuth } = useAuthActions();
-
-   useEffect(() => {
-      checkAuth();
-   }, []);
+   const [notification, setNotification] = useState<any>(null);
+   // {
+   //    branchId: "6574d6600d098b0d56f268e5",
+   //        data: {
+   //    subject: "nikusha",
+   //        accuracy: "98.64382",
+   //        timestamp: "2023-11-20T19:39:31.636Z",
+   // },
+   //    type: "face",
+   // }
    useEffect(() => {
       if (socket) {
          socket.on("alert", (message: any) => {
-            console.log("asdasdasd");
-            setNotifications(prevNotifications => [
-               ...prevNotifications,
-               message,
-            ]);
+            console.log("aaaaa");
+            setNotification(message);
          });
       }
 
@@ -32,5 +32,10 @@ export default function LoggedInRootLayout({
          socket?.off("alert");
       };
    }, [socket]);
-   return <>{children}</>;
+   return (
+      <>
+         {<Toast data={notification} />}
+         {children}
+      </>
+   );
 }
