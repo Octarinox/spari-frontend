@@ -1,5 +1,12 @@
 // SocketContext.ts
-import { createContext, ReactNode, useContext, useEffect } from "react";
+import {
+   createContext,
+   ReactNode,
+   useContext,
+   useEffect,
+   useMemo,
+   useState,
+} from "react";
 import io, { Socket } from "socket.io-client";
 
 interface SocketContextProps {
@@ -15,20 +22,29 @@ const SocketContext = createContext<SocketContextValue | undefined>(undefined);
 const SOCKET_SERVER_URL = "https://octarinox.tech/api/popup";
 
 export const SocketProvider: React.FC<SocketContextProps> = ({ children }) => {
-   const socket = io(SOCKET_SERVER_URL, {
-      withCredentials: true,
-   });
+   const [socket, setSocket] = useState<Socket | null>(null);
 
-   useEffect(() => {
+   const memoizedConnect = useMemo(() => {
       return () => {
-         socket.disconnect();
+         const newSocket = io(SOCKET_SERVER_URL, {
+            withCredentials: true,
+            // extraHeaders: {
+            //    jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1N2Y4MGM4MmEyYWJiMzdhOTY1Zjc5NCIsImlhdCI6MTcwMzAyMjYwMiwiZXhwIjoxNzAzMTA5MDAyfQ.82EUswqAQxpLTcEXp3dtxxu5XjdVThKF1yHwLeBmzhk",
+            // },
+         });
+         setSocket(newSocket);
+
+         return () => {
+            newSocket.disconnect();
+         };
       };
    }, []);
-
+   useEffect(() => {
+      memoizedConnect();
+   }, [memoizedConnect]);
    const value: SocketContextValue = {
-      socket,
+      socket: socket!,
    };
-
    return (
       <SocketContext.Provider value={value}>{children}</SocketContext.Provider>
    );

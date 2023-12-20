@@ -18,13 +18,18 @@ export default function LoggedInRootLayout({
       checkAuth();
    }, []);
    useEffect(() => {
-      socket.on("notification", (message: string) => {
-         console.log("asdasdasd");
-         setNotifications(prevNotifications => [...prevNotifications, message]);
-      });
+      if (socket) {
+         socket.on("alert", (message: any) => {
+            console.log("asdasdasd");
+            setNotifications(prevNotifications => [
+               ...prevNotifications,
+               message,
+            ]);
+         });
+      }
 
       return () => {
-         socket.off("notification");
+         socket?.off("alert");
       };
    }, [socket]);
    return <>{children}</>;
