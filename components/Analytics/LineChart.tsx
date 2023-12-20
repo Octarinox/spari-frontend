@@ -14,12 +14,12 @@ import {
 import {
    downsampleData,
    formatTimestamps,
-} from "@/app/(loggedIn)/(branchPage)/branch/[id]/edit-branch/dataTransformer";
+} from "@/app/(loggedIn)/(branchPage)/branch/[id]/analytics/dataTransformer";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Slider, StyledEngineProvider, ThemeProvider } from "@mui/material";
 import { Line } from "react-chartjs-2";
-import { sliderTheme } from "@/app/(loggedIn)/(branchPage)/branch/[id]/edit-branch/sliderTheme";
+import { sliderTheme } from "@/app/(loggedIn)/(branchPage)/branch/[id]/analytics/sliderTheme";
 
 export default function LineChart({ branchData, id }: any) {
    const [downsampleFactor, setDownsampleFactor] = useState<number>(
