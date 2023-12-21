@@ -17,15 +17,18 @@ const SOCKET_SERVER_URL = "https://octarinox.tech/api/popup";
 export const SocketProvider: React.FC<SocketContextProps> = ({ children }) => {
    const socket = useMemo(() => {
       if (typeof window !== "undefined") {
-         // Check if running in a browser environment
          const token = localStorage?.getItem("jwtToken");
-
-         return io(SOCKET_SERVER_URL, {
-            withCredentials: true,
-            extraHeaders: {
-               jwt: token || "",
-            },
-         });
+         const config = token
+            ? {
+                 withCredentials: true,
+                 extraHeaders: {
+                    jwt: token || "",
+                 },
+              }
+            : {
+                 withCredentials: true,
+              };
+         return io(SOCKET_SERVER_URL, config);
       }
    }, []);
 
