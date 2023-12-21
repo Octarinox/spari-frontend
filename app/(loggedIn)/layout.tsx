@@ -27,6 +27,7 @@ export default function LoggedInRootLayout({
          });
       }
       return () => {
+         setNotification(null);
          socket?.off("alert");
       };
    }, [socket]);
