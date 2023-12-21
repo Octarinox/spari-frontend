@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSocket } from "@/contexts/SocketContext";
 import { renderSpecificToast } from "@/utils/renderSpecificToast";
 
+export const dynamic = "force-dynamic";
 export default function LoggedInRootLayout({
    children,
 }: {
