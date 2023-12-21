@@ -66,6 +66,7 @@ export const AuthProvider: FC<{
       try {
          const res = await axiosInstance.get("/auth/user/check-auth");
          const data = await res.data.user;
+         console.log("checkauth");
          dispatch({
             payload: {
                email: data.email,

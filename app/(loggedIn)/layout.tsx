@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useSocket } from "@/contexts/SocketContext";
 import { renderSpecificToast } from "@/utils/renderSpecificToast";
 
-export const dynamic = "force-dynamic";
 export default function LoggedInRootLayout({
    children,
 }: {
@@ -12,24 +11,19 @@ export default function LoggedInRootLayout({
 }) {
    const { socket } = useSocket();
    const [notification, setNotification] = useState<any>(null);
-   // {
-   //    branchId: "6574d6600d098b0d56f268e5",
-   //        data: {
-   //    subject: "nikusha",
-   //        accuracy: "98.64382",
-   //        timestamp: "2023-11-20T19:39:31.636Z",
-   // },
-   //    type: "face",
-   // }
+
    useEffect(() => {
+      const handleAlert = (message: any) => {
+         setNotification(message);
+      };
+
       if (socket) {
-         socket.on("alert", (message: any) => {
-            setNotification(message);
-         });
+         socket.on("alert", handleAlert);
       }
+
       return () => {
          setNotification(null);
-         socket?.off("alert");
+         socket?.off("alert", handleAlert);
       };
    }, [socket]);
    renderSpecificToast(notification);
