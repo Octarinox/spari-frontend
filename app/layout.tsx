@@ -12,6 +12,7 @@ import * as React from "react";
 import { UsersProvider } from "@/contexts/UsersContext";
 import { BranchProvider } from "@/contexts/BranchesContext";
 import { SocketProvider } from "@/contexts/SocketContext";
+import { Toaster } from "sonner";
 
 const openSans = Open_Sans({
    subsets: ["latin"],
@@ -33,7 +34,14 @@ export default function LoggedOutRootLayout({
             <AuthProvider>
                <SocketProvider>
                   <BranchProvider>
-                     <UsersProvider>{children}</UsersProvider>
+                     <UsersProvider>
+                        {children}
+                        <Toaster
+                           richColors
+                           closeButton
+                           position={"top-right"}
+                        />
+                     </UsersProvider>
                   </BranchProvider>
                </SocketProvider>
             </AuthProvider>

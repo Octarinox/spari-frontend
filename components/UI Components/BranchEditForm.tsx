@@ -10,15 +10,13 @@ import StorefrontIcon from "@mui/icons-material/Storefront";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import OnlyDigits from "@/utils/OnlyDigits";
-import { Toaster } from "sonner";
 import { queueInputsValues } from "@/components/BranchRegister/constants";
-
-import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
 import QueueInputs from "@/components/BranchRegister/QueueInputs";
 import ManagerSelect from "@/components/UI Components/SelectManager";
 import { updateBranchesRequest } from "@/httpRequests/updateBranches";
 import { useUsersState } from "@/contexts/UsersContext";
 import { findManager } from "@/utils/findManager";
+import { toast } from "sonner";
 
 export default function BranchEditForm({ data: branchData }: any) {
    const [queueInput, setQueueInput] = useState(queueInputsValues);
@@ -57,9 +55,9 @@ export default function BranchEditForm({ data: branchData }: any) {
          const responseData = await updateBranchesRequest(formDataObject, [
             branchData._id,
          ]);
-         ToastComponentSuccess(responseData.data.message);
+         toast.success(responseData.data.message);
       } catch (error: any) {
-         ToastComponentFailed(`${error.response.data.errors}`);
+         toast.error(`${error.response.data.errors}`);
       }
    };
 
@@ -172,7 +170,6 @@ export default function BranchEditForm({ data: branchData }: any) {
                      </Grid>
                   </Grid>
                </Grid>
-               <Toaster richColors />
                <Button
                   type="submit"
                   fullWidth

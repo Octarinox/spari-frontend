@@ -14,7 +14,6 @@ import OnlyDigits from "@/utils/OnlyDigits";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
-import { Toaster } from "sonner";
 import { DataGrid } from "@mui/x-data-grid";
 import { updateBranchesRequest } from "@/httpRequests/updateBranches";
 
@@ -210,7 +209,6 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
                         </Grid>
                      </Grid>
                   </Grid>
-                  <Toaster richColors />
                   <Button
                      type="submit"
                      fullWidth

@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { Toaster } from "sonner";
 
 import { useAuthActions } from "@/contexts/LoginContext/context";
 
@@ -47,8 +46,6 @@ const Login = () => {
                      onInput={() => setErrorMessage("")}
                   />
                </div>
-
-               <Toaster richColors />
 
                <div>
                   <button

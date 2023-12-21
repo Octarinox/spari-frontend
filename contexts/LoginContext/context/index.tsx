@@ -14,10 +14,10 @@ import {
    AuthContextInterface,
 } from "@/contexts/LoginContext/context/auth.interface";
 import { initialContext } from "@/contexts/LoginContext/context/auth.state";
-import { ToastComponentFailed } from "@/components/ToastComponent";
 import { useRouter } from "next/navigation";
 import { url } from "@/shared/constants/shared-constants";
 import axiosInstance from "@/axios/axios-instance";
+import { toast } from "sonner";
 
 export const AuthContext = createContext<AuthContextInterface>(initialContext);
 
@@ -56,7 +56,7 @@ export const AuthProvider: FC<{
             router.push("/dashboard");
             router.refresh();
          } catch (error: any) {
-            ToastComponentFailed(`Error while sending data: ${error.message}`);
+            toast.error(`Error while sending data: ${error.message}`);
             console.log(error);
          }
       },
@@ -76,7 +76,7 @@ export const AuthProvider: FC<{
             type: AuthActionType.LOGIN_SUCCESSFUL,
          });
       } catch (error: any) {
-         ToastComponentFailed(`Error while sending data: ${error.message}`);
+         toast.error(`Error while sending data: ${error.message}`);
          console.log(error);
       }
    }, []);

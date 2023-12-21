@@ -1,6 +1,7 @@
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 
-export const Toast: React.FC<any> = ({ data }) => {
+export const renderSpecificToast = (data: any) => {
+   console.log("asdasd");
    const accuracyValue = parseFloat(data?.data?.accuracy);
    console.log(data, accuracyValue);
    if (accuracyValue >= 50 && accuracyValue < 60) {
@@ -10,8 +11,4 @@ export const Toast: React.FC<any> = ({ data }) => {
    } else if (accuracyValue >= 80) {
       toast.error("Event has not been created");
    }
-
-   return (
-      <Toaster position="top-right" expand={false} closeButton richColors />
-   );
 };

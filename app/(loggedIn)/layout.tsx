@@ -2,7 +2,7 @@
 import "/styles/globals.css";
 import { useEffect, useState } from "react";
 import { useSocket } from "@/contexts/SocketContext";
-import { Toast } from "@/components/UI Components/Toast";
+import { renderSpecificToast } from "@/utils/renderSpecificToast";
 
 export default function LoggedInRootLayout({
    children,
@@ -23,19 +23,13 @@ export default function LoggedInRootLayout({
    useEffect(() => {
       if (socket) {
          socket.on("alert", (message: any) => {
-            console.log("aaaaa");
             setNotification(message);
          });
       }
-
       return () => {
          socket?.off("alert");
       };
    }, [socket]);
-   return (
-      <>
-         {<Toast data={notification} />}
-         {children}
-      </>
-   );
+   renderSpecificToast(notification);
+   return <>{children}</>;
 }

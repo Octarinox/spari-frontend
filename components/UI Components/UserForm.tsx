@@ -15,9 +15,7 @@ import {
    Select,
 } from "@mui/material";
 import OnlyDigits from "@/utils/OnlyDigits";
-
-import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
-import { Toaster } from "sonner";
+import { toast } from "sonner";
 import { UserPermsInterface } from "@/components/UserRegister/interfaces/userRegister.interface";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -47,7 +45,7 @@ export default function UserForm({
    }, [data]);
 
    useEffect(() => {
-      const newPerms = data?.perms.map(
+      const newPerms = data?.perms?.map(
          (value: string) =>
             permOptions.find(
                (perm: UserPermsInterface): boolean => perm.value === value
@@ -66,7 +64,7 @@ export default function UserForm({
          phoneNumber: (formData.get("number") as string)?.replace(/\s+/g, ""),
          nationalId: formData.get("personalID"),
          role: formData.get("role"),
-         perms: perms.map(
+         perms: perms?.map(
             (label: string) =>
                permOptions.find(
                   (perm: UserPermsInterface): boolean => perm.label === label
@@ -77,9 +75,9 @@ export default function UserForm({
       console.log(userData);
       try {
          const responseData = await requestHandler(userData, data?._id);
-         ToastComponentSuccess(responseData?.data?.message);
+         toast.success(responseData?.data?.message);
       } catch (error: any) {
-         ToastComponentFailed(`${error.response.data.errors}`);
+         toast.error(error.response.data.errors);
       }
    }
 
@@ -261,7 +259,6 @@ export default function UserForm({
                   </FormControl>
                </Grid>
             </Grid>
-            <Toaster richColors />
             <Button
                type="submit"
                fullWidth

@@ -13,13 +13,11 @@ import OnlyDigits from "@/utils/OnlyDigits";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
-import { Toaster } from "sonner";
 import QueueInputs from "./QueueInputs";
 import { queueInputsValues } from "@/components/BranchRegister/constants";
 import { sendDataToServer } from "@/components/BranchRegister/sendDataToServer";
-
-import { ToastComponentFailed, ToastComponentSuccess } from "../ToastComponent";
 import SelectManagers from "@/components/UI Components/SelectManager";
+import { toast } from "sonner";
 
 export default function BranchRegisterForm() {
    const [queueInput, setQueueInput] = useState(queueInputsValues);
@@ -73,9 +71,9 @@ export default function BranchRegisterForm() {
       try {
          const responseData = await sendDataToServer(data);
 
-         ToastComponentSuccess(responseData.data.message);
+         toast.success(responseData.data.message);
       } catch (error: any) {
-         ToastComponentFailed(`${error.response.data.errors}`);
+         toast.error(`${error.response.data.errors}`);
       }
    };
 
@@ -276,7 +274,6 @@ export default function BranchRegisterForm() {
                      </Grid>
                   </Grid>
                </Grid>
-               <Toaster richColors />
                <Button
                   type="submit"
                   fullWidth
