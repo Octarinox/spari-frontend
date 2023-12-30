@@ -2,7 +2,7 @@
 
 export function groupByInterval(data, startTime, interval, format) {
     const groupedData = {};
-    data.forEach((branch: any) => {
+    data?.forEach((branch: any) => {
         const timestamp = new Date(branch.timestamp).getTime();
         const intervalKey = new Date(
             Math.floor((timestamp - startTime) / interval) * interval + startTime

@@ -1,21 +1,22 @@
 "use client";
 import React from "react";
-import { queueLogs } from "@/components/LogsComponent/LogsData";
-import LogsComponent from "@/components/LogsComponent/LogsComponent";
 import { PERMISSIONS } from "@/shared/constants/pagesPermissions";
 import { useAuthState } from "@/contexts/LoginContext/context";
-import { Error } from "@/components/UI Components/Error";
-import { Loading } from "@/components/UI Components/Loading";
+import { Error } from "@/components/UI/Error";
+import { Loading } from "@/components/UI/Loading";
+import QueueLogs from "@/components/UI/QueueLogs";
+import useQueueLogs from "@/shared/hooks/useQueueLogs";
 
-const QueueLogs = () => {
+const QueueLogsPage = () => {
    const { perms, role } = useAuthState();
-
+   const { data } = useQueueLogs();
+   console.log("data", data);
    return (
       <>
-         {perms ? (
+         {perms && data ? (
             <div className="mt-16">
                {role === "admin" || perms?.includes(PERMISSIONS.QUEUE_LOGS) ? (
-                  <LogsComponent logs={queueLogs} />
+                  <QueueLogs logs={data} />
                ) : (
                   <Error />
                )}
@@ -27,4 +28,4 @@ const QueueLogs = () => {
    );
 };
 
-export default QueueLogs;
+export default QueueLogsPage;

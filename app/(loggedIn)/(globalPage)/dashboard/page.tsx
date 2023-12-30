@@ -1,8 +1,8 @@
 "use client";
-import TableComponent from "@/components/UI Components/TableComponent";
+import TableComponent from "@/components/UI/TableComponent";
 import { useRouter } from "next/navigation";
 import { useBranchState } from "@/contexts/BranchesContext";
-import FilterComponent from "@/components/UI Components/FilterComponent";
+import FilterComponent from "@/components/UI/FilterComponent";
 import React, { useEffect, useState } from "react";
 
 const options = [

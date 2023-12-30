@@ -1,11 +1,11 @@
 "use client";
-import Sidebar from "@/components/UI Components/Sidebar";
+import Sidebar from "@/components/UI/Sidebar";
 import "/styles/globals.css";
 import { settingsSidebarItems } from "@/shared/constants/settingsSidebarItems";
 import { useAuthState } from "@/contexts/LoginContext/context";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { Error } from "@/components/UI Components/Error";
+import { Error } from "@/components/UI/Error";
 
 export default function LoggedInRootLayout({
    children,

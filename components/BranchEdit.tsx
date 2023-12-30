@@ -1,40 +1,8 @@
 "use client";
 
 import React from "react";
-import SearchBarComponent from "./UI Components/FilterComponent";
-import FilterComponent from "./UI Components/FilterComponent";
-
-interface Column {
-   id: "branchID" | "address";
-   label: string;
-   minWidth?: number;
-   align?: "right";
-   format?: (value: number) => string;
-}
-
-const columns: Column[] = [
-   { id: "branchID", label: "Branch ID", minWidth: 170 },
-   { id: "address", label: "Address", minWidth: 100 },
-];
-
-interface Data {
-   branchID: string;
-   address: string;
-}
-
-function createData(branchID: string, address: string): Data {
-   const density = address;
-   return { branchID, address };
-}
-
-const rows = [
-   createData("Firstname", "Lastname"),
-   createData("Fiasdrstname", "Lasasdatname"),
-   createData("Firsfstname", "Lasgftname"),
-   createData("Firscxtname", "Lagdstname"),
-   createData("Firstnehame", "Lasfdtname"),
-   createData("Firshstname", "Lastfdname"),
-];
+import SearchBarComponent from "@/components/UI/FilterComponent";
+import FilterComponent from "@/components/UI/FilterComponent";
 
 const BranchEditTable = () => {
    return (

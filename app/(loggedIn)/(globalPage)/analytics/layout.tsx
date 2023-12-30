@@ -1,5 +1,5 @@
 "use client";
-import Sidebar from "@/components/UI Components/Sidebar";
+import Sidebar from "@/components/UI/Sidebar";
 import "/styles/globals.css";
 import { sidebarItems } from "@/components/Analytics/constants/sidebarItems";
 

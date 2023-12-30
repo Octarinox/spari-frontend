@@ -12,7 +12,7 @@ import Container from "@mui/material/Container";
 import OnlyDigits from "@/utils/OnlyDigits";
 import { queueInputsValues } from "@/components/BranchRegister/constants";
 import QueueInputs from "@/components/BranchRegister/QueueInputs";
-import ManagerSelect from "@/components/UI Components/SelectManager";
+import ManagerSelect from "@/components/UI/SelectManager";
 import { updateBranchesRequest } from "@/httpRequests/updateBranches";
 import { useUsersState } from "@/contexts/UsersContext";
 import { findManager } from "@/utils/findManager";
@@ -175,6 +175,7 @@ export default function BranchEditForm({ data: branchData }: any) {
                   fullWidth
                   variant="contained"
                   sx={{
+                     marginLeft: "-7px",
                      mt: 5,
                      mb: 2,
                      "&:hover": {

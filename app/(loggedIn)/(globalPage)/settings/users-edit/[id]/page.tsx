@@ -1,6 +1,6 @@
 "use client";
 
-import UserForm from "@/components/UI Components/UserForm";
+import UserForm from "@/components/UI/UserForm";
 import { Box } from "@mui/material";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";

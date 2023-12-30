@@ -1,5 +1,5 @@
 export const calculateQueueAverage = (
-   data: any[],
+   data: any,
    result: Record<string, number[]>
 ) => {
    const averages: any = [];

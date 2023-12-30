@@ -16,8 +16,12 @@ import FormGroup from "@mui/material/FormGroup";
 import QueueInputs from "./QueueInputs";
 import { queueInputsValues } from "@/components/BranchRegister/constants";
 import { sendDataToServer } from "@/components/BranchRegister/sendDataToServer";
-import SelectManagers from "@/components/UI Components/SelectManager";
+import SelectManagers from "@/components/UI/SelectManager";
 import { toast } from "sonner";
+import {
+   faceDetectAlertMessage,
+   queueAlertMessage,
+} from "@/local-constants/alertMessages";
 
 export default function BranchRegisterForm() {
    const [queueInput, setQueueInput] = useState(queueInputsValues);
@@ -177,7 +181,11 @@ export default function BranchRegisterForm() {
                               },
                            }}
                            required
+                           maxRows={10}
+                           multiline
                            fullWidth
+                           autoFocus
+                           defaultValue={faceDetectAlertMessage}
                            id="faceAlertMessage"
                            label="Alert Message"
                            name="faceAlertMessage"
@@ -196,6 +204,10 @@ export default function BranchRegisterForm() {
                            }}
                            required
                            fullWidth
+                           multiline
+                           autoFocus
+                           maxRows={10}
+                           defaultValue={queueAlertMessage}
                            id="queueAlertMessage"
                            label="Alert Message"
                            name="queueAlertMessage"

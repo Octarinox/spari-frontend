@@ -17,6 +17,7 @@
     "@heroicons/react": "^2.0.18",
     "@mui/icons-material": "^5.15.0",
     "@mui/material": "^5.14.17",
+    "@mui/system": "^5.15.1",
     "@mui/x-data-grid": "^6.18.4",
     "axios": "^1.5.1",
     "chalk": "^5.3.0",

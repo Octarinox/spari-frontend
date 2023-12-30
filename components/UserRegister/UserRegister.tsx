@@ -6,7 +6,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-import UserForm from "@/components/UI Components/UserForm";
+import UserForm from "@/components/UI/UserForm";
 import { sendUserDataToServer } from "@/components/UserRegister/SendDataToServer";
 
 export default function UserRegisterForm() {

@@ -21,7 +21,7 @@ export default function FilterComponent(props: any) {
       setSelectedValue(newValue);
       handleChange({
          selectedOption: newValue,
-         searchValue: "", // Reset search value when changing the filter option
+         searchValue: "",
       });
    };
 
@@ -41,7 +41,7 @@ export default function FilterComponent(props: any) {
             <Select
                labelId="demo-simple-select-label"
                id="demo-simple-select"
-               label="Select"
+               label="Filter By"
                variant="filled"
                value={selectedValue}
                onChange={e => handleSelectChange(e.target.value)}

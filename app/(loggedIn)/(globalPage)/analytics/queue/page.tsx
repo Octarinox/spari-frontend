@@ -4,12 +4,12 @@ import QueueChart from "@/components/Analytics/Queue";
 import styles from "@/components/Analytics/styles/queueAnalytics.module.scss";
 import TimeIntervals from "@/components/Analytics/TimeIntervals";
 import { groupBranchesByInterval } from "@/utils/groupBranchesByInterval";
-import { branchesData } from "@/components/Analytics/constants/testBranches";
 import { calculateQueueAverage } from "@/utils/calculateQueueAverage";
 import { useAuthState } from "@/contexts/LoginContext/context";
 import { PERMISSIONS } from "@/shared/constants/pagesPermissions";
-import { Error } from "@/components/UI Components/Error";
-import { Loading } from "@/components/UI Components/Loading";
+import { Error } from "@/components/UI/Error";
+import { Loading } from "@/components/UI/Loading";
+import useQueueAnalitycs from "@/shared/hooks/useQueueAnalytics";
 
 const selectOptions = [
    { option: "1 Hour", value: "1hr" },
@@ -22,15 +22,13 @@ const selectOptions = [
 const QueueStats = () => {
    const [queueData, setQueueData] = useState([]);
    const { perms, role } = useAuthState();
+   const { data, loading, error } = useQueueAnalitycs();
 
    useEffect(() => {
-      const groupedBranches = groupBranchesByInterval(branchesData, "1yr");
-      const averageResults = calculateQueueAverage(
-         branchesData,
-         groupedBranches
-      );
+      const groupedBranches = groupBranchesByInterval(data, "1yr");
+      const averageResults = calculateQueueAverage(data, groupedBranches);
       setQueueData(averageResults);
-   }, []);
+   }, [data]);
 
    return (
       <>
@@ -42,7 +40,7 @@ const QueueStats = () => {
                      <QueueChart data={queueData} />
                      <div className={"flex items-center flex-col"}>
                         <TimeIntervals
-                           data={branchesData}
+                           data={data}
                            onClick={(data: any) => setQueueData(data)}
                         />
                      </div>

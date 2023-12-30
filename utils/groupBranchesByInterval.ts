@@ -39,7 +39,7 @@ export function groupBranchesByInterval(data, timeRange) {
          throw new Error("Invalid time range specified.");
    }
    // @ts-ignore
-   const filteredData = data.filter(
+   const filteredData = data?.filter(
       // @ts-ignore
       branch => new Date(branch.timestamp).getTime() >= startTime
    );

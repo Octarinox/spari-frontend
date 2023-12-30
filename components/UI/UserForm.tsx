@@ -72,7 +72,6 @@ export default function UserForm({
          ),
          password: formData.get("password") || undefined,
       };
-      console.log(userData);
       try {
          const responseData = await requestHandler(userData, data?._id);
          toast.success(responseData?.data?.message);

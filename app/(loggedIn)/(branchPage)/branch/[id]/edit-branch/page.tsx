@@ -1,11 +1,11 @@
 "use client";
 
-import BranchEditForm from "@/components/UI Components/BranchEditForm";
+import BranchEditForm from "@/components/UI/BranchEditForm";
 import { useBranchState } from "@/contexts/BranchesContext";
 import { useParams } from "next/navigation";
 import { useAuthState } from "@/contexts/LoginContext/context";
-import { Error } from "@/components/UI Components/Error";
-import { Loading } from "@/components/UI Components/Loading";
+import { Error } from "@/components/UI/Error";
+import { Loading } from "@/components/UI/Loading";
 
 const EditBranch = () => {
    const params = useParams();

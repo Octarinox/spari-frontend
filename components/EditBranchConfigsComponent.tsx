@@ -15,17 +15,22 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import { DataGrid } from "@mui/x-data-grid";
+import {
+   faceDetectAlertMessage,
+   queueAlertMessage,
+} from "@/local-constants/alertMessages";
 import { updateBranchesRequest } from "@/httpRequests/updateBranches";
+import { toast } from "sonner";
 
 const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
    const [servicesData, setServicesData] = useState<any>({
       faceDetect: {
-         dashboardPopup: true,
+         dashboard: true,
          whatsApp: true,
          email: true,
       },
       queueDetect: {
-         dashboardPopup: true,
+         dashboard: true,
          whatsApp: true,
          email: true,
       },
@@ -40,7 +45,7 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
          },
       }));
    };
-
+   console.log("bra", data);
    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
@@ -49,11 +54,18 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
          faceAiConfig: { alertMessage: formData.get("faceAlertMessage") },
          queueConfig: {
             alertMessage: formData.get("queueAlertMessage"),
-            warningOnAmount: formData.get("peopleAmount"),
+            warningOnAmount: formData.get("queueSize") || undefined,
          },
          serviceConfig: servicesData,
       };
-      await updateBranchesRequest(data, branchIds);
+      try {
+         const res = await updateBranchesRequest(data, branchIds);
+         console.log(res);
+         toast.success(res.data.message);
+      } catch (e: any) {
+         console.log(e);
+         toast.error(e.response.data.errors);
+      }
    };
 
    const handleRowSelection = (e: any) => {
@@ -91,7 +103,7 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
                   <StorefrontIcon />
                </Avatar>
                <Typography component="h1" variant="h5">
-                  Branch Register
+                  Edit Configs
                </Typography>
                <Box
                   component="form"
@@ -112,7 +124,11 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
                                  },
                               }}
                               required
+                              maxRows={10}
+                              multiline
                               fullWidth
+                              autoFocus
+                              defaultValue={faceDetectAlertMessage}
                               id="faceAlertMessage"
                               label="Alert Message"
                               name="faceAlertMessage"
@@ -131,6 +147,10 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
                               }}
                               required
                               fullWidth
+                              multiline
+                              autoFocus
+                              maxRows={10}
+                              defaultValue={queueAlertMessage}
                               id="queueAlertMessage"
                               label="Alert Message"
                               name="queueAlertMessage"
@@ -139,14 +159,14 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
                         </Grid>
                         <Grid container>
                            <h2 className="mb-1 mt-4">
-                              <b>People Amount</b>
+                              <b>Queue Size</b>
                            </h2>
                            <Grid container spacing={2}>
                               <Grid item xs={4}>
                                  <TextField
-                                    name="peopleAmount"
+                                    name="queueSize"
                                     fullWidth
-                                    id="PeopleAmount"
+                                    id="queueSize"
                                     autoFocus
                                     autoComplete="off"
                                     type="text"

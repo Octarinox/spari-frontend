@@ -17,7 +17,7 @@ export default function LoggedInRootLayout({
 
    useEffect(() => {
       checkAuth();
-   }, [checkAuth]);
+   }, []);
    return (
       <main>
          <NavBar />

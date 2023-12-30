@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 
-import TableComponent from "@/components/UI Components/TableComponent";
+import TableComponent from "@/components/UI/TableComponent";
 import { useUsersActions, useUsersState } from "@/contexts/UsersContext";
-import FilterComponent from "@/components/UI Components/FilterComponent";
+import FilterComponent from "@/components/UI/FilterComponent";
 import { useRouter } from "next/navigation";
 
 const options = [
