@@ -6,7 +6,10 @@ export const renderSpecificToast = (data: any) => {
       toast.error(data.message, {
          action: {
             label: "Details",
-            onClick: () => console.log("face!"),
+            onClick: () => {
+               history.pushState({ urlPath: "/face-logs" }, "", "/face-logs");
+               window.location.reload();
+            },
          },
       });
       // if (accuracyValue >= 50 && accuracyValue < 60) {
