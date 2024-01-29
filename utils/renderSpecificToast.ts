@@ -7,7 +7,11 @@ export const renderSpecificToast = (data: any) => {
          action: {
             label: "Details",
             onClick: () => {
-               history.pushState({ urlPath: "/face-logs" }, "", "/face-logs");
+               history.pushState(
+                  { urlPath: "/face-detection-logs" },
+                  "",
+                  "/face-detection-logs"
+               );
                window.location.reload();
             },
          },

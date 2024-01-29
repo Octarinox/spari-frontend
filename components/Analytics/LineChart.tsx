@@ -11,15 +11,12 @@ import {
    Title,
    Tooltip,
 } from "chart.js";
-import {
-   downsampleData,
-   formatTimestamps,
-} from "@/app/(loggedIn)/(branchPage)/branch/[id]/analytics/dataTransformer";
+import { downsampleData, formatTimestamps } from "@/utils/dataTransformer";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
-import { Slider, StyledEngineProvider, ThemeProvider } from "@mui/material";
+import { StyledEngineProvider, ThemeProvider } from "@mui/material";
 import { Line } from "react-chartjs-2";
-import { sliderTheme } from "@/app/(loggedIn)/(branchPage)/branch/[id]/analytics/sliderTheme";
+import { sliderTheme } from "@/utils/sliderTheme";
 
 export default function LineChart({ branchData, id }: any) {
    const [downsampleFactor, setDownsampleFactor] = useState<number>(
@@ -119,18 +116,7 @@ export default function LineChart({ branchData, id }: any) {
                         className={"text-gray-500"}
                         id="downsample-factor-slider"
                         gutterBottom
-                     >
-                        Downsample Strength
-                     </Typography>
-                     <Slider
-                        value={downsampleFactor}
-                        min={1}
-                        max={10}
-                        step={1}
-                        onChange={handleSliderChange}
-                        valueLabelDisplay="auto"
-                        aria-labelledby="downsample-factor-slider"
-                     />
+                     ></Typography>
                   </div>
                </div>
             </main>

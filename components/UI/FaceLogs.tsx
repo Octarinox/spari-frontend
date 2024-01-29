@@ -3,15 +3,17 @@ import { Logs } from "../LogsComponent/LogsTypes";
 import React, { useState } from "react";
 import { formatDate } from "@/utils/formatDate";
 import { DataGrid } from "@mui/x-data-grid";
+import { useRouter } from "next/navigation";
 
 const FaceLogs = ({ logs }: any) => {
    const [logsData, setLogsData] = useState(logs);
-
+   const router = useRouter();
    const tableHeadComponents: any = [
       { field: "subjectId", headerName: "Subject", flex: 1 },
       { field: "address", headerName: "Address", flex: 1 },
       { field: "accuracy", headerName: "Similarity", flex: 1 },
       { field: "timestamp", headerName: "Time", flex: 1 },
+      { field: "customerType", headerName: "Customer", flex: 1 },
       {
          field: "hasMask",
          headerName: "Mask",
@@ -37,6 +39,9 @@ const FaceLogs = ({ logs }: any) => {
                columns={tableHeadComponents as any}
                rowCount={formattedLogs.length}
                getRowId={row => row._id}
+               onRowSelectionModelChange={params => {
+                  router.push(`/face-detection-logs/${params[0]}`);
+               }}
             />
          </div>
       </>

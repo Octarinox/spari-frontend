@@ -1,7 +1,5 @@
 import React from "react";
 import { Box, Button, ButtonGroup, useMediaQuery } from "@mui/material";
-import { groupBranchesByInterval } from "@/utils/groupBranchesByInterval";
-import { calculateQueueAverage } from "@/utils/calculateQueueAverage";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
@@ -20,9 +18,7 @@ const TimeIntervals = (props: any) => {
 
    const handleClick = (item: any) => {
       setSelectedButton(item.value);
-      const groupedBranches = groupBranchesByInterval(data, item.value);
-      const averageResults = calculateQueueAverage(data, groupedBranches);
-      onClick(averageResults);
+      onClick(item.value);
    };
 
    return (

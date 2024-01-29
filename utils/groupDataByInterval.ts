@@ -1,7 +1,8 @@
 import { groupByInterval } from "@/utils/groupByIntervals";
+import { eachMonthOfInterval } from "date-fns";
 
 // @ts-ignore
-export function groupBranchesByInterval(data, timeRange) {
+export function groupDataByInterval(data, timeRange) {
    const currentTime = new Date().getTime(); // @ts-ignore
    let startTime, interval, format;
    switch (timeRange) {
@@ -18,20 +19,26 @@ export function groupBranchesByInterval(data, timeRange) {
       case "1w":
          startTime = currentTime - 7 * 24 * 60 * 60 * 1000;
          interval = 24 * 60 * 60 * 1000;
-         format = { day: "numeric", hour: "numeric", minute: "numeric" };
+         format = { weekday: "long", day: "numeric", month: "long" };
          break;
       case "1m":
          startTime = currentTime - 30 * 24 * 60 * 60 * 1000;
          interval = 7 * 24 * 60 * 60 * 1000;
          format = {
             day: "numeric",
-            month: "numeric",
-            hour: "numeric",
-            minute: "numeric",
+            month: "long",
          };
          break;
       case "1yr":
-         startTime = currentTime - 365 * 24 * 60 * 60 * 1000;
+         const monthStart = new Date(currentTime);
+         monthStart.setDate(1);
+         startTime = monthStart.getTime() - 12 * 30 * 24 * 60 * 60 * 1000;
+
+         const months = eachMonthOfInterval({
+            start: startTime,
+            end: currentTime,
+         });
+         console.log("months", months);
          interval = 30 * 24 * 60 * 60 * 1000;
          format = { month: "long" };
          break;
@@ -43,5 +50,6 @@ export function groupBranchesByInterval(data, timeRange) {
       // @ts-ignore
       branch => new Date(branch.timestamp).getTime() >= startTime
    );
+   console.log("filteredData", filteredData);
    return groupByInterval(filteredData, startTime, interval, format);
 }

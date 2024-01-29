@@ -13,7 +13,6 @@ const useQueueLogs = () => {
             const response: AxiosResponse = await axiosInstance.get(
                "/analytics/logs-queue"
             );
-            console.log(response.data);
             setData(response.data);
          } catch (error) {
             setError("An error occurred while fetching data.");

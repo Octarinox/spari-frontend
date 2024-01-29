@@ -10,7 +10,6 @@ import useQueueLogs from "@/shared/hooks/useQueueLogs";
 const QueueLogsPage = () => {
    const { perms, role } = useAuthState();
    const { data } = useQueueLogs();
-   console.log("data", data);
    return (
       <>
          {perms && data ? (

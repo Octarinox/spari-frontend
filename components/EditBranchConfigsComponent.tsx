@@ -45,7 +45,6 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
          },
       }));
    };
-   console.log("bra", data);
    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
@@ -60,7 +59,6 @@ const EditBranchConfigsComponent = ({ data, allowedProperties }: any) => {
       };
       try {
          const res = await updateBranchesRequest(data, branchIds);
-         console.log(res);
          toast.success(res.data.message);
       } catch (e: any) {
          console.log(e);

@@ -20,19 +20,18 @@ ChartJS.register(
    Legend
 );
 
-const QueueChart = ({ data }: any) => {
+const Chart = ({ data, datasets = undefined }: any) => {
    const chartData = {
-      labels: data.map((item: any) => item.interval),
-      datasets: [
+      labels: data?.map((item: any) => item.interval) || [],
+      datasets: datasets || [
          {
             label: "Queue Data",
-            data: data.map((item: any) => item.value),
+            data: data?.map((item: any) => item.value) || [],
             backgroundColor: "#3c45c7",
          },
       ],
    };
-
-   // Define chart options
+   console.log("chart", chartData);
    const chartOptions = {
       type: "bar",
       scales: {
@@ -60,4 +59,4 @@ const QueueChart = ({ data }: any) => {
    );
 };
 
-export default QueueChart;
+export default Chart;
