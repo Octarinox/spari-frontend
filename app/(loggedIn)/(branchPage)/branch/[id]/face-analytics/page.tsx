@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Chart from "@/components/Analytics/Queue";
 import styles from "@/components/Analytics/styles/queueAnalytics.module.scss";
 import TimeIntervals from "@/components/Analytics/TimeIntervals";
@@ -9,6 +9,8 @@ import { Error } from "@/components/UI/Error";
 import { Loading } from "@/components/UI/Loading";
 import useFaceLogs from "@/shared/hooks/useFaceLogs";
 import useFaceData from "@/shared/hooks/useFaceData";
+import { useBranchState } from "@/contexts/BranchesContext";
+import { useParams } from "next/navigation";
 
 const selectOptions = [
    { option: "1 Hour", value: "1hr" },
@@ -18,23 +20,36 @@ const selectOptions = [
    { option: "1 Year", value: "1yr" },
 ];
 
-const FaceStats = () => {
+const FaceAnalytics = () => {
    const [interval, setInterval] = useState("1yr");
    const { perms, role } = useAuthState();
-   const { data }: any = useFaceLogs();
-   const { faceData, dataSet } = useFaceData(data, interval);
+   const { data: branchesData } = useBranchState();
+   const params = useParams();
+   const { data: logs }: any = useFaceLogs();
+   const filteredBranches = useMemo(() => {
+      return branchesData?.filter(branch => branch.branchId === params.id);
+   }, [branchesData, params.id]);
+   const branchLogs = useMemo(() => {
+      if (!logs || !filteredBranches) return [];
+
+      return logs.filter(
+         (log: any) => log.branchId === filteredBranches[0]._id
+      );
+   }, [logs, filteredBranches]);
+
+   const { faceData, dataSet } = useFaceData(branchLogs, interval);
 
    return (
       <>
          {perms ? (
             <div className={`${styles.container} `}>
                {role === "admin" ||
-               perms?.includes(PERMISSIONS.FACE_ANALYTICS_GLOBAL) ? (
+               perms?.includes(PERMISSIONS.FACE_ANALYTICS_BRANCH) ? (
                   <>
                      <Chart data={faceData} datasets={dataSet} />
                      <div className={"flex items-center flex-col"}>
                         <TimeIntervals
-                           data={data}
+                           data={faceData}
                            onClick={(interval: any) => setInterval(interval)}
                         />
                      </div>
@@ -50,4 +65,4 @@ const FaceStats = () => {
    );
 };
 
-export default FaceStats;
+export default FaceAnalytics;

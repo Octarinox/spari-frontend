@@ -14,7 +14,7 @@ import {
 import { downsampleData, formatTimestamps } from "@/utils/dataTransformer";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
-import { StyledEngineProvider, ThemeProvider } from "@mui/material";
+import { Slider, StyledEngineProvider, ThemeProvider } from "@mui/material";
 import { Line } from "react-chartjs-2";
 import { sliderTheme } from "@/utils/sliderTheme";
 
@@ -116,7 +116,18 @@ export default function LineChart({ branchData, id }: any) {
                         className={"text-gray-500"}
                         id="downsample-factor-slider"
                         gutterBottom
-                     ></Typography>
+                     >
+                        Downsample Strength
+                     </Typography>
+                     <Slider
+                        value={downsampleFactor}
+                        min={1}
+                        max={10}
+                        step={1}
+                        onChange={handleSliderChange}
+                        valueLabelDisplay="auto"
+                        aria-labelledby="downsample-factor-slider"
+                     />
                   </div>
                </div>
             </main>

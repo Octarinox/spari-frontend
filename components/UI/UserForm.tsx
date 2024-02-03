@@ -33,11 +33,18 @@ export default function UserForm({
    const [role, setRole] = useState("");
    const permOptions: UserPermsInterface[] = [
       { label: "Face Logs", value: "face.logs" },
-      { label: "Face Analytics", value: "face.analytics" },
+      { label: "Face Analytics Global", value: "face.analytics.global" },
+      { label: "Face Analytics Branch", value: "face.analytics.branch" },
       { label: "Face DataBase", value: "face.db" },
       { label: "Queue Logs", value: "queue.logs" },
-      { label: "Queue Analytics Global", value: "queue.analytics.global" },
-      { label: "Queue Analytics Branch", value: "queue.analytics.branch" },
+      {
+         label: "Queue Analytics Global",
+         value: "queue.analytics.global",
+      },
+      {
+         label: "Queue Analytics Branch",
+         value: "queue.analytics.branch",
+      },
    ];
 
    useEffect(() => {
@@ -45,12 +52,11 @@ export default function UserForm({
    }, [data]);
 
    useEffect(() => {
-      const newPerms = data?.perms?.map(
-         (value: string) =>
-            permOptions.find(
-               (perm: UserPermsInterface): boolean => perm.value === value
-            )?.label
-      );
+      const newPerms = data?.perms?.map((value: string) => {
+         return permOptions.find(
+            (perm: UserPermsInterface): boolean => perm.value === value
+         )?.label;
+      });
       setPerms(newPerms);
    }, [data]);
 

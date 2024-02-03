@@ -27,7 +27,7 @@ export const sidebarItems = [
             ? styles.activeIcon
             : styles.inactiveIcon;
          return generateImageTag(
-            "/users.svg",
+            "/face-recognition-icon.svg",
             "user_register_icon",
             activeItemStyle
          );

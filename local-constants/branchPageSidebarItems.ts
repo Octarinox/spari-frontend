@@ -15,8 +15,26 @@ export const branchPageSidebarItems = [
             activeItemStyle
          );
       },
-      key: "analytics",
-      href: "analytics",
+      key: "queue-analytics",
+      href: "queue-analytics",
+      current: false,
+      className: inactiveClass,
+      classNameCurrent: activeClass,
+   },
+   {
+      text: "Face Analytics",
+      getCurrentItem() {
+         const activeItemStyle = this.current
+            ? styles.activeIcon
+            : styles.inactiveIcon;
+         return generateImageTag(
+            "/face-recognition-icon.svg",
+            "user_register_icon",
+            activeItemStyle
+         );
+      },
+      key: "face-analytics",
+      href: "face-analytics",
       current: false,
       className: inactiveClass,
       classNameCurrent: activeClass,

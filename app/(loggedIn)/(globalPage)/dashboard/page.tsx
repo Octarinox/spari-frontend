@@ -21,7 +21,7 @@ export default function IndexPage() {
    const [filteredData, setFilteredData] = useState<any>(data);
    const allowedProperties = ["branchId", "address"];
    const handleClick = (row: any) => {
-      router.push(`branch/${row.branchId}/analytics`);
+      router.push(`branch/${row.branchId}/queue-analytics`);
    };
    useEffect(() => {
       setFilteredData(data);

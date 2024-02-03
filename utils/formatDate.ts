@@ -9,7 +9,6 @@ export const formatDate = (logs: any) => {
          year: "numeric",
       } as any;
       const formattedDate = date.toLocaleString("en-US", format);
-      console.log("date", date.getDay(), date);
       return {
          ...log,
          timestamp: formattedDate,

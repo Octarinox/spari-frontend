@@ -31,7 +31,6 @@ const Chart = ({ data, datasets = undefined }: any) => {
          },
       ],
    };
-   console.log("chart", chartData);
    const chartOptions = {
       type: "bar",
       scales: {

@@ -8,7 +8,7 @@ const BranchPage = () => {
    const { data } = useBranchState();
    const router = useRouter();
    useEffect(() => {
-      router.push(`/branch/${data?.[0]?.branchId}/analytics`);
+      router.push(`/branch/${data?.[0]?.branchId}/queue-analytics`);
    }, []);
 };
 

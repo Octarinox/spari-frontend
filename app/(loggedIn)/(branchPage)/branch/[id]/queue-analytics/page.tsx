@@ -10,7 +10,7 @@ import useQueueAnalitycs from "@/shared/hooks/useQueueAnalytics";
 import { useEffect, useState } from "react";
 import { filterById } from "@/utils/filterById";
 
-const BranchAnalyticsPage = () => {
+const BranchQueueAnalytics = () => {
    const [branchData, setBranchData] = useState<any>();
    const params = useParams();
    const { data, loading, error } = useQueueAnalitycs();
@@ -41,4 +41,4 @@ const BranchAnalyticsPage = () => {
    );
 };
 
-export default BranchAnalyticsPage;
+export default BranchQueueAnalytics;

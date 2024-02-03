@@ -8,7 +8,6 @@ export function groupByInterval(data, startTime, interval, format) {
          Math.floor((timestamp - startTime) / interval) * interval + startTime
       );
       const newTimestamp = new Date(timestamp);
-      console.log("timestamp", intervalKey, newTimestamp);
       // @ts-ignore
       if (!groupedData[intervalKey?.toISOString()]) {
          // @ts-ignore
@@ -28,6 +27,5 @@ export function groupByInterval(data, startTime, interval, format) {
       // @ts-ignore
       formattedData[date.toLocaleString("en-US", format)] = groupedData[key];
    });
-   console.log("formattedData", groupedData);
    return formattedData || null;
 }

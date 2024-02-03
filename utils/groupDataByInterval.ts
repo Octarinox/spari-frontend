@@ -38,7 +38,6 @@ export function groupDataByInterval(data, timeRange) {
             start: startTime,
             end: currentTime,
          });
-         console.log("months", months);
          interval = 30 * 24 * 60 * 60 * 1000;
          format = { month: "long" };
          break;
@@ -50,6 +49,5 @@ export function groupDataByInterval(data, timeRange) {
       // @ts-ignore
       branch => new Date(branch.timestamp).getTime() >= startTime
    );
-   console.log("filteredData", filteredData);
    return groupByInterval(filteredData, startTime, interval, format);
 }
