@@ -7,6 +7,6 @@ export const navBarItems = [
       href: "/face-detection-logs",
       current: false,
    },
-   { name: "Face Recognition", href: "/facerec", current: false },
+   { name: "Face Recognition", href: "/subject", current: false },
    { name: "Settings", href: "/settings", current: false },
 ];

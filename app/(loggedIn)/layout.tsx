@@ -4,7 +4,6 @@ import * as React from "react";
 import { useEffect } from "react";
 import { useSocket } from "@/contexts/SocketContext";
 import { renderSpecificToast } from "@/utils/renderSpecificToast";
-import { useBranchState } from "@/contexts/BranchesContext";
 
 export default function LoggedInRootLayout({
    children,
@@ -12,7 +11,6 @@ export default function LoggedInRootLayout({
    children: React.ReactNode;
 }) {
    const { socket } = useSocket();
-   const { data } = useBranchState();
 
    useEffect(() => {
       const handleAlert = (message: any) => {
