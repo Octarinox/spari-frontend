@@ -11,7 +11,7 @@ export default function LoggedInRootLayout({
    children: React.ReactNode;
 }) {
    const { socket } = useSocket();
-
+   console.log("AAAAA");
    useEffect(() => {
       const handleAlert = (message: any) => {
          renderSpecificToast(message);

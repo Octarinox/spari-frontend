@@ -11,10 +11,7 @@ import {
 import { useRouter } from "next/navigation";
 
 import { reducer } from "./subject.reducer";
-import {
-   SubjectActionType,
-   SubjectContext as SubjectContextInterface,
-} from "@/contexts/SubjectContext/subject.interface";
+import { SubjectContext as SubjectContextInterface } from "@/contexts/SubjectContext/subject.interface";
 import { initialContext } from "@/contexts/SubjectContext/subject.state";
 
 export const SubjectContext =
@@ -31,7 +28,7 @@ export const SubjectProvider: FC<{
    const getSubjects = useCallback(async () => {
       try {
          // const data = await getSubjectsRequest();
-         dispatch({ payload: { data }, type: SubjectActionType.SET_SUBJECTS });
+         // dispatch({ payload: { data }, type: SubjectActionType.SET_SUBJECTS });
       } catch (error: any) {
          console.log(error);
       }

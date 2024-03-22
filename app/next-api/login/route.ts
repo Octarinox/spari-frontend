@@ -29,9 +29,10 @@ export async function POST(request: Request): Promise<Response> {
       const data: LoginResponse = response.data;
       let jwtToken;
       const rawCookies: string | null = getCookieFromResponse(response, "/");
-      if (rawCookies && process.env.NEXT_PUBLIC_ENV) {
+      if (rawCookies) {
          jwtToken = extractJwtToken(rawCookies);
       }
+      console.log("jwtToken", jwtToken, "raw", rawCookies);
       return new Response(JSON.stringify({ data, token: jwtToken }), {
          status: 200,
          headers: {
