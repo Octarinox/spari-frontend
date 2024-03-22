@@ -30,7 +30,7 @@ export const SubjectProvider: FC<{
    const router = useRouter();
    const getSubjects = useCallback(async () => {
       try {
-         const data = await getSubjectsRequest();
+         // const data = await getSubjectsRequest();
          dispatch({ payload: { data }, type: SubjectActionType.SET_SUBJECTS });
       } catch (error: any) {
          console.log(error);
