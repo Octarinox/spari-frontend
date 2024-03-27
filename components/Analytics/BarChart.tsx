@@ -20,7 +20,7 @@ ChartJS.register(
    Legend
 );
 
-const Chart = ({ data, datasets = undefined }: any) => {
+const BarChart = ({ data, datasets = undefined }: any) => {
    const chartData = {
       labels: data?.map((item: any) => item.interval) || [],
       datasets: datasets || [
@@ -58,4 +58,4 @@ const Chart = ({ data, datasets = undefined }: any) => {
    );
 };
 
-export default Chart;
+export default BarChart;

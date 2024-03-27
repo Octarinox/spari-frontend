@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import Chart from "@/components/Analytics/Queue";
+import Chart from "@/components/Analytics/BarChart";
 import styles from "@/components/Analytics/styles/queueAnalytics.module.scss";
 import TimeIntervals from "@/components/Analytics/TimeIntervals";
 import { useAuthState } from "@/contexts/LoginContext/context";

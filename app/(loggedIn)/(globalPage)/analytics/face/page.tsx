@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Chart from "@/components/Analytics/Queue";
+import BarChart from "@/components/Analytics/BarChart";
 import styles from "@/components/Analytics/styles/queueAnalytics.module.scss";
 import TimeIntervals from "@/components/Analytics/TimeIntervals";
 import { useAuthState } from "@/contexts/LoginContext/context";
@@ -31,7 +31,7 @@ const FaceStats = () => {
                {role === "admin" ||
                perms?.includes(PERMISSIONS.FACE_ANALYTICS_GLOBAL) ? (
                   <>
-                     <Chart data={faceData} datasets={dataSet} />
+                     <BarChart data={faceData} datasets={dataSet} />
                      <div className={"flex items-center flex-col"}>
                         <TimeIntervals
                            data={data}

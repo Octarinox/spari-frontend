@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Chart from "@/components/Analytics/Queue";
+import BarChart from "@/components/Analytics/BarChart";
 import styles from "@/components/Analytics/styles/queueAnalytics.module.scss";
 import TimeIntervals from "@/components/Analytics/TimeIntervals";
 import { groupDataByInterval } from "@/utils/groupDataByInterval";
@@ -50,7 +50,7 @@ const QueueStats = () => {
                {role === "admin" ||
                perms?.includes(PERMISSIONS.QUEUE_ANALYTICS_GLOBAL) ? (
                   <>
-                     <Chart data={queueData} datasets={dataSet} />
+                     <BarChart data={queueData} datasets={dataSet} />
                      <div className={"flex items-center flex-col"}>
                         <TimeIntervals
                            data={data}

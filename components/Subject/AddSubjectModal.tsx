@@ -2,28 +2,30 @@
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { useState } from "react";
+import axiosInstance from "@/axios/axios-instance";
 
 export const AddSubjectModal = ({ handleClose, open }: any) => {
-   const [newSubjectName, setNewSubjectName] = useState<any>(null);
-   const [newSubjectRole, setNewSubjectRole] = useState<any>(null);
-   const handleSave = () => {
-      const subject = `${newSubjectName.replace(/\s/g, "-")}-${newSubjectRole}`;
-
+   const [newSubjectName, setNewSubjectName] = useState<any>("");
+   const [newSubjectRole, setNewSubjectRole] = useState<any>("");
+   const handleSave = async () => {
+      const subject = `{id}-${newSubjectName.replace(
+         /\s/g,
+         "-"
+      )}-${newSubjectRole}`;
+      console.log(subject);
       const subjectData = {
          subject,
       };
-      const existingSubjects = JSON.parse(
-         localStorage.getItem("subjects") || "[]"
+      const data = await axiosInstance.post(
+         "/subject/create-subject",
+         subjectData
       );
-
-      existingSubjects.push(subjectData);
-
-      localStorage.setItem("subjects", JSON.stringify(existingSubjects));
+      console.log(data);
       handleClose();
    };
    return (
       <Modal open={open} onClose={handleClose}>
-         <Box className="justify-center flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[600px] bg-white rounded-lg shadow-lg">
+         <Box className="justify-center flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[350px] sm:w-[600px] bg-white rounded-lg shadow-lg">
             <div className="w-full px-10 py-7">
                <h1 className="my-5 font-extrabold text-3xl">Create Subject</h1>
                <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -44,24 +46,24 @@ export const AddSubjectModal = ({ handleClose, open }: any) => {
                   onChange={e => setNewSubjectRole(e.target.value)}
                >
                   <option defaultValue={""}>Choose a role</option>
-                  <option value="BLACK">Black</option>
-                  <option value="VIP">VIP</option>
+                  <option value="blacklist">Blacklist</option>
+                  <option value="vip">VIP</option>
                </select>
-               <div className="w-full flex mt-7 mb-[2px]">
-                  <div className="w-[86%]">
+               <div className="w-full flex justify-between mt-7 mb-[2px]">
+                  <div>
                      <button
                         type="button"
                         onClick={handleClose}
-                        className="text-white ease-in duration-75 bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                        className="text-white ease-in duration-75 bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2"
                      >
                         Cancel
                      </button>
                   </div>
-                  <div className="w-[14%]">
+                  <div>
                      <button
                         type="button"
                         onClick={handleSave}
-                        className="text-white ease-in duration-75 bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                        className="text-white ease-in duration-75 bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2"
                      >
                         Save
                      </button>

@@ -58,4 +58,23 @@ export const branchPageSidebarItems = [
       className: inactiveClass,
       classNameCurrent: activeClass,
    },
+
+   {
+      text: "Dashboard",
+      getCurrentItem() {
+         const activeItemStyle = this.current
+            ? styles.activeIcon
+            : styles.inactiveIcon;
+         return generateImageTag(
+            "/dashboard.png",
+            "dashboard_icon",
+            activeItemStyle
+         );
+      },
+      key: "dashboard",
+      href: "/dashboard",
+      current: false,
+      className: inactiveClass,
+      classNameCurrent: activeClass,
+   },
 ];

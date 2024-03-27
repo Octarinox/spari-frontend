@@ -6,14 +6,17 @@ import { sortSubjects } from "@/utils/sortSubjects";
 import { AddSubjectModal } from "@/components/Subject/AddSubjectModal";
 import { EditSubjectModal } from "./EditSubjectModal";
 import { useMediaQuery } from "@mui/material";
+import { usePathname, useRouter } from "next/navigation";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const SubjectList = () => {
    const [subjects, setSubjects] = useState<any>([]);
    const [open, setOpen] = useState(false);
    const [openEdit, setOpenEdit] = useState(false);
-   const smallDevice = useMediaQuery("(max-width: 1000px)");
+   const smallDevice = useMediaQuery("(max-width: 640px)");
    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+   const router = useRouter();
+   const pathname = usePathname();
    const handleClose = () => setOpen(false);
    const handleOpen = () => setOpen(true);
    const handleCloseEdit = () => setOpenEdit(false);
@@ -29,7 +32,7 @@ const SubjectList = () => {
          console.error("Error fetching subjects:", error);
       }
    };
-
+   console.log(smallDevice, !isSidebarOpen);
    const handleSaveRename = (key: any) => {
       const newSubjects = { ...subjects };
       // newSubjects[newSubjectName] = newSubjects[key];
@@ -49,6 +52,7 @@ const SubjectList = () => {
    // }, []);
    const toggleSidebar = () => {
       setIsSidebarOpen(!isSidebarOpen);
+      router.replace(`${pathname}/?sidebar=${!isSidebarOpen}`);
    };
    useEffect(() => {
       const storedSubjects = localStorage.getItem("subjects");
@@ -69,7 +73,7 @@ const SubjectList = () => {
                aria-controls="default-sidebar"
                type="button"
                className={`inline-flex border-white drop-shadow-lg items-center absolute left-0  z-50 ${
-                  isSidebarOpen ? "ml-96" : ""
+                  isSidebarOpen ? "ml-80" : ""
                }  text-sm text-gray-500 p-2 sm:hidden bg-white hover:bg-gray-100 rounded-tr-full rounded-br-full border-l-0 border-2`}
             >
                <span className="sr-only">Open sidebar</span>
@@ -106,26 +110,39 @@ const SubjectList = () => {
          )}
          <div
             id="default-sidebar"
-            className={`z-40 relative top-0 left-0 w-64 h-screen transition-transform ${
+            className={`z-40  top-0 left-0 w-80 h-screen transition-transform ${
                isSidebarOpen
                   ? "translate-x-0"
                   : "-translate-x-full sm:translate-x-0"
-            }`}
+            } ${smallDevice && !isSidebarOpen ? "absolute" : "relative"}`}
             aria-label="Sidebar"
          >
             <div
                className={`${
-                  isSidebarOpen ? "" : "w-0"
-               } h-full  w-96 md:w-80  drop-shadow-lg  px-3 z-0 py-4 bg-gray-100`}
+                  smallDevice && !isSidebarOpen
+                     ? "hidden absolute"
+                     : "visible relative"
+               } h-full  w-80 md:w-80  drop-shadow-lg  px-3 z-0 py-4 bg-gray-100`}
             >
+               <div className="h-[5%]  0 w-full">
+                  <button
+                     onClick={handleOpen}
+                     className="w-full py-2 px-5 rounded-lg bg-gray-600 font-black text-white"
+                  >
+                     Add Subject
+                  </button>
+               </div>
+
                <div
-                  className={"md:w-fit flex flex-col gap-10 overflow-scroll"}
+                  className={
+                     "w-full flex flex-col gap-8 overflow-scroll overflow-x-hidden"
+                  }
                   style={{
                      height: "calc(100vh - 10rem)",
                   }}
                >
                   {subjects.map((subject: any, idx: number) => (
-                     <div key={idx} className="flex flex-row gap-5">
+                     <div key={idx} className="flex flex-row gap-2">
                         <button
                            className={`bg-gray-250 w-[70%] my-2 rounded-lg`}
                         >
@@ -135,25 +152,17 @@ const SubjectList = () => {
                            onClick={() => deleteSubject(subject.subject)}
                            className="bg-gray-250 w-[15%] my-2 rounded-lg"
                         >
-                           Delete
+                           <DeleteIcon />
                         </button>
 
-                        <button
-                           onClick={() => handleOpenEdit()}
-                           className="bg-gray-250 w-[15%] my-2 rounded-lg"
-                        >
-                           Edit
-                        </button>
+                        {/*<button*/}
+                        {/*   onClick={() => handleOpenEdit()}*/}
+                        {/*   className="bg-gray-250 w-[15%] my-2 rounded-lg"*/}
+                        {/*>*/}
+                        {/*   <EditIcon />*/}
+                        {/*</button>*/}
                      </div>
                   ))}
-               </div>
-               <div className="h-[5%] mt-10">
-                  <button
-                     onClick={handleOpen}
-                     className="w-full py-2 px-5 rounded-lg bg-gray-600 font-black text-white"
-                  >
-                     Add Subject
-                  </button>
                </div>
             </div>
          </div>
